@@ -1,0 +1,7 @@
+Download shapefile from census.gov (https://www.census.gov/geo/maps-data/data/cbf/cbf_counties.html)
+
+Unzip and navigate to directory with shapefile
+
+Execute command swapping the shapefile name, [STATEFP], and [NAME] for appropriate variables in .dbf file
+
+topojson -o counties.json cb_2015_us_county_500k.shp -p state=STATEFP,name=NAME

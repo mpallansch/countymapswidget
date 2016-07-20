@@ -1,0 +1,115 @@
+body {
+    font: 14px Arial;
+}
+
+label {
+    position: relative;
+    top: 1px;
+    border-radius: 5px;
+    background-color: ghostwhite;
+    padding: 6px 25px;
+}
+
+input[type="radio"]:checked+label{ 
+    background-color: lightgray;
+}
+
+input {
+    display: none;
+}
+
+select {
+    border-radius: 5px;
+    background-color: lightgray;
+    padding: 5px 25px;
+}
+
+.map-container {
+    position: relative;
+    height: 275px;
+}
+
+.colon {
+    display: none;
+}
+
+.hoverinfo h3 {
+    margin: 2px 0px;
+    color: crimson;
+}
+
+.hoverinfo p {
+    margin-top: 4px;
+}
+
+.popup-filtered-rate {
+    margin-bottom: 2px;
+    padding-top: 4px;
+    border-top: 1px solid black;
+}
+    
+#us-map-controls {
+    text-align: center;
+}
+
+#us-map-controls div {
+    display: inline-block;
+    padding: 10px 0px;
+}
+
+#us-map-controls select {
+    margin-left: 40px;
+}
+
+#us-map-legend p:first-child {
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+}
+
+#us-map-legend p:nth-child(2) {
+    margin-top: 0;
+}
+
+#us-map-legend, #us-map-container, #state-map-legend, #state-map-container {
+    display: inline-block;
+    vertical-align: top;
+}
+
+#us-map-legend, #state-map-legend {
+    width: 25%;
+}
+
+#us-map-container, #state-map-container {
+    width: 75%;
+}
+
+#us-section {
+    border-bottom: 1px solid black;
+}
+
+#state-section {
+    margin-top: 10px;
+}
+
+@media (max-width: 400px){
+    label {
+        display: block;
+        margin: 5px 0px;
+    }
+    
+    #us-map-controls select {
+        margin-left: 0;
+    }
+    
+    #us-map-legend, #state-map-legend {
+        display: block;
+        width: 100%;
+    }
+    
+    #us-map-container, #state-map-container {
+        display: block;
+        width: 100%;
+    }
+}
+ 
