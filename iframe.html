@@ -3,103 +3,101 @@
     <head>
         <title>County Maps Prototype</title>
         <link rel="stylesheet" href="css/countymaps.css"/>
-        <script>
-            var CDC = CDC || {};
-            var settings = {};
-        </script>
     </head>
-    <body id="body" class="widget-responsive">
-        <div id="us-section">
-            <div id="us-map-controls">
-                <div>
-                    <input id="heart" type="radio" name="disease" value="heart" checked><label for="heart">Heart Disease Deaths</label><input id="stroke" type="radio" name="disease" value="stroke"><label for="stroke">Stroke Deaths</label>
-                </div>
-                <div>
-                    <select id="race-select">
-                        <option value="all">All Adults</option>
-                        <option value="black">Black</option>
-                        <option value="hispanic">Hispanic</option>
-                        <option value="white">White</option>
-                    </select>
-                    <select id="gender-select">
-                        <option value="all">All Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                    </select>
-                </div>
-            </div>
-            <div id="us-map-legend">
-                <p><span class="legend-disease">Heart Disease</span> Death Rate<br>For all of US<br>US Rate: <span id="legend-us-rate">TODO</span></p>
-                <p><span class="legend-race"></span> <span class="legend-gender"></span><span class="colon">: </span><span id="legend-us-filtered-rate"></span></p>
-                <p>TODO Legend Area</p>
-            </div><div id="us-map-container" class="map-container"></div>
+    <body id="body" class="widget-responsive" data-ng-controller="mainCtrl">
+        <div data-ng-hide="!error" data-ng-cloak>
+            <p>Error loading instance, please check name and try again</p>
         </div>
-        <div id="state-section">
-            <select id="state-select">
-                <option value="01">Alabama</option>
-                <option value="02">Alaska</option>
-                <option value="04">Arizona</option>
-                <option value="05">Arkansas</option>
-                <option value="06">California</option>
-                <option value="08">Colorado</option>
-                <option value="09">Connecticut</option>
-                <option value="10">Delaware</option>
-                <option value="12">Florida</option>
-                <option value="13">Georgia</option>
-                <option value="15">Hawaii</option>
-                <option value="16">Idaho</option>
-                <option value="17">Illinois</option>
-                <option value="18">Indiana</option>
-                <option value="19">Iowa</option>
-                <option value="20">Kansas</option>
-                <option value="21">Kentucky</option>
-                <option value="22">Louisiana</option>
-                <option value="23">Maine</option>
-                <option value="24">Maryland</option>
-                <option value="25">Massachusetts</option>
-                <option value="26">Michigan</option>
-                <option value="27">Minnesota</option>
-                <option value="28">Mississippi</option>
-                <option value="29">Missouri</option>
-                <option value="30">Montana</option>
-                <option value="31">Nebraska</option>
-                <option value="32">Nevada</option>
-                <option value="33">New Hampshire</option>
-                <option value="34">New Jersey</option>
-                <option value="35">New Mexico</option>
-                <option value="36">New York</option>
-                <option value="37">North Carolina</option>
-                <option value="38">North Dakota</option>
-                <option value="39">Ohio</option>
-                <option value="40">Oklahoma</option>
-                <option value="41">Oregon</option>
-                <option value="42">Pennsylvania</option>
-                <option value="44">Rhode Island</option>
-                <option value="45">South Carolina</option>
-                <option value="46">South Dakota</option>
-                <option value="47">Tennessee</option>
-                <option value="48">Texas</option>
-                <option value="49">Utah</option>
-                <option value="50">Vermont</option>
-                <option value="51">Virginia</option>
-                <option value="53">Washington</option>
-                <option value="54">West Virginia</option>
-                <option value="55">Wisconsin</option>
-                <option value="56">Wyoming</option>
-            </select><br>
-            <div id="state-map-legend">
-                <p><span class="legend-disease">Heart Disease</span> Death Rate<br>For <span id="legend-state-name"></span><br>State Rate: <span id="legend-state-rate">TODO</span></p>
-                <p><span class="legend-race"></span> <span class="legend-gender"></span><span class="colon">: </span><span id="legend-state-filtered-rate"></span></p>
-                <p>TODO Legend Area</p>
-            </div><div id="state-map-container" class="map-container"></div>
+        <div data-ng-hide="error">
+            <h2 ng-cloak>{{instance.title}}</h2>
+            <div id="us-section">
+                <div id="us-map-controls">
+                    <div>
+                        <span data-ng-repeat="(name, data) in instance.data">
+                            <input data-ng-model="instance.currentInputs.disease" id="dataset-input-{{$index}}" type="radio" name="disease" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}">{{name}}</label>
+                        </span>
+                    </div>
+                    <div>
+                        <select data-ng-repeat="(filter, data) in instance.filters" data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()">
+                            <option value="{{filterVal}}" data-ng-repeat="(filterVal, valueData) in data.values">{{filterVal}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div id="us-map-legend">
+                    <p>{{instance.currentInputs.disease}}<br>For all of US<br>US Data: {{instance.currentValues.us}}</p>
+                    <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}} </span>: {{instance.currentValues.usFiltered}}</p>
+                    <p>TODO Legend Area</p>
+                </div><div id="us-map-container" class="map-container"></div>
+            </div>
+            <div id="state-section">
+                <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">
+                    <option value="Alabama">Alabama</option>
+                    <option value="Alaska">Alaska</option>
+                    <option value="Arizona">Arizona</option>
+                    <option value="Arkansas">Arkansas</option>
+                    <option value="California">California</option>
+                    <option value="Colorado">Colorado</option>
+                    <option value="Connecticut">Connecticut</option>
+                    <option value="Delaware">Delaware</option>
+                    <option value="Florida">Florida</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Hawaii">Hawaii</option>
+                    <option value="Idaho">Idaho</option>
+                    <option value="Illinois">Illinois</option>
+                    <option value="Indiana">Indiana</option>
+                    <option value="Iowa">Iowa</option>
+                    <option value="Kansas">Kansas</option>
+                    <option value="Kentucky">Kentucky</option>
+                    <option value="Louisiana">Louisiana</option>
+                    <option value="Maine">Maine</option>
+                    <option value="Maryland">Maryland</option>
+                    <option value="Massachusetts">Massachusetts</option>
+                    <option value="Michigan">Michigan</option>
+                    <option value="Minnesota">Minnesota</option>
+                    <option value="Mississippi">Mississippi</option>
+                    <option value="Missouri">Missouri</option>
+                    <option value="Montana">Montana</option>
+                    <option value="Nebraska">Nebraska</option>
+                    <option value="Nevada">Nevada</option>
+                    <option value="New Hampshire">New Hampshire</option>
+                    <option value="New Jersey">New Jersey</option>
+                    <option value="New Mexico">New Mexico</option>
+                    <option value="New York">New York</option>
+                    <option value="North Carolina">North Carolina</option>
+                    <option value="North Dakota">North Dakota</option>
+                    <option value="Ohio">Ohio</option>
+                    <option value="Oklahoma">Oklahoma</option>
+                    <option value="Oregon">Oregon</option>
+                    <option value="Pennsylvania">Pennsylvania</option>
+                    <option value="Rhode Island">Rhode Island</option>
+                    <option value="South Carolina">South Carolina</option>
+                    <option value="South Dakota">South Dakota</option>
+                    <option value="Tennessee">Tennessee</option>
+                    <option value="Texas">Texas</option>
+                    <option value="Utah">Utah</option>
+                    <option value="Vermont">Vermont</option>
+                    <option value="Virginia">Virginia</option>
+                    <option value="Washington">Washington</option>
+                    <option value="West Virginia">West Virginia</option>
+                    <option value="Wisconsin">Wisconsin</option>
+                    <option value="Wyoming">Wyoming</option>
+                </select><br>
+                <div id="state-map-legend">
+                    <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br>State Rate: {{instance.currentValues.state}}</p>
+                    <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}} </span>: {{instance.currentValues.stateFiltered}}</p>
+                    <p>TODO Legend Area</p>
+                </div><div id="state-map-container" class="map-container"></div>
+            </div>
         </div>
 
-        <script src="/TemplatePackage/3.0/js/libs/jquery.js"></script>
+        <!--<script src="/TemplatePackage/contrib/libs/angular/1.4.3/angular.min.js"></script>-->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
+        <script src="/TemplatePackage/contrib/libs/angular/1.4.3/angular-route.min.js"></script>
+        <script src="/TemplatePackage/contrib/libs/jquery/jquery-1.11.2.min.js"></script>
+        <script src="/TemplatePackage/contrib/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
         <script src="/TemplatePackage/3.0/js/libs/d3/d3.min.js"></script>
         <script src="/TemplatePackage/3.0/js/libs/d3/topojson.v1.min.js"></script>
         <script src="/TemplatePackage/contrib/widgets/tp-widget-common.js"></script>
         <script src="js/datamaps.all.customized.js"></script>
-        <script src="js/statemapping.js"></script>
-        <script src="js/countymaps.js"></script>
     </body>
 </html>

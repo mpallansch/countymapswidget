@@ -1,0 +1,47 @@
+{
+    "title": "Heart Disease and Stroke",
+    "datasets": {
+        "Heart Disease Deaths": {
+            "state": {
+                "url": "/widgets/heartdiseaseandstroke/heartdiseasestatedata.json",
+                "stateColumn": "locationabbr",
+                "dataColumn": "data_value"
+            },
+            "county": {
+                "url": "/widgets/heartdiseaseandstroke/heartdiseasecountydata.json",
+                "stateColumn": "LocationAbbr",
+                "countyColumn": "locationdesc",
+                "dataColumn": "data_value"
+            }
+        },
+        "Stroke Deaths": {
+            "county": {
+                "url": "/widgets/heartdiseaseandstroke/strokecountydata.json",
+                "stateColumn": "LocationAbbr",
+                "countyColumn": "locationdesc",
+                "dataColumn": "data_value"
+            }
+        }
+    },
+    "filters": {
+        "Gender": {
+            "column": "stratification1",
+            "noFilter": "Total",
+            "values": {
+                "All Gender": "Total",
+                "Men": "Men",
+                "Women": "Women"
+            }
+        },
+        "Race": {
+            "column": "stratification2",
+            "noFilter": "Total",
+            "values": {
+                "All Adults": "Total",
+                "Black": "Black",
+                "Hispanic": "Hispanic",
+                "White": "White"
+            }
+        }
+    }
+}
