@@ -8,7 +8,7 @@
                 "dataColumn": "data_value"
             },
             "county": {
-                "url": "https://chronicdata-stage.demo.socrata.com/resource/g7x7-9gp7.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu",
+                "url": "/widgets/heartdiseaseandstroke/heartdiseasecountydata.json",
                 "stateColumn": "locationabbr",
                 "countyColumn": "locationdesc",
                 "dataColumn": "data_value"
@@ -21,7 +21,7 @@
                 "dataColumn": "data_value"
             },
             "county": {
-                "url": "https://chronicdata-stage.demo.socrata.com/resource/ruk2-u6hd.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu",
+                "url": "/widgets/heartdiseaseandstroke/strokecountydata.json",
                 "stateColumn": "locationabbr",
                 "countyColumn": "locationdesc",
                 "dataColumn": "data_value"

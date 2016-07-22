@@ -24,9 +24,8 @@
                     </div>
                 </div>
                 <div id="us-map-legend">
-                    <p>{{instance.currentInputs.disease}}<br>For all of US<br>US Data: {{instance.currentValues.us}}</p>
-                    <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}} </span>: {{instance.currentValues.usFiltered}}</p>
-                    <p>TODO Legend Area</p>
+                    <p>{{instance.currentInputs.disease}}<br>For all of US<br>Total: {{instance.currentValues.us}}</p>
+                    <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.usFiltered}}</p>
                 </div><div id="us-map-container" class="map-container"></div>
             </div>
             <div id="state-section">
@@ -83,11 +82,14 @@
                     <option value="Wyoming">Wyoming</option>
                 </select><br>
                 <div id="state-map-legend">
-                    <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br>State Rate: {{instance.currentValues.state}}</p>
-                    <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}} </span>: {{instance.currentValues.stateFiltered}}</p>
-                    <p>TODO Legend Area</p>
+                    <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br>Total: {{instance.currentValues.state}}</p>
+                    <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.stateFiltered}}</p>
                 </div><div id="state-map-container" class="map-container"></div>
             </div>
+        </div>
+        
+        <div id="loading-modal" data-ng-show="loading">
+            <p><svg><circle cx="50" cy="50" r="45" fill="transparent" stroke="#000000" stroke-width="10px" /></svg></p>
         </div>
 
         <!--<script src="/TemplatePackage/contrib/libs/angular/1.4.3/angular.min.js"></script>-->
