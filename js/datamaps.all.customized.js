@@ -158,7 +158,7 @@
         var fillColor;
 
         if ( colorCodeData[d.id] ) {
-          fillColor = fillData[ colorCodeData[d.id].fillKey ];
+          fillColor = colorCodeData[d.id].fillColor || fillData[ colorCodeData[d.id].fillKey ];
         }
 
         return fillColor || fillData.defaultFill;
@@ -457,7 +457,7 @@
           return typeof datum.fillOpacity !== 'undefined' ? datum.fillOpacity : options.fillOpacity;
         })
         .style('fill', function ( datum ) {
-          var fillColor = fillData[ datum.fillKey ];
+          var fillColor = datum.fillColor || fillData[ datum.fillKey ];
           return fillColor || fillData.defaultFill;
         })
         .on('mouseover', function ( datum ) {
