@@ -8,11 +8,12 @@
                 "dataColumn": "data_value"
             },
             "county": {
-                "url": "/widgets/heartdiseaseandstroke/heartdiseasecountydata.json",
+                "url": "https://chronicdata-stage.demo.socrata.com/resource/g7x7-9gp7.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
                 "stateColumn": "locationabbr",
                 "countyColumn": "locationdesc",
                 "dataColumn": "data_value"
-            }
+            },
+            "color": "red"
         },
         "Stroke Deaths": {
             "state": {
@@ -21,11 +22,12 @@
                 "dataColumn": "data_value"
             },
             "county": {
-                "url": "/widgets/heartdiseaseandstroke/strokecountydata.json",
+                "url": "https://chronicdata-stage.demo.socrata.com/resource/ruk2-u6hd.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
                 "stateColumn": "locationabbr",
                 "countyColumn": "locationdesc",
                 "dataColumn": "data_value"
-            }
+            },
+            "color": "purple"
         }
     },
     "filters": {

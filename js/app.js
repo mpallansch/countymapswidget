@@ -19,7 +19,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     $rootScope.instance.pendingCallbacks = 0;
 
                     $rootScope.instance.currentInputs.disease = Object.keys($rootScope.instance.datasets)[0];
-                    $rootScope.instance.currentInputs.state = 'Alabama'; //TODO read from query string
+                    $rootScope.instance.currentInputs.state = cdcCommon.getCallParam('defaultState') ? cdcCommon.getCallParam('defaultState') : 'Alabama';
                     $rootScope.instance.currentInputs.filters = {};
                     for (filter in $rootScope.instance.filters) {
                         $rootScope.instance.currentInputs.filters[filter] = Object.keys($rootScope.instance.filters[filter].values)[0];
@@ -95,6 +95,8 @@ countyMapsApp.run(function($rootScope, $http) {
     $rootScope.init = function() {
         var state, county;
         for(dataset in $rootScope.instance.data){
+            $rootScope.instance.data[dataset].noFilter = {};
+            
             $rootScope.instance.data[dataset].state.forEach(
                 function(datapoint){
                     state = datapoint[$rootScope.instance.datasets[dataset].state.stateColumn];
@@ -102,6 +104,10 @@ countyMapsApp.run(function($rootScope, $http) {
                         if(state.toLowerCase() === st.toLowerCase() || state.toLowerCase() === $rootScope.states[st].abbrev.toLowerCase()){
                             datapoint[$rootScope.instance.datasets[dataset].state.stateColumn] = $rootScope.states[st].abbrev;
                         }
+                    }
+                    
+                    if($rootScope.matchesFilter(datapoint, true)){
+                        $rootScope.instance.data[dataset].noFilter[datapoint[$rootScope.instance.datasets[dataset].state.stateColumn]] = datapoint[$rootScope.instance.datasets[dataset].state.dataColumn];
                     }
                 }
             );
@@ -116,7 +122,9 @@ countyMapsApp.run(function($rootScope, $http) {
                     county = county.trim();
                     datapoint[$rootScope.instance.datasets[dataset].county.countyColumn] = county;
                     
-                    
+                    if($rootScope.matchesFilter(datapoint, true)){
+                        $rootScope.instance.data[dataset].noFilter[datapoint[$rootScope.instance.datasets[dataset].county.countyColumn]] = datapoint[$rootScope.instance.datasets[dataset].county.dataColumn];
+                    }
                 }
             );
         }
@@ -130,38 +138,35 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.instance.currentValues.usMapData = {};
         $rootScope.instance.currentValues.stateMapData = {};
         
+        $rootScope.instance.currentValues.us = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter['US'];
+        $rootScope.instance.currentValues.state = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[$rootScope.states[$rootScope.instance.currentInputs.state].abbrev];
+        
         var state, county, value, paletteScale, 
                 stateColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].state.stateColumn,
                 dataColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].state.dataColumn;
         
         paletteScale = d3.scale.linear()
             .domain($rootScope.minMax('state'))
-            .range(["#EFEFFF","#02386F"]);
+            .range(["#EFEFFF", $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
         
         $rootScope.instance.data[$rootScope.instance.currentInputs.disease].state.forEach(
             function(datapoint){
                 state = datapoint[stateColumn];
                 value = datapoint[dataColumn];
                 if(state.toLowerCase() === 'us' || state.toLowerCase() === 'united states'){
-                    if($rootScope.matchesFilter(datapoint, true)){
-                        $rootScope.instance.currentValues.us = value;
-                    }
                     if($rootScope.matchesFilter(datapoint)){
                         $rootScope.instance.currentValues.usFiltered = value;
                     }
                 } else {
                     if($rootScope.isCurrentState(state)){
-                        if($rootScope.matchesFilter(datapoint, true)){
-                            console.log('setting current state value to ' + value);
-                            $rootScope.instance.currentValues.state = value;
-                        } 
                         if($rootScope.matchesFilter(datapoint)){
                             $rootScope.instance.currentValues.stateFiltered = value;
                         }
                     }
                     if($rootScope.matchesFilter(datapoint)){
                         $rootScope.instance.currentValues.usMapData[state] = {
-                            data: value,
+                            data: $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[state],
+                            dataFiltered: value,
                             fillColor: value ? paletteScale(value) : 'gray'
                         };
                     }
@@ -173,7 +178,7 @@ countyMapsApp.run(function($rootScope, $http) {
 
         paletteScale = d3.scale.linear()
             .domain($rootScope.minMax('county'))
-            .range(["#EFEFFF","#02386F"]);
+            .range(["#EFEFFF",$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
 
         $rootScope.instance.data[$rootScope.instance.currentInputs.disease].county.forEach(
             function(datapoint){
@@ -183,7 +188,8 @@ countyMapsApp.run(function($rootScope, $http) {
                     if($rootScope.matchesFilter(datapoint)){
                         value = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].county.dataColumn];
                         $rootScope.instance.currentValues.stateMapData[county] = {
-                            data: value, 
+                            data: $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[county], 
+                            dataFiltered: value,
                             fillColor: value ? paletteScale(value) : 'gray'
                         };
                     }
@@ -236,30 +242,31 @@ countyMapsApp.run(function($rootScope, $http) {
             return;
         }
         
-        //TODO rewrite for angular
-        $('#us-map-container').empty();
+        var usMapContainer = $('#us-map-container');
+        usMapContainer.empty();
 
-        if ($('#us-map-container').width() < 465) {
-            $('#us-map-container').height($('#us-map-container').width() * .7);
+        if (usMapContainer.width() < 465) {
+            usMapContainer.height(usMapContainer.width() * .7);
         } else {
-            $('#us-map-container').height(275);
+            usMapContainer.height(275);
         }
 
         $rootScope.usMap = new Datamap({
             scope: 'usa',
-            element: document.getElementById('us-map-container'),
+            element: usMapContainer[0],
             geographyConfig: {
                 highlightBorderWidth: 5,
                 popupTemplate: function(geo, data) {
                     return '<div class="hoverinfo">' +
-                            '<h3>' + geo.properties.name + '</h3>' +
-                            '<p class="popup-rate">' + (data && data.data ? data.data : 'No Data') + '</p>' +
+                                '<h3>' + geo.properties.name + '</h3>' +
+                                '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
+                                '<p class="popup-rate">Filtered: ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
                             '</div>';
                 }
             },
             setProjection: function(element) {
                 var projection = d3.geo.albers()
-                        .scale($('#us-map-container').width() < 465 ? $('#us-map-container').width() / 465 * 600 : 600) // TODO rewrite to angular
+                        .scale($(element).width() < 465 ? $(element).width() / 465 * 600 : 600)
                         .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
 
                 path = d3.geo.path()
@@ -275,7 +282,7 @@ countyMapsApp.run(function($rootScope, $http) {
         
         var state = $rootScope.states[$rootScope.instance.currentInputs.state];
         
-        $('#state-map-container').empty(); // TODO rewrite in angular
+        $('#state-map-container').empty(); 
 
         $rootScope.mapData.objects.cb_2015_us_county_500k.geometries = $rootScope.geometries[$rootScope.instance.currentInputs.state];
 
@@ -286,8 +293,9 @@ countyMapsApp.run(function($rootScope, $http) {
                 highlightBorderWidth: 5,
                 popupTemplate: function(geo, data) {
                     return '<div class="hoverinfo">' +
-                            '<h3>' + geo.properties.name + '</h3>' +
-                            '<p class="popup-rate">' + (data && data.data ? data.data : 'No Data') + '</p>' +
+                                '<h3>' + geo.properties.name + '</h3>' +
+                                '<p class="popup-rate">' + (data && data.data ? data.data : 'No Data') + '</p>' +
+                                '<p class="popup-rate">Filtered: ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
                             '</div>';
                 }
             },
@@ -312,11 +320,11 @@ countyMapsApp.run(function($rootScope, $http) {
 
     //Heart Disease State Dev: /widgets/heartdiseaseandstroke/heartdiseasestatedata.json
     //Heart Disease State Live: 
-    //Heart Disease County Dev: https://chronicdata-stage.demo.socrata.com/resource/g7x7-9gp7.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu
+    //Heart Disease County Dev: https://chronicdata-stage.demo.socrata.com/resource/g7x7-9gp7.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2
     //Heart Disease County Live: 
     //Stoke State Dev: /widgets/heartdiseaseandstroke/strokestatedata.json
     //Stroke State Live:
-    //Stroke County Dev:https://chronicdata-stage.demo.socrata.com/resource/ruk2-u6hd.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu
+    //Stroke County Dev: https://chronicdata-stage.demo.socrata.com/resource/ruk2-u6hd.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2
     //Stroke County Live:
 
 
