@@ -109,7 +109,7 @@ select {
     margin-top: 0;
 }
 
-#us-map-legend, #us-map-container, #state-map-legend, #state-map-container {
+#us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
     display: inline-block;
     vertical-align: top;
 }
@@ -118,8 +118,9 @@ select {
     width: 25%;
 }
 
-#us-map-container, #state-map-container {
+#us-map-section, #state-map-section {
     width: 75%;
+    text-align: center;
 }
 
 #us-section {
