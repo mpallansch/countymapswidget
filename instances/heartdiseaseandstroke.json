@@ -2,32 +2,18 @@
     "title": "Heart Disease and Stroke",
     "datasets": {
         "Heart Disease Deaths": {
-            "state": {
-                "url": "/widgets/heartdiseaseandstroke/heartdiseasestatedata.json",
-                "stateColumn": "locationabbr",
-                "dataColumn": "data_value"
-            },
-            "county": {
-                "url": "https://chronicdata-stage.demo.socrata.com/resource/g7x7-9gp7.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
-                "stateColumn": "locationabbr",
-                "countyColumn": "locationdesc",
-                "dataColumn": "data_value"
-            },
-            "color": "red"
+            "url": "https://chronicdata-stage.demo.socrata.com/resource/tj45-8avw.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
+             "stateColumn": "locationabbr",
+             "locationColumn": "locationdesc",
+             "dataColumn": "data_value",
+             "color": "red"
         },
         "Stroke Deaths": {
-            "state": {
-                "url": "/widgets/heartdiseaseandstroke/strokestatedata.json",
-                "stateColumn": "locationabbr",
-                "dataColumn": "data_value"
-            },
-            "county": {
-                "url": "https://chronicdata-stage.demo.socrata.com/resource/ruk2-u6hd.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
-                "stateColumn": "locationabbr",
-                "countyColumn": "locationdesc",
-                "dataColumn": "data_value"
-            },
-            "color": "purple"
+            "url": "https://chronicdata-stage.demo.socrata.com/resource/b9b5-maak.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
+             "stateColumn": "locationabbr",
+             "locationColumn": "locationdesc",
+             "dataColumn": "data_value",
+             "color": "purple"
         }
     },
     "filters": {
