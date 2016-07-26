@@ -119,7 +119,9 @@ countyMapsApp.run(function($rootScope, $http) {
                     }
                     
                     if($rootScope.matchesFilter(datapoint, true)){
-                        if($rootScope.statesMatch(state, location)){  
+                        if(state.toLowerCase() === 'us' || state.toLowerCase() === 'united states'){
+                            $rootScope.instance.data[dataset].noFilter['US'] = datapoint[$rootScope.instance.datasets[dataset].dataColumn];
+                        } else if($rootScope.statesMatch(state, location)){  
                             $rootScope.instance.data[dataset].noFilter[datapoint[$rootScope.instance.datasets[dataset].stateColumn]] = datapoint[$rootScope.instance.datasets[dataset].dataColumn];
                         } else {
                             $rootScope.instance.data[dataset].noFilter[state + ' ' + location] = datapoint[$rootScope.instance.datasets[dataset].dataColumn];
@@ -142,6 +144,12 @@ countyMapsApp.run(function($rootScope, $http) {
         //sets the current unfiltered values displayed in the legend from the unfiltered values determined in init()
         $rootScope.instance.currentValues.us = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter['US'];
         $rootScope.instance.currentValues.state = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[$rootScope.states[$rootScope.instance.currentInputs.state].abbrev];
+        
+        $rootScope.instance.currentValues.filterString = '';
+        for(filter in $rootScope.instance.currentInputs.filters){
+            $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString + $rootScope.instance.currentInputs.filters[filter] + ', ';
+        }
+        $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString.substring(0, $rootScope.instance.currentValues.filterString.length - 2);
         
         //initializes variables, including the column names for the state and data defined in the instance json file
         var state, location, value, statePaletteScale, countyPaletteScale, minMax,
@@ -281,7 +289,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
                                 '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
-                                '<p class="popup-rate">Filtered: ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
+                                '<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
                             '</div>';
                 }
             },
@@ -316,7 +324,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
                                 '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
-                                '<p class="popup-rate">Filtered: ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
+                                '<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
                             '</div>';
                 }
             },

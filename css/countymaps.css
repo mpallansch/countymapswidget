@@ -71,6 +71,10 @@ select {
     display: none;
 }
 
+.hoverinfo {
+    text-align: left;
+}
+
 .hoverinfo h3 {
     margin: 2px 0px;
     color: crimson;
@@ -78,6 +82,12 @@ select {
 
 .hoverinfo p {
     margin-top: 4px;
+}
+
+.hoverinfo p:nth-child(2) {
+    border-bottom: 1px solid black;
+    margin-bottom: 5px;
+    padding-bottom: 10px;
 }
 
 .popup-filtered-rate {
@@ -99,7 +109,7 @@ select {
     margin-left: 40px;
 }
 
-#us-map-legend p:first-child {
+#us-map-legend p:first-child, #state-map-legend p:first-child {
     border-bottom: 1px solid black;
     padding-bottom: 10px;
     margin-bottom: 5px;
@@ -146,7 +156,7 @@ select {
         width: 100%;
     }
     
-    #us-map-container, #state-map-container {
+    #us-map-section, #state-map-section {
         display: block;
         width: 100%;
     }

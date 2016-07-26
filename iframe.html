@@ -24,7 +24,7 @@
                     </div>
                 </div>
                 <div id="us-map-legend">
-                    <p>{{instance.currentInputs.disease}}<br>For all of US<br>Total: {{instance.currentValues.us}}</p>
+                    <p>{{instance.currentInputs.disease}}<br>For all of US<br><br>Total: {{instance.currentValues.us}}</p>
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.usFiltered}}</p>
                 </div><div id="us-map-section">
                     <div id="us-map-container" class="map-container"></div>
@@ -87,7 +87,7 @@
                     <option value="Wyoming">Wyoming</option>
                 </select><br>
                 <div id="state-map-legend">
-                    <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br>Total: {{instance.currentValues.state}}</p>
+                    <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br><br>Total: {{instance.currentValues.state}}</p>
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.stateFiltered}}</p>
                 </div><div id="state-map-section">
                   <div id="state-map-container" class="map-container"></div>

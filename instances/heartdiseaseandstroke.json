@@ -1,5 +1,5 @@
 {
-    "title": "Heart Disease and Stroke",
+    "title": "",
     "datasets": {
         "Heart Disease Deaths": {
             "url": "https://chronicdata-stage.demo.socrata.com/resource/tj45-8avw.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
