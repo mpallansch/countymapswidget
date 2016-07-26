@@ -27,7 +27,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     for (filter in $rootScope.instance.filters) {
                         $rootScope.instance.currentInputs.filters[filter] = Object.keys($rootScope.instance.filters[filter].values)[0];
                     }
-
+                    
                     //requests the topojson data for rendering counties, then filters the counties so they can be rendered one state at a time
                     $http.get('data/counties.json').then(
                             function(response) {
@@ -109,9 +109,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     state = state.charAt(0).toUpperCase() + state.slice(1);
                     location = datapoint[$rootScope.instance.datasets[dataset].locationColumn];
                     location = location.replace(/-/g, '').replace(/county/gi, '');
-                    for(st in $rootScope.states){
-                        location = location.replace(new RegExp($rootScope.states[st].abbrev, 'g'), '');
-                    };
+                    location = location.replace(/DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AL|AK|AZ|AR|CA|CO|CT/g, '');
                     location = location.trim();
                     datapoint[$rootScope.instance.datasets[dataset].locationColumn] = location;
                     
@@ -146,18 +144,19 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.instance.currentValues.state = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[$rootScope.states[$rootScope.instance.currentInputs.state].abbrev];
         
         //initializes variables, including the column names for the state and data defined in the instance json file
-        var state, location, value, statePaletteScale, countyPaletteScale,
+        var state, location, value, statePaletteScale, countyPaletteScale, minMax,
                 stateColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].stateColumn,
                 locationColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].locationColumn,
                 dataColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].dataColumn;
         
         //creates a color scale based on the min and max of the state dataset, and the color defined in the instance json file
+        minMax = $rootScope.minMax();
         statePaletteScale = d3.scale.linear()
-            .domain($rootScope.minMax('state'))
+            .domain(minMax[0])
             .range(["#EFEFFF", $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
     
         countyPaletteScale = d3.scale.linear()
-            .domain($rootScope.minMax('county'))
+            .domain(minMax[1])
             .range(["#EFEFFF", $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
         
         //iterates through each datapoint in the state dataset, determining the filtered values to display in the legend
@@ -203,26 +202,35 @@ countyMapsApp.run(function($rootScope, $http) {
     };
     
     //finds the min and max of the currently selected county or state dataset
-    $rootScope.minMax = function(type){
-        var state, location, value, min = Number.MAX_VALUE, max = Number.MIN_VALUE;
+    $rootScope.minMax = function(){
+        var state, location, value, stateMin = Number.MAX_VALUE, stateMax = Number.MIN_VALUE, countyMin = Number.MAX_VALUE, countyMax = Number.MIN_VALUE;
         $rootScope.instance.data[$rootScope.instance.currentInputs.disease].forEach(
             function(datapoint){
                 state = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].stateColumn];
                 location = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].locationColumn];
-                value = parseInt(datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].dataColumn]);
-                if((type === 'state' && $rootScope.statesMatch(state, location)) || (type !== 'state' && $rootScope.statesMatch(state, $rootScope.instance.currentInputs.state))){
-                    if($rootScope.matchesFilter(datapoint)){
-                        if(value < min){
-                            min = value;
+                if($rootScope.matchesFilter(datapoint)){
+                    if($rootScope.statesMatch(state, location)){
+                        value = parseInt(datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].dataColumn]);
+                        if(value < stateMin){
+                            stateMin = value;
                         } 
-                        if(value > max){
-                            max = value;
+                        if(value > stateMax){
+                            stateMax = value;
+                        }
+                    }
+                    if($rootScope.statesMatch(state, $rootScope.instance.currentInputs.state)){
+                        value = parseInt(datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].dataColumn]);
+                        if(value < countyMin){
+                            countyMin = value;
+                        } 
+                        if(value > countyMax){
+                            countyMax = value;
                         }
                     }
                 }
             }
         );
-        return [min, max];
+        return [[stateMin, stateMax],[countyMin, countyMax]];
     };
     
     //determins if the state provided is the state that is currently selected by the user
