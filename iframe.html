@@ -28,9 +28,6 @@
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.usFiltered}}</p>
                 </div><div id="us-map-section">
                     <div id="us-map-container" class="map-container"></div>
-                    <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].state.footnote">{{instance.datasets[instance.currentInputs.disease].state.footnote}}</p>
-                    <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].state.link"><a data-ng-href="instance.datasets[instance.currentInputs.disease].state.link">{{instance.datasets[instance.currentInputs.disease].state.link}}</a></p>
-                    <p class="link-508" data-ng-show="instance.datasets[instance.currentInputs.disease].state.accessibility"><a data-ng-href="instance.datasets[instance.currentInputs.disease].state.accessibility">{{instance.datasets[instance.currentInputs.disease].state.accessibility}}</a></p>
                 </div>
             </div>
             <div id="state-section">
@@ -91,10 +88,12 @@
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.stateFiltered}}</p>
                 </div><div id="state-map-section">
                   <div id="state-map-container" class="map-container"></div>
-                    <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].county.footnote">{{instance.datasets[instance.currentInputs.disease].county.footnote}}</p>
-                    <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].county.link"><a data-ng-href="instance.datasets[instance.currentInputs.disease].county.link">{{instance.datasets[instance.currentInputs.disease].county.link}}</a></p>
-                    <p class="link-accessibility" data-ng-show="instance.datasets[instance.currentInputs.disease].county.accessibility"><a data-ng-href="instance.datasets[instance.currentInputs.disease].county.accessibility">{{instance.datasets[instance.currentInputs.disease].county.accessibility}}</a></p>
                 </div>
+            </div>
+            <div id="footer-section">
+                <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].link"><a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].link}}">Source</a></p>
+                <p class="link-accessibility" data-ng-show="instance.datasets[instance.currentInputs.disease].accessibility"><a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].accessibility}}">Accessible Version</a></p>
             </div>
         </div>
         

@@ -141,6 +141,10 @@ select {
     margin-top: 10px;
 }
 
+#footer-section {
+    text-align: center;
+}
+
 @media (max-width: 400px){
     label {
         display: block;
