@@ -47,10 +47,32 @@ label {
     border-radius: 5px;
     background-color: ghostwhite;
     padding: 6px 25px;
+    border-bottom: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+    border-left: 2px solid #FBFBFF;
+    border-top: 2px solid #FBFBFF;
 }
 
 input[type="radio"]:checked+label{ 
     background-color: lightgray;
+    border-bottom: 2px solid darkgray;
+    border-right: 2px solid darkgray;
+    border-left: 2px solid lightgray;
+    border-top: 2px solid lightgray;
+}
+
+input[type="radio"]+label.mousedown{ 
+    border-bottom: 2px solid #FBFBFF;
+    border-right: 2px solid #FBFBFF;
+    border-left: 2px solid lightgray;
+    border-top: 2px solid lightgray;
+}
+
+input[type="radio"]:checked+label.mousedown{ 
+    border-bottom: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+    border-left: 2px solid darkgray;
+    border-top: 2px solid darkgray;
 }
 
 input {
@@ -61,6 +83,10 @@ select {
     border-radius: 5px;
     background-color: lightgray;
     padding: 5px 25px;
+    border-bottom: 2px solid darkgray;
+    border-right: 2px solid darkgray;
+    border-left: 2px solid lightgray;
+    border-top: 2px solid lightgray;
 }
 
 .map-container {
