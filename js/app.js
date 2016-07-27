@@ -99,6 +99,12 @@ countyMapsApp.run(function($rootScope, $http) {
     //need to happen one time, and then calls the updateData function, which processes data by
     //the filters that are currently set
     $rootScope.init = function() {
+        if(Object.keys($rootScope.instance.data).length < 2){
+            $rootScope.instance.currentValues.showSelector = false;
+        } else {
+            $rootScope.instance.currentValues.showSelector = true;
+        }
+        
         //iterates through each dataset, normalizing the state and county names to the id's in the topojson file
         //and finding the non-filtered values that will be displayed in the hover popup
         var state, location;
