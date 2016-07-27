@@ -87,16 +87,16 @@
                     <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br><br>Total: {{instance.currentValues.state}}</p>
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.stateFiltered}}</p>
                 </div><div id="state-map-section">
-                  <div id="state-map-container" class="map-container"></div>
+                    <div id="state-map-container" class="map-container"></div>
                 </div>
             </div>
             <div id="footer-section">
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].link"><a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].link}}">Source</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
                 <p class="link-accessibility" data-ng-show="instance.datasets[instance.currentInputs.disease].accessibility"><a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].accessibility}}">Accessible Version</a></p>
             </div>
         </div>
-        
+
         <div id="loading-modal" data-ng-show="loading">
             <p><svg><circle cx="50" cy="50" r="45" fill="transparent" stroke="#000000" stroke-width="10px" /></svg></p>
         </div>
