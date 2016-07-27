@@ -153,11 +153,26 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.instance.currentValues.us = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter['US'];
         $rootScope.instance.currentValues.state = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[$rootScope.states[$rootScope.instance.currentInputs.state].abbrev];
         
+        var filterValue, noFilters = true;
         $rootScope.instance.currentValues.filterString = '';
         for(filter in $rootScope.instance.currentInputs.filters){
+            for(name in $rootScope.instance.filters[filter].values){
+                if(name === $rootScope.instance.currentInputs.filters[filter]){
+                    filterValue = $rootScope.instance.filters[filter].values[name];
+                    break;
+                }
+            }
+            if($rootScope.instance.filters[filter].noFilter !== filterValue){
+                noFilters = false;
+            }
             $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString + $rootScope.instance.currentInputs.filters[filter] + ', ';
         }
-        $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString.substring(0, $rootScope.instance.currentValues.filterString.length - 2);
+        if(noFilters){
+            console.log('setting filterString to nothing');
+            $rootScope.instance.currentValues.filterString = '';
+        } else {
+            $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString.substring(0, $rootScope.instance.currentValues.filterString.length - 2);
+        }
         
         //initializes variables, including the column names for the state and data defined in the instance json file
         var state, location, value, statePaletteScale, countyPaletteScale, minMax,
@@ -297,7 +312,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
                                 '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
-                                '<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
+                                ($rootScope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>') : '') + 
                             '</div>';
                 }
             },
@@ -332,7 +347,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
                                 '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
-                                '<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>' + 
+                                ($rootScope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>') : '') + 
                             '</div>';
                 }
             },
