@@ -327,7 +327,7 @@ countyMapsApp.run(function($rootScope, $http) {
                 return {path: path, projection: projection};
             },
             fills: {
-                defaultFill: 'gray'
+                defaultFill: 'darkslategray'
             },
             data: $rootScope.instance.currentValues.usMapData
         });
@@ -364,7 +364,7 @@ countyMapsApp.run(function($rootScope, $http) {
                 return {path: path, projection: projection};
             },
             fills: {
-                defaultFill: 'gray'
+                defaultFill: 'darkslategray'
             },
             data: $rootScope.instance.currentValues.stateMapData
         });

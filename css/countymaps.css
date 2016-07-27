@@ -7,7 +7,7 @@ body {
 
 path {
     stroke: gray !important;
-    stroke-width: 0.4px !important;
+    stroke-width: 0.3px !important;
 }
 
 #loading-modal {
