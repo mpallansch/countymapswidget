@@ -28,21 +28,21 @@
             <p>Error loading instance, please check name and try again</p>
         </div>
         <div data-ng-hide="error">
-            <h2 ng-cloak>{{instance.title}}</h2>
+            <h2 data-ng-cloak>{{instance.title}}</h2>
             <div id="us-section">
                 <div id="us-map-controls">
                     <div>
                         <span data-ng-repeat="(name, data) in instance.data">
-                            <input data-ng-model="instance.currentInputs.disease" id="dataset-input-{{$index}}" type="radio" name="disease" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}">{{name}}</label>
+                            <input data-ng-model="instance.currentInputs.disease" id="dataset-input-{{$index}}" type="radio" name="disease" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}" data-ng-cloak>{{name}}</label>
                         </span>
                     </div>
                     <div>
-                        <select data-ng-repeat="(filter, data) in instance.filters" data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()">
+                        <select data-ng-repeat="(filter, data) in instance.filters" data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()" data-ng-cloak>
                             <option value="{{filterVal}}" data-ng-repeat="(filterVal, valueData) in data.values">{{filterVal}}</option>
                         </select>
                     </div>
                 </div>
-                <div id="us-map-legend">
+                <div id="us-map-legend" data-ng-cloak>
                     <p>{{instance.currentInputs.disease}}<br>For all of US<br><br>Total: {{instance.currentValues.us}}</p>
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.usFiltered}}</p>
                 </div><div id="us-map-section">
@@ -102,14 +102,14 @@
                     <option value="Wisconsin">Wisconsin</option>
                     <option value="Wyoming">Wyoming</option>
                 </select><br>
-                <div id="state-map-legend">
+                <div id="state-map-legend" data-ng-cloak>
                     <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br><br>Total: {{instance.currentValues.state}}</p>
                     <p><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}} </span>: {{instance.currentValues.stateFiltered}}</p>
                 </div><div id="state-map-section">
                     <div id="state-map-container" class="map-container"></div>
                 </div>
             </div>
-            <div id="footer-section">
+            <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
                 <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
                 <p class="link-accessibility" data-ng-show="instance.datasets[instance.currentInputs.disease].accessibility"><a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].accessibility}}">Accessible Version</a></p>
