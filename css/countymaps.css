@@ -5,6 +5,11 @@ body {
     margin: 0;
 }
 
+path {
+    stroke: gray !important;
+    stroke-width: 0.4px !important;
+}
+
 #loading-modal {
     display: table;
     position: fixed;
@@ -100,6 +105,8 @@ select {
 
 .hoverinfo {
     text-align: left;
+    border: 1px solid black !important;
+    box-shadow: none !important;
 }
 
 .hoverinfo h3 {
@@ -111,10 +118,10 @@ select {
     margin-top: 4px;
 }
 
-.hoverinfo p:nth-child(2) {
-    border-bottom: 1px solid black;
-    margin-bottom: 5px;
-    padding-bottom: 10px;
+.hoverinfo p:nth-child(3) {
+    border-top: 1px solid black;
+    margin-top: 5px;
+    padding-top: 10px;
 }
 
 .popup-filtered-rate {
