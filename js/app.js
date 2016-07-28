@@ -116,8 +116,11 @@ countyMapsApp.run(function($rootScope, $http) {
                     state = datapoint[$rootScope.instance.datasets[dataset].stateColumn];
                     state = state.charAt(0).toUpperCase() + state.slice(1);
                     location = datapoint[$rootScope.instance.datasets[dataset].locationColumn];
-                    location = location.replace(/-/g, '').replace(/county/gi, '');
-                    location = location.replace(/DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AL|AK|AZ|AR|CA|CO|CT/g, '');
+                    if($rootScope.states[location]){
+                        datapoint.countyMapsStateFlag = true;
+                    } else {
+                        location = location.replace(/ - |county|parish/gi, '').replace(/DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AL|AK|AZ|AR|CA|CO|CT/g, '');
+                    }
                     location = location.trim();
                     datapoint[$rootScope.instance.datasets[dataset].locationColumn] = location;
                     
@@ -129,7 +132,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     if($rootScope.matchesFilter(datapoint, true)){
                         if(state.toLowerCase() === 'us' || state.toLowerCase() === 'united states'){
                             $rootScope.instance.data[dataset].noFilter['US'] = datapoint[$rootScope.instance.datasets[dataset].dataColumn];
-                        } else if($rootScope.statesMatch(state, location)){  
+                        } else if(datapoint.countyMapsStateFlag){  
                             $rootScope.instance.data[dataset].noFilter[datapoint[$rootScope.instance.datasets[dataset].stateColumn]] = datapoint[$rootScope.instance.datasets[dataset].dataColumn];
                         } else {
                             $rootScope.instance.data[dataset].noFilter[state + ' ' + location] = datapoint[$rootScope.instance.datasets[dataset].dataColumn];
@@ -168,7 +171,6 @@ countyMapsApp.run(function($rootScope, $http) {
             $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString + $rootScope.instance.currentInputs.filters[filter] + ', ';
         }
         if(noFilters){
-            console.log('setting filterString to nothing');
             $rootScope.instance.currentValues.filterString = '';
         } else {
             $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString.substring(0, $rootScope.instance.currentValues.filterString.length - 2);
@@ -202,7 +204,7 @@ countyMapsApp.run(function($rootScope, $http) {
                     if($rootScope.matchesFilter(datapoint)){
                         $rootScope.instance.currentValues.usFiltered = value;
                     }
-                } else if($rootScope.statesMatch(state, location)) {
+                } else if(datapoint.countyMapsStateFlag) {
                     if($rootScope.statesMatch(state, $rootScope.instance.currentInputs.state)){
                         if($rootScope.matchesFilter(datapoint)){
                             $rootScope.instance.currentValues.stateFiltered = value;
