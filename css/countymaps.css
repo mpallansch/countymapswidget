@@ -6,7 +6,7 @@ body {
 }
 
 path {
-    stroke: gray !important;
+    stroke: black !important;
     stroke-width: 0.3px !important;
 }
 
