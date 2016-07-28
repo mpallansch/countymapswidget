@@ -10,6 +10,10 @@ path {
     stroke-width: 0.3px !important;
 }
 
+.float-right {
+    float: right;
+}
+
 #loading-modal {
     display: table;
     position: fixed;
@@ -141,6 +145,33 @@ select {
 
 #us-map-controls select {
     margin-left: 40px;
+}
+
+.accessibility-table-wrapper {
+    margin: 15px;
+}
+
+.accessibility-table {
+    width: 100%;
+    border-spacing: 0;
+    border: 1px solid gray;
+    padding: 5px;
+}
+
+.accessibility-table-header {
+    text-align: left;
+    font-size: large;
+    padding: 10px;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+.accessibility-table thead {
+    background-color: lightgray;
+}
+
+.accessibility-table td {
+    border-top: 1px solid gray;
 }
 
 #us-map-legend p:first-child, #state-map-legend p:first-child {

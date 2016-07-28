@@ -9,7 +9,6 @@
              "footnote": "",
              "sourceLink": "http://www.cdc.gov/chronicdisease/index.htm",
              "sourceName": "National Center for Chronic Disease Prevention and Health Promotion",
-             "accessibility": "https://chronicdata-stage.demo.socrata.com/Heart-Disease-Stroke-Prevention/Heart-Disease-Mortality-Data-Among-US-Adults-35-by/xf27-wxgs/alt",
              "color": "red"
         },
         "Stroke Deaths": {
@@ -20,7 +19,6 @@
              "footnote": "",
              "sourceLink": "http://www.cdc.gov/chronicdisease/index.htm",
              "sourceName": "National Center for Chronic Disease Prevention and Health Promotion",
-             "accessibility": "https://chronicdata-stage.demo.socrata.com/Heart-Disease-Stroke-Prevention/Stroke-Mortality-Data-Among-US-Adults-35-by-County/v7xc-kp48/alt",
              "color": "purple"
         }
     },

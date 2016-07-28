@@ -50,6 +50,25 @@
                 </div><div id="us-map-section">
                     <p>Select a State to see the Data</p>
                     <div id="us-map-container" class="map-container"></div>
+                    <div class="accessibility-table-wrapper">
+                        <div class="accessibility-table-header" data-ng-click="showStateTable = !showStateTable">Data Table <span class="float-right">{{showStateTable ? '-' : '+'}}</span></div>
+                        <table class="accessibility-table" data-ng-show="showStateTable">
+                            <thead>
+                                <tr>
+                                    <th>State</th>
+                                    <th>Total</th>
+                                    <th data-ng-show="instance.currentValues.filterString.length > 0" data-ng-cloak>{{instance.currentValues.filterString}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="(state, data) in instance.currentValues.usMapData">
+                                    <td>{{state}}</td>
+                                    <td>{{data.data ? data.data : 'No Data'}}</td>
+                                    <td data-ng-show="instance.currentValues.filterString.length > 0">{{data.dataFiltered ? data.dataFiltered : 'No Data'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div id="state-section">
@@ -111,12 +130,30 @@
                 </div><div id="state-map-section">
                     <p>Select a County to see the Data<p>
                     <div id="state-map-container" class="map-container"></div>
+                    <div class="accessibility-table-wrapper">
+                        <div class="accessibility-table-header" data-ng-click="showCountyTable = !showCountyTable">Data Table <span class="float-right">{{showCountyTable ? '-' : '+'}}</span></div>
+                        <table class="accessibility-table" data-ng-show="showCountyTable">
+                            <thead>
+                                <tr>
+                                    <th>County</th>
+                                    <th>Total</th>
+                                    <th data-ng-show="instance.currentValues.filterString.length > 0" data-ng-cloak>{{instance.currentValues.filterString}}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-ng-repeat="(county, data) in instance.currentValues.stateMapData">
+                                    <td>{{county}}</td>
+                                    <td>{{data.data ? data.data : 'No Data'}}</td>
+                                    <td data-ng-show="instance.currentValues.filterString.length > 0">{{data.dataFiltered ? data.dataFiltered : 'No Data'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
             <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
                 <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
-                <p class="link-accessibility" data-ng-show="instance.datasets[instance.currentInputs.disease].accessibility"><a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].accessibility}}">Accessible Version</a></p>
             </div>
         </div>
 
