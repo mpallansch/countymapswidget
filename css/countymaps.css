@@ -6,6 +6,7 @@ body {
 }
 
 path {
+    fill: rgb(225, 225, 225);
     stroke: black !important;
     stroke-width: 0.3px !important;
 }

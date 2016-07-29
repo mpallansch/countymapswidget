@@ -49,7 +49,7 @@
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ', ')}}</span>: {{instance.currentValues.usFiltered}}</p>
                     <div class="legend-values">
                         <div>
-                            <span style="background-color: darkslategray" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
+                            <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
                         </div>
                         <div data-ng-repeat="row in instance.currentValues.stateLegend">
                             <span data-ng-style="{'background-color' : row[2]}" class="legend-color"></span><span class="legend-value">{{row[0]}} - {{row[1]}}</span>
@@ -137,7 +137,7 @@
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}}</span>: {{instance.currentValues.stateFiltered}}</p>
                     <div class="legend-values">
                         <div>
-                            <span style="background-color: darkslategray" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
+                            <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
                         </div>
                         <div data-ng-repeat="row in instance.currentValues.countyLegend">
                             <span data-ng-style="{'background-color' : row[2]}" class="legend-color"></span><span class="legend-value">{{row[0]}} - {{row[1]}}</span>

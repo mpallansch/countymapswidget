@@ -218,7 +218,7 @@ countyMapsApp.run(function($rootScope, $http) {
                         $rootScope.instance.currentValues.usMapData[state] = {
                             data: $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[state],
                             dataFiltered: value,
-                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[$rootScope.getIntervalIndex(intervals['state'], value)] : 'gray'
+                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[$rootScope.getIntervalIndex(intervals['state'], value)] : 'rgb(225, 225, 225)'
                         };
                     }
                 } else {
@@ -227,7 +227,7 @@ countyMapsApp.run(function($rootScope, $http) {
                         $rootScope.instance.currentValues.stateMapData[location] = {
                             data: $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[state + ' ' + location], 
                             dataFiltered: value,
-                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[$rootScope.getIntervalIndex(intervals['county'], value)] : 'gray'
+                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[$rootScope.getIntervalIndex(intervals['county'], value)] : 'rgb(225, 225, 225)'
                         };
                     }
                 }
@@ -365,7 +365,7 @@ countyMapsApp.run(function($rootScope, $http) {
                 return {path: path, projection: projection};
             },
             fills: {
-                defaultFill: 'darkslategray'
+                defaultFill: 'rgb(225, 225, 225)'
             },
             data: $rootScope.instance.currentValues.usMapData
         });
@@ -406,7 +406,7 @@ countyMapsApp.run(function($rootScope, $http) {
                 return {path: path, projection: projection};
             },
             fills: {
-                defaultFill: 'darkslategray'
+                defaultFill: 'rgb(225, 225, 225)'
             },
             data: $rootScope.instance.currentValues.stateMapData
         });
