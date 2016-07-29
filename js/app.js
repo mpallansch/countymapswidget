@@ -70,9 +70,8 @@ countyMapsApp.run(function($rootScope, $http) {
         );
     }
 
-    //given a url, name, and type, this function will fetch a dataset and store it 
+    //given a url and name this function will fetch a dataset and store it 
     //in the root scope associated with the name of the dataset
-    //datasetType can be 'state' 'county' or 'both'
     //once all of the datasets are finished being requested, init() is called
     $rootScope.getDataset = function(datasetUrl, datasetName) {
         $rootScope.instance.data[datasetName] = {};
@@ -99,6 +98,7 @@ countyMapsApp.run(function($rootScope, $http) {
     //need to happen one time, and then calls the updateData function, which processes data by
     //the filters that are currently set
     $rootScope.init = function() {
+        //only shows dataset selector if there is more than one
         if(Object.keys($rootScope.instance.data).length < 2){
             $rootScope.instance.currentValues.showSelector = false;
         } else {
@@ -152,12 +152,14 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.instance.currentValues.usMapData = {};
         $rootScope.instance.currentValues.stateMapData = {};
         
+        //announces current disease selected for accessibility
         $rootScope.instance.currentValues.accessibilityText = $rootScope.instance.currentInputs.disease + ' Selected';
         
         //sets the current unfiltered values displayed in the legend from the unfiltered values determined in init()
         $rootScope.instance.currentValues.us = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter['US'];
         $rootScope.instance.currentValues.state = $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[$rootScope.states[$rootScope.instance.currentInputs.state].abbrev];
         
+        //determines the filter string that will be displayed in the legend and hover popup
         var filterValue, noFilters = true;
         $rootScope.instance.currentValues.filterString = '';
         for(filter in $rootScope.instance.currentInputs.filters){
@@ -236,7 +238,7 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.loading = false;
     };
     
-    //finds the min and max of the currently selected county or state dataset
+    //finds the min and max of the currently selected county and state dataset
     $rootScope.minMax = function(){
         var state, location, value, stateMin = Number.MAX_VALUE, stateMax = Number.MIN_VALUE, countyMin = Number.MAX_VALUE, countyMax = Number.MIN_VALUE;
         $rootScope.instance.data[$rootScope.instance.currentInputs.disease].forEach(
@@ -268,7 +270,7 @@ countyMapsApp.run(function($rootScope, $http) {
         return [[stateMin, stateMax],[countyMin, countyMax]];
     };
     
-    //determins if the state provided is the state that is currently selected by the user
+    //determins if two strings are representative of the same state, either by abbreviation or full state name
     $rootScope.statesMatch = function(state1, state2){
         if((state1.toLowerCase() === state2.toLowerCase()) || 
                 ($rootScope.states[state1] !== undefined && ($rootScope.states[state1].abbrev.toLowerCase() === state2.toLowerCase())) || 
@@ -294,19 +296,23 @@ countyMapsApp.run(function($rootScope, $http) {
 
     //this function draws both maps, and will be called when the filters are updated, or when the page is resized
     $rootScope.drawMaps = function() {
+        //if the map data or instance have not loaded, do not attempt to draw maps
         if(!$rootScope.mapData || !$rootScope.instance || !$rootScope.instance.data){
             return;
         }
         
+        //erases old map
         var usMapContainer = $('#us-map-container');
         usMapContainer.empty();
 
+        //resizes map container to maintain aspect ratio
         if (usMapContainer.width() < 465) {
             usMapContainer.height(usMapContainer.width() * .7);
         } else {
             usMapContainer.height(275);
         }
 
+        //creates map passing appropriate parameters
         $rootScope.usMap = new Datamap({
             scope: 'usa',
             element: usMapContainer[0],
@@ -336,12 +342,16 @@ countyMapsApp.run(function($rootScope, $http) {
             data: $rootScope.instance.currentValues.usMapData
         });
         
+        //gets the current state object for latitude and longitude
         var state = $rootScope.states[$rootScope.instance.currentInputs.state];
         
+        //erases the old map
         $('#state-map-container').empty(); 
 
+        //searches geometries loaded in counties.json for only counties in the current state
         $rootScope.mapData.objects.cb_2015_us_county_500k.geometries = $rootScope.geometries[$rootScope.instance.currentInputs.state];
 
+        //creates the map passing appropriate parameters
         $rootScope.stateMap = new Datamap({
             element: document.getElementById('state-map-container'),
             geographyConfig: {
