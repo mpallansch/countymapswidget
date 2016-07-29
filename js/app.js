@@ -196,6 +196,21 @@ countyMapsApp.run(function($rootScope, $http) {
             .domain(minMax[1])
             .range(["#EFEFFF", $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
         
+        //determines legend values
+        var num = $rootScope.instance.numberLegendItems || 4;
+        var stateInterval = (minMax[0][1] - minMax[0][0]) / num;
+        var countyInterval =(minMax[1][1] - minMax[1][0]) / num;
+        var stateCurrent;
+        var countyCurrent;
+        $rootScope.instance.currentValues.stateLegend = [];
+        $rootScope.instance.currentValues.countyLegend = [];
+        for(index = 0; index < num; index++){
+            stateCurrent = minMax[0][0] + (index * stateInterval);
+            countyCurrent = minMax[1][0] + (index * countyInterval);
+            $rootScope.instance.currentValues.stateLegend.push([stateCurrent.toFixed(2), (stateCurrent + stateInterval).toFixed(2), statePaletteScale(stateCurrent + (stateInterval / 2))]);
+            $rootScope.instance.currentValues.countyLegend.push([countyCurrent.toFixed(2), (countyCurrent + countyInterval).toFixed(2), statePaletteScale(countyCurrent + (countyInterval / 2))]);
+        }
+        
         //iterates through each datapoint in the state dataset, determining the filtered values to display in the legend
         //and adding data to the current map data with the filtered, unfiltered, and color scale values
         $rootScope.instance.data[$rootScope.instance.currentInputs.disease].forEach(

@@ -186,10 +186,6 @@ select {
     margin-bottom: 5px;
 }
 
-#us-map-legend p:nth-child(2) {
-    margin-top: 0;
-}
-
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
     display: inline-block;
     vertical-align: top;
@@ -197,6 +193,24 @@ select {
 
 #us-map-legend, #state-map-legend {
     width: 25%;
+}
+
+.legend-values {
+    margin-top: 20px;
+}
+
+.legend-color {
+    display: inline-block;
+    vertical-align: middle;
+    width: 15px;
+    height: 15px;
+    border: 1px solid gray;
+}
+
+.legend-value {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
 }
 
 #us-map-section, #state-map-section {

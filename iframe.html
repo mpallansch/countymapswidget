@@ -49,6 +49,11 @@
                 <div id="us-map-legend" data-ng-cloak>
                     <p>{{instance.currentInputs.disease}}<br>For all of US<br><br>Total: {{instance.currentValues.us}}</p>
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ', ')}}</span>: {{instance.currentValues.usFiltered}}</p>
+                    <div class="legend-values">
+                        <div data-ng-repeat="row in instance.currentValues.stateLegend">
+                            <span data-ng-style="{'background-color' : row[2]}" class="legend-color"></span><span class="legend-value">{{row[0]}} - {{row[1]}}</span>
+                        </div>
+                    </div>
                 </div><div id="us-map-section">
                     <p>Select a State to see the Data</p>
                     <div id="us-map-container" class="map-container"></div>
@@ -129,6 +134,11 @@
                 <div id="state-map-legend" data-ng-cloak>
                     <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br><br>Total: {{instance.currentValues.state}}</p>
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}}</span>: {{instance.currentValues.stateFiltered}}</p>
+                    <div class="legend-values">
+                        <div data-ng-repeat="row in instance.currentValues.countyLegend">
+                            <span data-ng-style="{'background-color' : row[2]}" class="legend-color"></span><span class="legend-value">{{row[0]}} - {{row[1]}}</span>
+                        </div>
+                    </div>
                 </div><div id="state-map-section">
                     <p>Select a County to see the Data<p>
                     <div id="state-map-container" class="map-container"></div>
