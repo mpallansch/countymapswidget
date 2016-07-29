@@ -12,7 +12,7 @@
 
 		// INIT METRICS
 		cdcMetrics.init({
-			useMetrics : 'false'
+			useMetrics : 'true'
 		});
 
 		cdcCommon.createEmbedCode(cdcCommon.getCallParam('wn'),['data-instance-name']);

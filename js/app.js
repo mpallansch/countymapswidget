@@ -178,6 +178,7 @@ countyMapsApp.run(function($rootScope, $http) {
             $rootScope.instance.currentValues.filterString = '';
         } else {
             $rootScope.instance.currentValues.filterString = $rootScope.instance.currentValues.filterString.substring(0, $rootScope.instance.currentValues.filterString.length - 2);
+            window.cdcCommon.metrics.trackEvent('Filter Selected', $rootScope.instance.currentValues.filterString);
         }
         
         //initializes variables, including the column names for the state and data defined in the instance json file

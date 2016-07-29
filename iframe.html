@@ -10,19 +10,19 @@
     <body id="body" class="widget-responsive" data-ng-controller="mainCtrl">
         <link rel="stylesheet" href="/TemplatePackage/contrib/widgets/tp-widget-common.css" />
         <div id="tp-widget-share-modal" class="cdc-share-code" style="display: none;">
-            <div class="share-exit" onclick="cdcCommon.events.shareClose()">X</div>
+            <div class="share-exit" onclick="window.cdcCommon.events.shareClose()">X</div>
             Copy and paste the code below:
             <textarea id="tp-widget-share-code"></textarea><br />
         </div>
         <div id="tp-widget-info-modal" class="cdc-info-modal" style="display: none;">
-            <div class="info-exit" onclick="cdcCommon.events.infoClose()">X</div>
+            <div class="info-exit" onclick="window.cdcCommon.events.infoClose()">X</div>
             <div class='rid_942249fa_131961' data-apiroot='//tools.cdc.gov/api' data-mediatype='html' data-mediaid='131961' data-stripscripts='false' data-stripanchors='false' data-stripimages='false' data-stripcomments='false' data-stripstyles='false' data-imagefloat='' data-cssclasses='' data-ids='' data-xpath='' data-oe='' data-of='' data-ns='' data-postprocess='' data-nw='false'></div><script src='//tools.cdc.gov/api/embed/html/js/embed-2.0.2.js' ></script><noscript>You need javascript enabled to view this content or go to <a href='//tools.cdc.gov/api/v2/resources/media/131961/noscript'>source URL</a>.</noscript>
             <br />
-            <div class="info-close-wrap"><div class="info-close" onclick="cdcCommon.events.infoClose()">Close</div>
+            <div class="info-close-wrap"><div class="info-close" onclick="window.cdcCommon.events.infoClose()">Close</div>
             </div></div>
         <div class="widget-header">
-            <div class="cdc-info" onclick="cdcCommon.events.infoOpen()">Info</div>
-            <div class="cdc-share" onclick="cdcCommon.events.shareOpen()">Share</div>
+            <div class="cdc-info" onclick="window.cdcCommon.events.infoOpen()">Info</div>
+            <div class="cdc-share" onclick="window.cdcCommon.events.shareOpen()">Share</div>
         </div>
         
         <div data-ng-hide="!error" data-ng-cloak>
@@ -169,10 +169,10 @@
             </div>
             <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].moreInformationLabel && instance.datasets[instance.currentInputs.disease].moreInformationLink">{{instance.datasets[instance.currentInputs.disease].moreInformationLabel}}: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].moreInformationLink}}">{{instance.datasets[instance.currentInputs.disease].moreInformationName}}</a></p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].dataSourceLink">Download Data: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}">{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}</a></p>
-                <a href="http://www.cdc.gov" target="_blank" onclick="cdcCommon.events.logoClick()"><img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="75" /></a>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Source Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].moreInformationLabel && instance.datasets[instance.currentInputs.disease].moreInformationLink">{{instance.datasets[instance.currentInputs.disease].moreInformationLabel}}: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('More Info Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.disease].moreInformationLink}}">{{instance.datasets[instance.currentInputs.disease].moreInformationName}}</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].dataSourceLink">Download Data: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Data Download Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}">{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}</a></p>
+                <a href="http://www.cdc.gov" target="_blank" onclick="window.cdcCommon.events.logoClick()"><img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="75" /></a>
             </div>
             <span class="screen-reader-hidden" role="alert">{{instance.currentValues.accessibilityText}}</span>
         </div>
