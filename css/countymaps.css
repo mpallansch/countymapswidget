@@ -20,6 +20,10 @@ path {
     top: -1000px;
 }
 
+#widget-title {
+    text-align: center;
+}
+
 #loading-modal {
     display: table;
     position: fixed;

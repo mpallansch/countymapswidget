@@ -181,34 +181,19 @@ countyMapsApp.run(function($rootScope, $http) {
         }
         
         //initializes variables, including the column names for the state and data defined in the instance json file
-        var state, location, value, statePaletteScale, countyPaletteScale, minMax,
+        var state, location, value, paletteScale, intervals, numIntervals = 4,
                 stateColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].stateColumn,
                 locationColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].locationColumn,
                 dataColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].dataColumn;
         
         //creates a color scale based on the min and max of the state dataset, and the color defined in the instance json file
-        minMax = $rootScope.minMax();
-        statePaletteScale = d3.scale.linear()
-            .domain(minMax[0])
-            .range(["#EFEFFF", $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
-    
-        countyPaletteScale = d3.scale.linear()
-            .domain(minMax[1])
-            .range(["#EFEFFF", $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].color]);
+        intervals = $rootScope.getIntervals(numIntervals);
         
-        //determines legend values
-        var num = $rootScope.instance.numberLegendItems || 4;
-        var stateInterval = (minMax[0][1] - minMax[0][0]) / num;
-        var countyInterval =(minMax[1][1] - minMax[1][0]) / num;
-        var stateCurrent;
-        var countyCurrent;
         $rootScope.instance.currentValues.stateLegend = [];
         $rootScope.instance.currentValues.countyLegend = [];
-        for(index = 0; index < num; index++){
-            stateCurrent = minMax[0][0] + (index * stateInterval);
-            countyCurrent = minMax[1][0] + (index * countyInterval);
-            $rootScope.instance.currentValues.stateLegend.push([stateCurrent.toFixed(2), (stateCurrent + stateInterval).toFixed(2), statePaletteScale(stateCurrent + (stateInterval / 2))]);
-            $rootScope.instance.currentValues.countyLegend.push([countyCurrent.toFixed(2), (countyCurrent + countyInterval).toFixed(2), statePaletteScale(countyCurrent + (countyInterval / 2))]);
+        for(index = 0; index < numIntervals; index++){
+            $rootScope.instance.currentValues.stateLegend.push([$rootScope.normalizeNumber(intervals['state'][index]), $rootScope.normalizeNumber(intervals['state'][index + 1]), $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[index]]);
+            $rootScope.instance.currentValues.countyLegend.push([$rootScope.normalizeNumber(intervals['county'][index]), $rootScope.normalizeNumber(intervals['county'][index + 1]), $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[index]]);
         }
         
         //iterates through each datapoint in the state dataset, determining the filtered values to display in the legend
@@ -233,7 +218,7 @@ countyMapsApp.run(function($rootScope, $http) {
                         $rootScope.instance.currentValues.usMapData[state] = {
                             data: $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[state],
                             dataFiltered: value,
-                            fillColor: value ? statePaletteScale(value) : 'gray'
+                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[$rootScope.getIntervalIndex(intervals['state'], value)] : 'gray'
                         };
                     }
                 } else {
@@ -242,7 +227,7 @@ countyMapsApp.run(function($rootScope, $http) {
                         $rootScope.instance.currentValues.stateMapData[location] = {
                             data: $rootScope.instance.data[$rootScope.instance.currentInputs.disease].noFilter[state + ' ' + location], 
                             dataFiltered: value,
-                            fillColor: value ? countyPaletteScale(value) : 'gray'
+                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].colors[$rootScope.getIntervalIndex(intervals['county'], value)] : 'gray'
                         };
                     }
                 }
@@ -253,9 +238,9 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.loading = false;
     };
     
-    //finds the min and max of the currently selected county and state dataset
-    $rootScope.minMax = function(){
-        var state, location, value, stateMin = Number.MAX_VALUE, stateMax = Number.MIN_VALUE, countyMin = Number.MAX_VALUE, countyMax = Number.MIN_VALUE;
+    //gets an array of the values for the intervals for both county and state level
+    $rootScope.getIntervals = function(numIntervals){
+        var obj, state, location, value, stateDistance, countyDistance, stateMin = Number.MAX_VALUE, stateMax = Number.MIN_VALUE, countyMin = Number.MAX_VALUE, countyMax = Number.MIN_VALUE;
         $rootScope.instance.data[$rootScope.instance.currentInputs.disease].forEach(
             function(datapoint){
                 state = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.disease].stateColumn];
@@ -282,7 +267,35 @@ countyMapsApp.run(function($rootScope, $http) {
                 }
             }
         );
-        return [[stateMin, stateMax],[countyMin, countyMax]];
+
+        stateDistance = (stateMax - stateMin) / numIntervals;
+        countyDistance = (countyMax - countyMin) / numIntervals;
+        
+        obj = {
+            'state': [stateMin],
+            'county': [countyMin]
+        };
+        
+        for(index = 1; index < numIntervals + 1; index++){
+            obj['state'].push(stateMin + (index * stateDistance));
+            obj['county'].push(countyMin + (index * countyDistance));
+        }
+        
+        return obj;
+        
+    };
+    
+    $rootScope.getIntervalIndex = function(interval, value){
+        for(index = 0; index < interval.length - 1; index++){
+            if(value < interval[index + 1]){
+                return index;
+            }
+        }
+        return interval.length - 2;
+    };
+    
+    $rootScope.normalizeNumber = function(number){
+        return parseFloat(number.toFixed(1));
     };
     
     //determins if two strings are representative of the same state, either by abbreviation or full state name
@@ -336,13 +349,13 @@ countyMapsApp.run(function($rootScope, $http) {
                 popupTemplate: function(geo, data) {
                     return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
-                                '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
-                                ($rootScope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>') : '') + 
+                                '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'Insufficient Data') + '</p>' +
+                                ($rootScope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'Insufficient Data') + '</p>') : '') + 
                             '</div>';
                 }
             },
             setProjection: function(element) {
-                var projection = d3.geo.albers()
+                var projection = d3.geo.albersUsa()
                         .scale($(element).width() < 465 ? $(element).width() / 465 * 600 : 600)
                         .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
 
@@ -368,6 +381,7 @@ countyMapsApp.run(function($rootScope, $http) {
 
         //creates the map passing appropriate parameters
         $rootScope.stateMap = new Datamap({
+            scope: 'cb_2015_us_county_500k',
             element: document.getElementById('state-map-container'),
             geographyConfig: {
                 dataJson: $rootScope.mapData,
@@ -375,12 +389,11 @@ countyMapsApp.run(function($rootScope, $http) {
                 popupTemplate: function(geo, data) {
                     return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
-                                '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'No Data') + '</p>' +
-                                ($rootScope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'No Data') + '</p>') : '') + 
+                                '<p class="popup-rate">Total: ' + (data && data.data ? data.data : 'Insufficient Data') + '</p>' +
+                                ($rootScope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $rootScope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'Insufficient Data') + '</p>') : '') + 
                             '</div>';
                 }
             },
-            scope: 'cb_2015_us_county_500k',
             setProjection: function(element) {
                 var projection = d3.geo.mercator()
                         .center([state.long, state.lat])

@@ -8,7 +8,6 @@
         <meta charset="windows-1252">
     </head>
     <body id="body" class="widget-responsive" data-ng-controller="mainCtrl">
-        <!--Replace with SSI below-->
         <link rel="stylesheet" href="/TemplatePackage/contrib/widgets/tp-widget-common.css" />
         <div id="tp-widget-share-modal" class="cdc-share-code" style="display: none;">
             <div class="share-exit" onclick="cdcCommon.events.shareClose()">X</div>
@@ -22,16 +21,15 @@
             <div class="info-close-wrap"><div class="info-close" onclick="cdcCommon.events.infoClose()">Close</div>
             </div></div>
         <div class="widget-header">
-            <a class="cdc-link" href="http://www.cdc.gov" target="_blank" onclick="cdcCommon.events.logoClick()"><img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="75" /></a>
             <div class="cdc-info" onclick="cdcCommon.events.infoOpen()">Info</div>
             <div class="cdc-share" onclick="cdcCommon.events.shareOpen()">Share</div>
         </div>
-        <!--include file="/TemplatePackage/contrib/widgets/includes/branding-cdc-header.html" -->
+        
         <div data-ng-hide="!error" data-ng-cloak>
             <p>Error loading instance, please check name and try again</p>
         </div>
         <div data-ng-hide="error">
-            <h2 data-ng-cloak>{{instance.title}}</h2>
+            <h2 id="widget-title" data-ng-cloak>{{instance.title}}</h2>
             <div id="us-section">
                 <div id="us-map-controls">
                     <div data-ng-show="instance.currentValues.showSelector">
@@ -50,6 +48,9 @@
                     <p>{{instance.currentInputs.disease}}<br>For all of US<br><br>Total: {{instance.currentValues.us}}</p>
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ', ')}}</span>: {{instance.currentValues.usFiltered}}</p>
                     <div class="legend-values">
+                        <div>
+                            <span style="background-color: darkslategray" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
+                        </div>
                         <div data-ng-repeat="row in instance.currentValues.stateLegend">
                             <span data-ng-style="{'background-color' : row[2]}" class="legend-color"></span><span class="legend-value">{{row[0]}} - {{row[1]}}</span>
                         </div>
@@ -135,6 +136,9 @@
                     <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br><br>Total: {{instance.currentValues.state}}</p>
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}}</span>: {{instance.currentValues.stateFiltered}}</p>
                     <div class="legend-values">
+                        <div>
+                            <span style="background-color: darkslategray" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
+                        </div>
                         <div data-ng-repeat="row in instance.currentValues.countyLegend">
                             <span data-ng-style="{'background-color' : row[2]}" class="legend-color"></span><span class="legend-value">{{row[0]}} - {{row[1]}}</span>
                         </div>
@@ -166,6 +170,9 @@
             <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
                 <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].moreInformationLabel && instance.datasets[instance.currentInputs.disease].moreInformationLink">{{instance.datasets[instance.currentInputs.disease].moreInformationLabel}}: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].moreInformationLink}}">{{instance.datasets[instance.currentInputs.disease].moreInformationName}}</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].dataSourceLink">Download Data: <a target="_blank" data-ng-href="{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}">{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}</a></p>
+                <a href="http://www.cdc.gov" target="_blank" onclick="cdcCommon.events.logoClick()"><img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="75" /></a>
             </div>
             <span class="screen-reader-hidden" role="alert">{{instance.currentValues.accessibilityText}}</span>
         </div>
