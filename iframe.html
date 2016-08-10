@@ -35,7 +35,7 @@
                     <div data-ng-show="instance.currentValues.showSelector">
                         Select disease: 
                         <span data-ng-repeat="(name, data) in instance.data">
-                            <input data-ng-model="instance.currentInputs.disease" id="dataset-input-{{$index}}" type="radio" name="disease" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}" data-ng-class="{mousedown: mousedown}" data-ng-mousedown="mousedown = true" data-ng-mouseup="mousedown = false" tabindex="0" data-ng-cloak>{{name}}</label>
+                            <input data-ng-model="instance.currentInputs.datasetName" id="dataset-input-{{$index}}" type="radio" name="datasetName" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}" data-ng-class="{mousedown: mousedown}" data-ng-mousedown="mousedown = true" data-ng-mouseup="mousedown = false" tabindex="0" data-ng-cloak>{{name}}</label>
                         </span>
                     </div>
                     <div>
@@ -45,8 +45,8 @@
                     </div>
                 </div>
                 <div id="us-map-legend" data-ng-cloak>
-                    <p>{{instance.currentInputs.disease}}<br>For all of US<br><br>Total: {{instance.currentValues.us}}</p>
-                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ', ')}}</span>: {{instance.currentValues.usFiltered}}</p>
+                    <p>{{instance.datasets[instance.currentInputs.disease].stateLegendHeader || instance.currentInputs.datasetName}}<br>For all of US<br><br>Total US: {{instance.currentValues.us}}</p>
+                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
                     <div class="legend-values">
                         <div>
                             <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
                 </div><div id="us-map-section">
-                    <p>Select a State to see the Data</p>
+                    <p>Select/Hover Over a State to See the Data</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div class="accessibility-table-wrapper">
                         <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? showStateTable = !showStateTable : null" data-ng-click="showStateTable = !showStateTable" tabindex="0">Data Table <span class="float-right" aria-hidden="true">{{showStateTable ? '-' : '+'}}<span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></span></div>
@@ -133,8 +133,8 @@
                     <option value="Wyoming">Wyoming</option>
                 </select><br>
                 <div id="state-map-legend" data-ng-cloak>
-                    <p>{{instance.currentInputs.disease}}<br>For {{instance.currentInputs.state}}<br><br>Total: {{instance.currentValues.state}}</p>
-                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span data-ng-repeat="(filter, data) in instance.currentInputs.filters">{{data}}{{($last ? '' : ',')}}</span>: {{instance.currentValues.stateFiltered}}</p>
+                    <p>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}<br>For {{instance.currentInputs.state}}<br><br>Total {{instance.currentInputs.state}}: {{instance.currentValues.state}}</p>
+                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
                     <div class="legend-values">
                         <div>
                             <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
@@ -144,7 +144,7 @@
                         </div>
                     </div>
                 </div><div id="state-map-section">
-                    <p>Select a County to see the Data<p>
+                    <p>Select/Hover Over a County to See the Data<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div class="accessibility-table-wrapper">
                         <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? showCountyTable = !showCountyTable : null" data-ng-click="showCountyTable = !showCountyTable" tabindex="0">Data Table <span class="float-right" aria-hidden="true">{{showCountyTable ? '-' : '+'}}</span><span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></div>
@@ -168,10 +168,10 @@
                 </div>
             </div>
             <div id="footer-section" data-ng-cloak>
-                <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.disease].footnote">{{instance.datasets[instance.currentInputs.disease].footnote}}</p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].sourceLink && instance.datasets[instance.currentInputs.disease].sourceName">Source: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Source Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.disease].sourceLink}}">{{instance.datasets[instance.currentInputs.disease].sourceName}}</a></p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].moreInformationLabel && instance.datasets[instance.currentInputs.disease].moreInformationLink">{{instance.datasets[instance.currentInputs.disease].moreInformationLabel}}: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('More Info Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.disease].moreInformationLink}}">{{instance.datasets[instance.currentInputs.disease].moreInformationName}}</a></p>
-                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.disease].dataSourceLink">Download Data: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Data Download Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}">{{instance.datasets[instance.currentInputs.disease].dataSourceLink}}</a></p>
+                <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.datasetName].footnote">{{instance.datasets[instance.currentInputs.datasetName].footnote}}</p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.datasetName].sourceLink && instance.datasets[instance.currentInputs.datasetName].sourceName">Source: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Source Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].sourceLink}}">{{instance.datasets[instance.currentInputs.datasetName].sourceName}}</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.datasetName].moreInformationLabel && instance.datasets[instance.currentInputs.datasetName].moreInformationLink">{{instance.datasets[instance.currentInputs.datasetName].moreInformationLabel}}: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('More Info Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].moreInformationLink}}">{{instance.datasets[instance.currentInputs.datasetName].moreInformationName}}</a></p>
+                <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.datasetName].dataSourceLink">Download Data: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Data Download Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].dataSourceLink}}">{{instance.datasets[instance.currentInputs.datasetName].dataSourceLink}}</a></p>
                 <a href="http://www.cdc.gov" target="_blank" onclick="window.cdcCommon.events.logoClick()"><img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="75" /></a>
             </div>
             <span class="screen-reader-hidden" role="alert">{{instance.currentValues.accessibilityText}}</span>

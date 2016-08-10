@@ -1,18 +1,21 @@
 {
-    "title": "Heart Disease and Stroke Deaths",
+    "title": "Heart Disease and Stroke Deaths, Ages 35+, 2012-2014",
     "datasets": {
         "Heart Disease Deaths": {
             "url": "https://chronicdata-stage.demo.socrata.com/resource/xf27-wxgs.json?$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
              "dataColumn": "data_value",
-             "footnote": "Death rate per 100,000 population aged 35 and older.",
+             "stateLegendHeader": "Heart Disease Death Rate per 100,000",
+             "countyLegendHeader": "Heart Disease Death Rate per 100,000",
+             "footnote": "Data are age-adjusted and spatially smoothed.",
              "sourceLink": "http://www.cdc.gov/chronicdisease/index.htm",
              "sourceName": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention ",
              "moreInformationLabel": "For additional maps",
              "moreInformationName": "Interactive Atlas of Heart Disease and Stroke",
              "moreInformationLink": "http://nccd.cdc.gov/DHDSPAtlas/",
              "dataSourceLink": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention ",
+             "mapHighlightColor": "rgba(255, 255, 0 ,0.5)",
              "colors" : ["rgb(254, 229, 217)", "rgb(252, 174, 145)", "rgb(207, 42, 35)","rgb(145, 13, 18)"]
         },
         "Stroke Deaths": {
@@ -20,17 +23,30 @@
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
              "dataColumn": "data_value",
-             "footnote": "Death rate per 100,000 population aged 35 and older.",
+             "stateLegendHeader": "Stroke Death Rate per 100,000",
+             "countyLegendHeader": "Stroke Death Rate per 100,000",
+             "footnote": "Data are age-adjusted and spatially smoothed.",
              "sourceLink": "http://www.cdc.gov/chronicdisease/index.htm",
              "sourceName": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention ",
              "moreInformationLabel": "For additional maps",
              "moreInformationName": "Interactive Atlas of Heart Disease and Stroke",
              "moreInformationLink": "http://nccd.cdc.gov/DHDSPAtlas/",
              "dataSourceLink": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention ",
+             "mapHighlightColor": "rgba(255, 255, 0 ,0.5)",
              "colors" : ["rgb(251, 233, 252)", "rgb(219, 173, 222)", "rgb(117, 43, 122)","rgb(84, 14, 89)"]
         }
     },
     "filters": {
+        "Race": {
+            "column": "stratification2",
+            "noFilter": "Total",
+            "values": {
+                "All Race/Ethnicity": "Total",
+                "Black": "Black",
+                "Hispanic": "Hispanic",
+                "White": "White"
+            }
+        },
         "Gender": {
             "column": "stratification1",
             "noFilter": "Total",
@@ -38,16 +54,6 @@
                 "All Gender": "Total",
                 "Men": "Men",
                 "Women": "Women"
-            }
-        },
-        "Race": {
-            "column": "stratification2",
-            "noFilter": "Total",
-            "values": {
-                "All Adults": "Total",
-                "Black": "Black",
-                "Hispanic": "Hispanic",
-                "White": "White"
             }
         }
     }

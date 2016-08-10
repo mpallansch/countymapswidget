@@ -5,12 +5,6 @@ body {
     margin: 0;
 }
 
-path {
-    fill: rgb(225, 225, 225);
-    stroke: black !important;
-    stroke-width: 0.3px !important;
-}
-
 .float-right {
     float: right;
 }

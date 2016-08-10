@@ -12,6 +12,7 @@
 
 		// INIT METRICS
 		cdcMetrics.init({
+			c32 : "widget-134",
 			useMetrics : 'true'
 		});
 
