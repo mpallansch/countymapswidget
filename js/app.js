@@ -149,6 +149,8 @@ countyMapsApp.run(function($rootScope, $http) {
     //this function processes the data with the current filters, and will be called any time a filter value changes
     $rootScope.updateData = function() {
         $rootScope.loading = true;
+        $rootScope.instance.currentValues.usCurrentData = [];
+        $rootScope.instance.currentValues.stateCurrentData = [];
         $rootScope.instance.currentValues.usMapData = {};
         $rootScope.instance.currentValues.stateMapData = {};
         
@@ -181,20 +183,13 @@ countyMapsApp.run(function($rootScope, $http) {
         }
         
         //initializes variables, including the column names for the state and data defined in the instance json file
-        var state, location, value, paletteScale, intervals, numIntervals = 4,
+        var state, location, value, numIntervals, intervalWidth,
                 stateColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].stateColumn,
                 locationColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].locationColumn,
                 dataColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn;
-        
-        //creates a color scale based on the min and max of the state dataset, and the color defined in the instance json file
-        intervals = $rootScope.getIntervals(numIntervals);
-        
+              
         $rootScope.instance.currentValues.stateLegend = [];
         $rootScope.instance.currentValues.countyLegend = [];
-        for(index = 0; index < numIntervals; index++){
-            $rootScope.instance.currentValues.stateLegend.push([$rootScope.normalizeNumber(intervals['state'][index]), $rootScope.normalizeNumber(intervals['state'][index + 1]), $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[index]]);
-            $rootScope.instance.currentValues.countyLegend.push([$rootScope.normalizeNumber(intervals['county'][index]), $rootScope.normalizeNumber(intervals['county'][index + 1]), $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[index]]);
-        }
         
         //iterates through each datapoint in the state dataset, determining the filtered values to display in the legend
         //and adding data to the current map data with the filtered, unfiltered, and color scale values
@@ -215,83 +210,67 @@ countyMapsApp.run(function($rootScope, $http) {
                         }
                     }
                     if($rootScope.matchesFilter(datapoint)){
-                        $rootScope.instance.currentValues.usMapData[state] = {
-                            data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[state],
-                            dataFiltered: value,
-                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[$rootScope.getIntervalIndex(intervals['state'], value)] : 'rgb(225, 225, 225)'
-                        };
+                        if(value){
+                            $rootScope.instance.currentValues.usCurrentData.push(datapoint);
+                        } else {
+                            $rootScope.instance.currentValues.usMapData[state] = {
+                                data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[state]
+                            };
+                        }
                     }
                 } else {
                     if($rootScope.statesMatch(state, $rootScope.instance.currentInputs.state) && $rootScope.matchesFilter(datapoint)){
-                        value = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn];
-                        $rootScope.instance.currentValues.stateMapData[location] = {
-                            data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[state + ' ' + location], 
-                            dataFiltered: value,
-                            fillColor: value ? $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[$rootScope.getIntervalIndex(intervals['county'], value)] : 'rgb(225, 225, 225)'
-                        };
+                        if(value){
+                            $rootScope.instance.currentValues.stateCurrentData.push(datapoint);
+                        } else {
+                            $rootScope.instance.currentValues.stateMapData[location] = {
+                                data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[state + ' ' + location]
+                            };
+                        }
                     }
                 }
             }
         );
+
+        $rootScope.instance.currentValues.usCurrentData.sort($rootScope.compareDatapoints);
+        $rootScope.instance.currentValues.stateCurrentData.sort($rootScope.compareDatapoints);
+        
+        numIntervals = Math.min($rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors.length, $rootScope.instance.currentValues.usCurrentData.length);
+        intervalWidth = $rootScope.instance.currentValues.usCurrentData.length / numIntervals;
+        
+        $rootScope.instance.currentValues.usCurrentData.forEach(function(datapoint, index){
+            if(Math.floor(index % intervalWidth) === 0){
+                $rootScope.instance.currentValues.stateLegend.push(datapoint[dataColumn]);
+            } else if(index === $rootScope.instance.currentValues.usCurrentData.length - 1){
+                $rootScope.instance.currentValues.stateLegend.push(datapoint[dataColumn]);
+            }
+            
+            $rootScope.instance.currentValues.usMapData[datapoint[stateColumn]] = {
+                data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn]],
+                dataFiltered: datapoint[dataColumn],
+                fillColor: $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
+            };
+        });
+        
+        numIntervals = Math.min($rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors.length, $rootScope.instance.currentValues.stateCurrentData.length);
+        intervalWidth = $rootScope.instance.currentValues.stateCurrentData.length / numIntervals;
+        
+        $rootScope.instance.currentValues.stateCurrentData.forEach(function(datapoint, index){
+            if(Math.floor(index % intervalWidth) === 0){
+                $rootScope.instance.currentValues.countyLegend.push(datapoint[dataColumn]);
+            } else if(index === $rootScope.instance.currentValues.stateCurrentData.length - 1){
+                $rootScope.instance.currentValues.countyLegend.push(datapoint[dataColumn]);
+            }
+            
+            $rootScope.instance.currentValues.stateMapData[datapoint[locationColumn]] = {
+                data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]],
+                dataFiltered: datapoint[dataColumn],
+                fillColor: $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
+            };
+        });
 
         $rootScope.drawMaps();
         $rootScope.loading = false;
-    };
-    
-    //gets an array of the values for the intervals for both county and state level
-    $rootScope.getIntervals = function(numIntervals){
-        var obj, state, location, value, stateDistance, countyDistance, stateMin = Number.MAX_VALUE, stateMax = Number.MIN_VALUE, countyMin = Number.MAX_VALUE, countyMax = Number.MIN_VALUE;
-        $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].forEach(
-            function(datapoint){
-                state = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].stateColumn];
-                location = datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].locationColumn];
-                if($rootScope.matchesFilter(datapoint)){
-                    if(datapoint.countyMapsStateFlag){
-                        value = parseFloat(datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn]);
-                        if(value < stateMin){
-                            stateMin = value;
-                        } 
-                        if(value > stateMax){
-                            stateMax = value;
-                        }
-                    }
-                    if($rootScope.statesMatch(state, $rootScope.instance.currentInputs.state)){
-                        value = parseFloat(datapoint[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn]);
-                        if(value < countyMin){
-                            countyMin = value;
-                        } 
-                        if(value > countyMax){
-                            countyMax = value;
-                        }
-                    }
-                }
-            }
-        );
-
-        stateDistance = (stateMax - stateMin) / numIntervals;
-        countyDistance = (countyMax - countyMin) / numIntervals;
-        
-        obj = {
-            'state': [stateMin],
-            'county': [countyMin]
-        };
-        
-        for(index = 1; index < numIntervals + 1; index++){
-            obj['state'].push(stateMin + (index * stateDistance));
-            obj['county'].push(countyMin + (index * countyDistance));
-        }
-        
-        return obj;
-        
-    };
-    
-    $rootScope.getIntervalIndex = function(interval, value){
-        for(index = 0; index < interval.length - 1; index++){
-            if(value < interval[index + 1]){
-                return index;
-            }
-        }
-        return interval.length - 2;
     };
     
     $rootScope.normalizeNumber = function(number){
@@ -299,6 +278,24 @@ countyMapsApp.run(function($rootScope, $http) {
             number = parseFloat(number);
         }
         return number.toFixed(1);
+    };
+    
+    $rootScope.compareDatapoints = function(a, b){
+        var valA = a[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn];
+        var valB = b[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn];
+        if(typeof valA !== 'number'){
+            valA = parseFloat(valA);
+        }
+        if(typeof valB !== 'number'){
+            valB = parseFloat(valB);
+        }
+        if(valA < valB){
+            return -1;
+        } else if(valA > valB){
+            return 1;
+        } else {
+            return 0;
+        }
     };
     
     //determins if two strings are representative of the same state, either by abbreviation or full state name
