@@ -65,6 +65,8 @@ label {
     border-right: 2px solid lightgray;
     border-left: 2px solid #FBFBFF;
     border-top: 2px solid #FBFBFF;
+    white-space: nowrap;
+    line-height: 40px;
 }
 
 input[type="radio"]:checked+label{ 
@@ -253,11 +255,6 @@ select {
 }
 
 @media (max-width: 400px){
-    label {
-        display: block;
-        margin: 5px 0px;
-    }
-    
     #us-map-controls select {
         margin-left: 0;
     }
