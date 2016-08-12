@@ -58,6 +58,12 @@
                 </div><div id="us-map-section">
                     <p>Select/Hover Over a State to See the Data</p>
                     <div id="us-map-container" class="map-container"></div>
+                    <div id="us-map-territories">
+                        <span id="territories-label">Territories:</span> 
+                        <span class="territory-box" data-ng-mouseout="territoryHover('GU', 'Guam', false)" data-ng-mouseover="territoryHover('GU', 'Guam', true)" data-ng-if="instance.currentValues.usMapData['GU']" data-ng-style="{'background-color': instance.currentValues.usMapData['GU'].fillColor || 'rgb(225, 225, 225)'}"></span><span class="territory-label" data-ng-if="instance.currentValues.usMapData['GU']">Guam</span>
+                        <span class="territory-box" data-ng-mouseout="territoryHover('PR', 'Puerto Rico', false)" data-ng-mouseover="territoryHover('PR', 'Puerto Rico', true)" data-ng-if="instance.currentValues.usMapData['PR']" data-ng-style="{'background-color': instance.currentValues.usMapData['PR'].fillColor || 'rgb(225, 225, 225)'}"></span><span class="territory-label" data-ng-if="instance.currentValues.usMapData['PR']">Puerto Rico</span>
+                        <span class="territory-box" data-ng-mouseout="territoryHover('VI', 'Virgin Islands', false)" data-ng-mouseover="territoryHover('VI', 'Virgin Islands', true)" data-ng-if="instance.currentValues.usMapData['VI']" data-ng-style="{'background-color': instance.currentValues.usMapData['VI'].fillColor || 'rgb(225, 225, 225)'}"></span><span class="territory-label" data-ng-if="instance.currentValues.usMapData['VI']">Virgin Islands</span>
+                    </div>
                     <div class="accessibility-table-wrapper">
                         <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? showStateTable = !showStateTable : null" data-ng-click="showStateTable = !showStateTable" tabindex="0">Data Table <span class="float-right" aria-hidden="true">{{showStateTable ? '-' : '+'}}<span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></span></div>
                         <table class="accessibility-table" data-ng-show="showStateTable" role="alert">

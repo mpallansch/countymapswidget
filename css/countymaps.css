@@ -152,6 +152,29 @@ select {
     margin-left: 40px;
 }
 
+#us-map-territories {
+    margin-top: 10px;
+}
+
+#territories-label {
+    float: left;    
+    margin-left: 15px;
+}
+
+.territory-box {
+    display: inline-block;
+    width: 25px;
+    height: 20px;
+    border-radius: 3px;
+}
+
+.territory-label {
+    display: inline-block;
+    vertical-align: top;
+    line-height: 20px;
+    margin-left: 5px;
+}
+
 .accessibility-table-wrapper {
     margin: 15px;
 }
