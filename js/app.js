@@ -240,14 +240,14 @@ countyMapsApp.run(function($rootScope, $http) {
         
         $rootScope.instance.currentValues.usCurrentData.forEach(function(datapoint, index){
             if(Math.floor(index % intervalWidth) === 0){
-                $rootScope.instance.currentValues.stateLegend.push(datapoint[dataColumn]);
+                $rootScope.instance.currentValues.stateLegend.push($rootScope.normalizeNumber(datapoint[dataColumn]));
             } else if(index === $rootScope.instance.currentValues.usCurrentData.length - 1){
-                $rootScope.instance.currentValues.stateLegend.push(datapoint[dataColumn]);
+                $rootScope.instance.currentValues.stateLegend.push($rootScope.normalizeNumber(datapoint[dataColumn]));
             }
             
             $rootScope.instance.currentValues.usMapData[datapoint[stateColumn]] = {
-                data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn]],
-                dataFiltered: datapoint[dataColumn],
+                data: $rootScope.normalizeNumber($rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn]]),
+                dataFiltered: $rootScope.normalizeNumber(datapoint[dataColumn]),
                 fillColor: $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
             };
         });
@@ -257,14 +257,14 @@ countyMapsApp.run(function($rootScope, $http) {
         
         $rootScope.instance.currentValues.stateCurrentData.forEach(function(datapoint, index){
             if(Math.floor(index % intervalWidth) === 0){
-                $rootScope.instance.currentValues.countyLegend.push(datapoint[dataColumn]);
+                $rootScope.instance.currentValues.countyLegend.push($rootScope.normalizeNumber(datapoint[dataColumn]));
             } else if(index === $rootScope.instance.currentValues.stateCurrentData.length - 1){
-                $rootScope.instance.currentValues.countyLegend.push(datapoint[dataColumn]);
+                $rootScope.instance.currentValues.countyLegend.push($rootScope.normalizeNumber(datapoint[dataColumn]));
             }
             
             $rootScope.instance.currentValues.stateMapData[datapoint[locationColumn]] = {
-                data: $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]],
-                dataFiltered: datapoint[dataColumn],
+                data: $rootScope.normalizeNumber($rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]]),
+                dataFiltered: $rootScope.normalizeNumber(datapoint[dataColumn]),
                 fillColor: $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
             };
         });
