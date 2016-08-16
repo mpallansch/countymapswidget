@@ -75,10 +75,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(state, data) in instance.currentValues.usMapData">
+                                <tr data-ng-repeat="state in alphabetizedStates" data-ng-if="instance.currentValues.usMapData[state]">
                                     <td>{{state}}</td>
-                                    <td>{{data.data ? data.data : 'Insufficient Data'}}</td>
-                                    <td data-ng-show="instance.currentValues.filterString.length > 0">{{data.dataFiltered ? data.dataFiltered : 'Insufficient Data'}}</td>
+                                    <td>{{instance.currentValues.usMapData[state].data ? instance.currentValues.usMapData[state].data : 'Insufficient Data'}}</td>
+                                    <td data-ng-show="instance.currentValues.filterString.length > 0">{{instance.currentValues.usMapData[state].dataFiltered ? instance.currentValues.usMapData[state].dataFiltered : 'Insufficient Data'}}</td>
                                 </tr>
                             </tbody>
                         </table>
