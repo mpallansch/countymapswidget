@@ -178,7 +178,8 @@
                 <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.datasetName].sourceLink && instance.datasets[instance.currentInputs.datasetName].sourceName">Source: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Source Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].sourceLink}}">{{instance.datasets[instance.currentInputs.datasetName].sourceName}}</a></p>
                 <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.datasetName].moreInformationLabel && instance.datasets[instance.currentInputs.datasetName].moreInformationLink">{{instance.datasets[instance.currentInputs.datasetName].moreInformationLabel}}: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('More Info Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].moreInformationLink}}">{{instance.datasets[instance.currentInputs.datasetName].moreInformationName}}</a></p>
                 <p class="link-dataset" data-ng-show="instance.datasets[instance.currentInputs.datasetName].dataSourceLink">Download Data: <a target="_blank" onclick="window.cdcCommon.metrics.trackEvent('Data Download Link Click')" data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].dataSourceLink}}">{{instance.datasets[instance.currentInputs.datasetName].dataSourceLink}}</a></p>
-                <a href="http://www.cdc.gov" target="_blank" onclick="window.cdcCommon.events.logoClick()"><img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="75" /></a>
+                <map name="hhsCdcLogoMap">
+                </map>
             </div>
             <span class="screen-reader-hidden" role="alert">{{instance.currentValues.accessibilityText}}</span>
         </div>
