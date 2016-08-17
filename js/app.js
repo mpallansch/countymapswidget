@@ -155,9 +155,6 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.instance.currentValues.usMapData = {};
         $rootScope.instance.currentValues.stateMapData = {};
         
-        //announces current dataset selected for accessibility
-        $rootScope.instance.currentValues.accessibilityText = $rootScope.instance.currentInputs.datasetName + ' Selected';
-        
         //sets the current unfiltered values displayed in the legend from the unfiltered values determined in init()
         $rootScope.instance.currentValues.us = $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter['US'];
         $rootScope.instance.currentValues.state = $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].noFilter[$rootScope.states[$rootScope.instance.currentInputs.state].abbrev];

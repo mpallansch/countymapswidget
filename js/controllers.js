@@ -25,4 +25,14 @@ countyMapsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$window',
                 });
             }
         };
+        
+        $scope.dataTableToggle = function(isStateTable){
+            if(isStateTable){
+                $scope.showStateTable = !$scope.showStateTable;
+                $rootScope.instance.currentValues.accessibilityText = 'Data Table ' + ($scope.showStateTable ? 'Displayed' : 'Collapsed');
+            } else {
+                $scope.showCountyTable = !$scope.showCountyTable;
+                $rootScope.instance.currentValues.accessibilityText = 'Data Table ' + ($scope.showCountyTable ? 'Displayed' : 'Collapsed');
+            }
+        };
 }]);
