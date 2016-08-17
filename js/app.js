@@ -185,12 +185,13 @@ countyMapsApp.run(function($rootScope, $http) {
                 stateColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].stateColumn,
                 locationColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].locationColumn,
                 dataColumn = $rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn;
-              
+        
+        //initalizes legend values to an empty array
         $rootScope.instance.currentValues.stateLegend = [];
         $rootScope.instance.currentValues.countyLegend = [];
         
-        //iterates through each datapoint in the state dataset, determining the filtered values to display in the legend
-        //and adding data to the current map data with the filtered, unfiltered, and color scale values
+        //iterates through each datapoint in the current dataset and adds datapoints with the current filter
+        //values to the appropriate currentData objects
         $rootScope.instance.data[$rootScope.instance.currentInputs.datasetName].forEach(
             function(datapoint){
                 state = datapoint[stateColumn];
@@ -230,12 +231,14 @@ countyMapsApp.run(function($rootScope, $http) {
             }
         );
 
+        //sorts the filtered data from lowest to highest data value
         $rootScope.instance.currentValues.usCurrentData.sort($rootScope.compareDatapoints);
         $rootScope.instance.currentValues.stateCurrentData.sort($rootScope.compareDatapoints);
         
+        //iterates through current us map data, assigning each datapoint to the appropriate interval, and determining the upper and 
+        //lower limits of each interval to display in the legend
         numIntervals = Math.min($rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors.length, $rootScope.instance.currentValues.usCurrentData.length);
         intervalWidth = $rootScope.instance.currentValues.usCurrentData.length / numIntervals;
-        
         $rootScope.instance.currentValues.usCurrentData.forEach(function(datapoint, index){
             if(Math.floor(index % intervalWidth) === 0){
                 $rootScope.instance.currentValues.stateLegend.push($rootScope.normalizeNumber(datapoint[dataColumn]));
@@ -250,9 +253,9 @@ countyMapsApp.run(function($rootScope, $http) {
             };
         });
         
+        //repeats same process above for state map data
         numIntervals = Math.min($rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].colors.length, $rootScope.instance.currentValues.stateCurrentData.length);
         intervalWidth = $rootScope.instance.currentValues.stateCurrentData.length / numIntervals;
-        
         $rootScope.instance.currentValues.stateCurrentData.forEach(function(datapoint, index){
             if(Math.floor(index % intervalWidth) === 0){
                 $rootScope.instance.currentValues.countyLegend.push($rootScope.normalizeNumber(datapoint[dataColumn]));
@@ -271,6 +274,7 @@ countyMapsApp.run(function($rootScope, $http) {
         $rootScope.loading = false;
     };
     
+    //function takes a floating point number and rounds to a consistent number of decimal places to display on the map and legend
     $rootScope.normalizeNumber = function(number){
         if(typeof number !== 'number'){
             number = parseFloat(number);
@@ -278,6 +282,7 @@ countyMapsApp.run(function($rootScope, $http) {
         return number.toFixed(1);
     };
     
+    //compares data values of two datapoints, used to sort the data
     $rootScope.compareDatapoints = function(a, b){
         var valA = a[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn];
         var valB = b[$rootScope.instance.datasets[$rootScope.instance.currentInputs.datasetName].dataColumn];

@@ -3,6 +3,8 @@ var countyMapsControllers = angular.module('countyMapsControllers', []);
 countyMapsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$window', function($rootScope, $scope, $window){
 	angular.element($window).bind('resize', $rootScope.drawMaps);
         
+        //function called when a terrirory bubble is moused over, displays popup same as the states
+        //parameters are the territory code, territory name to display, and a boolean indicating whether the mouse event was mousein or mouseout
         $scope.territoryHover = function(territoryCode, territoryName, mouseIn){
             var $el = $('#us-map-container .datamaps-hoverover');
             if(mouseIn){
@@ -26,6 +28,8 @@ countyMapsControllers.controller('mainCtrl', ['$rootScope', '$scope', '$window',
             }
         };
         
+        //function is called when data table is toggled, either displays or collapses table and announces for accessibility
+        //parameter isStateTable is a boolean indicating whether the state or county table was toggled
         $scope.dataTableToggle = function(isStateTable){
             if(isStateTable){
                 $scope.showStateTable = !$scope.showStateTable;
