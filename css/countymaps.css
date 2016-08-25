@@ -270,3 +270,6 @@ select {
     }
 }
  
+.cdc-share, .cdc-info {
+    border-radius: 0 !important;
+}
