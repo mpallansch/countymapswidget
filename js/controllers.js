@@ -24,11 +24,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                         //sets the default inputs that will be displayed in the dropdowns
                         $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.datasets)[0];
                         $scope.instance.currentInputs.state = cdcCommon.getCallParam('defaultState') ? cdcCommon.getCallParam('defaultState') : 'Alabama';
-                        $scope.instance.currentInputs.filters = {};
-                        for (filter in $scope.instance.filters) {
-                            $scope.instance.currentInputs.filters[filter] = Object.keys($scope.instance.filters[filter].values)[0];
-                        }
-
+                        
                         //requests the topojson data for rendering counties, then filters the counties so they can be rendered one state at a time
                         $http.get('data/counties.json').then(
                                 function(response) {
@@ -102,6 +98,12 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 $scope.instance.currentValues.showSelector = false;
             } else {
                 $scope.instance.currentValues.showSelector = true;
+            }
+
+            //sets default values for filter select element
+            $scope.instance.currentInputs.filters = {};
+            for (filter in $scope.instance.filters) {
+                $scope.instance.currentInputs.filters[filter] = Object.keys($scope.instance.filters[filter].values)[0];
             }
 
             //iterates through each dataset, normalizing the state and county names to the id's in the topojson file
@@ -454,6 +456,11 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 $scope.showCountyTable = !$scope.showCountyTable;
                 $scope.instance.currentValues.accessibilityText = 'Data Table ' + ($scope.showCountyTable ? 'Displayed' : 'Collapsed');
             }
+        };
+
+        //function provides interface to cdcMetrics object to capture events
+        $scope.trackEvent = function(interaction, value){
+            cdcMetrics.trackEvent(interaction, value);
         };
         
         
