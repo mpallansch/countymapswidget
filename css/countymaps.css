@@ -15,6 +15,11 @@ body {
     top: -1000px;
 }
 
+.widget-header {
+    background-color: transparent !important;
+    border: none !important;
+}
+
 #widget-title {
     text-align: center;
 }
@@ -68,7 +73,6 @@ input[type="radio"]+label {
     border-top: 2px solid lightgray;
     white-space: nowrap;
     line-height: 40px;
-    opacity: .4;
 }
 
 input[type="radio"]:checked+label{ 
@@ -99,13 +103,15 @@ input {
 }
 
 select {
+    -webkit-appearance: textfield !important;
     border-radius: 5px;
-    background-color: lightgray;
-    padding: 5px 25px;
-    border-bottom: 2px solid darkgray;
-    border-right: 2px solid darkgray;
-    border-left: 2px solid lightgray;
-    border-top: 2px solid lightgray;
+    padding: 6px 25px;
+    font: 14px Arial; 
+    background-color: ghostwhite;
+    border-bottom: 2px solid lightgray;
+    border-right: 2px solid lightgray;
+    border-left: 2px solid #FBFBFF;
+    border-top: 2px solid #FBFBFF;
 }
 
 .map-container {
@@ -203,20 +209,6 @@ select {
     border-top: 1px solid gray;
 }
 
-.table-heading-row-first th {
-    padding-bottom: 5px;
-}
-
-.table-heading-row-second {
-    background-color: lightgray;
-}
-
-#us-map-legend p:first-child, #state-map-legend p:first-child {
-    border-bottom: 1px solid black;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
-}
-
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
     display: inline-block;
     vertical-align: top;
@@ -227,6 +219,8 @@ select {
 }
 
 .quartile-label {
+    border-top: 1px solid black;
+    padding-top: 10px;
     margin-bottom: 10px;
 }
 

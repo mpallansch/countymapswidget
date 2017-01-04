@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div><div id="us-map-section">
-                    <p>Select/Hover Over a State to See the Rates</p>
+                    <p>Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div id="us-map-territories" data-ng-if="instance.currentValues.usMapData['GU'] || instance.currentValues.usMapData['PR'] || instance.currentValues.usMapData['VI']">
                         <span id="territories-label">Territories:</span> 
@@ -68,12 +68,9 @@
                         <span class="territory-box" data-ng-mouseout="territoryHover('VI', 'Virgin Islands', false)" data-ng-mouseover="territoryHover('VI', 'Virgin Islands', true)" data-ng-if="instance.currentValues.usMapData['VI']" data-ng-style="{'background-color': instance.currentValues.usMapData['VI'].fillColor || 'rgb(225, 225, 225)'}"></span><span class="territory-label" data-ng-if="instance.currentValues.usMapData['VI']">Virgin Islands</span>
                     </div>
                     <div class="accessibility-table-wrapper">
-                        <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? dataTableToggle(true) : angular.noop()" data-ng-click="dataTableToggle(true)" tabindex="0">Data Table <span class="screen-reader-hidden">{{showStateTable ? 'Displayed' : 'Collapsed'}}</span> <span class="float-right" aria-hidden="true">{{showStateTable ? '-' : '+'}}<span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></span></div>
+                        <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? dataTableToggle(true) : angular.noop()" data-ng-click="dataTableToggle(true)" tabindex="0">Data Table: {{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span> <span class="screen-reader-hidden">{{showStateTable ? 'Displayed' : 'Collapsed'}}</span> <span class="float-right" aria-hidden="true">{{showStateTable ? '-' : '+'}}<span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></span></div>
                         <table class="accessibility-table" data-ng-show="showStateTable" role="alert">
                             <thead>
-                                <tr class="table-heading-row-first">
-                                    <th colspan="3">{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
-                                </tr>
                                 <tr class="table-heading-row-second">
                                     <th>State</th>
                                     <th>Total</th>
@@ -160,15 +157,12 @@
 
                     </div>
                 </div><div id="state-map-section">
-                    <p>Select/Hover Over a County to See the Rates<p>
+                    <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div class="accessibility-table-wrapper">
-                        <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? dataTableToggle(false) : angular.noop()" data-ng-click="dataTableToggle(false)" tabindex="0">Data Table <span class="screen-reader-hidden">{{showStateTable ? 'Displayed' : 'Collapsed'}}</span><span class="float-right" aria-hidden="true">{{showCountyTable ? '-' : '+'}}</span><span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></div>
+                        <div class="accessibility-table-header" data-ng-keyup="$event.keyCode == 13 ? dataTableToggle(false) : angular.noop()" data-ng-click="dataTableToggle(false)" tabindex="0">Data Table: {{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span> <span class="screen-reader-hidden">{{showStateTable ? 'Displayed' : 'Collapsed'}}</span><span class="float-right" aria-hidden="true">{{showCountyTable ? '-' : '+'}}</span><span class="screen-reader-hidden">{{showStateTable ? 'Hide'  : 'Show'}}</span></div>
                         <table class="accessibility-table" data-ng-show="showCountyTable" role="alert">
                             <thead>
-                                <tr class="table-heading-row-first">
-                                    <th colspan="3">{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
-                                </tr>
                                 <tr class="table-heading-row-second">
                                     <th>County</th>
                                     <th>Total</th>
