@@ -186,6 +186,11 @@ select {
     margin-left: 5px;
 }
 
+.accessibility-table-title {
+    display: inline-block;
+    max-width: 90%;
+}
+
 .accessibility-table-wrapper {
     margin: 15px;
 }
@@ -255,7 +260,6 @@ select {
     text-align: center;
 }
 
-@media (max-width: 400px){
     #us-map-controls select {
         margin-left: 0;
     }
