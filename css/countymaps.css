@@ -260,6 +260,7 @@ select {
     text-align: center;
 }
 
+@media (max-width: 550px){
     #us-map-controls select {
         margin-left: 0;
     }
