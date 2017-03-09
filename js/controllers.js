@@ -25,6 +25,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                         $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.datasets)[0];
                         $scope.instance.currentInputs.state = cdcCommon.getCallParam('defaultState') ? cdcCommon.getCallParam('defaultState') : 'Alabama';
                         
+                        $scope.instance.currentInputs.stateSortBy = 'state';
+                        $scope.instance.currentInputs.countySortBy = 'location';
+                        
                         //requests the topojson data for rendering counties, then filters the counties so they can be rendered one state at a time
                         $http.get('data/counties.json').then(
                                 function(response) {
@@ -247,6 +250,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 }
 
                 $scope.instance.currentValues.usMapData[datapoint[stateColumn]] = {
+                    state: datapoint[stateColumn],
                     data: $scope.normalizeNumber($scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn]]),
                     dataFiltered: $scope.normalizeNumber(datapoint[dataColumn]),
                     fillColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
@@ -264,6 +268,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 }
 
                 $scope.instance.currentValues.stateMapData[datapoint[locationColumn]] = {
+                    location: datapoint[locationColumn],
                     data: $scope.normalizeNumber($scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]]),
                     dataFiltered: $scope.normalizeNumber(datapoint[dataColumn]),
                     fillColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]

@@ -214,8 +214,17 @@ select {
     border-top: 1px solid gray;
 }
 
+th {
+    cursor: pointer;
+}
+
 .accessibility-table-header-th {
     padding-bottom: 15px;
+    cursor: initial;
+}
+
+.header-highlight {
+    background-color: darkgray;
 }
 
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
