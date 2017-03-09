@@ -472,11 +472,12 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             }
             
             if(!$scope.instance.currentValues.currentHighlight || ($scope.instance.currentValues.currentHighlight && $scope.instance.currentValues.currentHighlight.location !== loc)){
+                data[loc].originalFillColor = data[loc].fillColor;
+                data[loc].fillColor = 'yellow';
                 $scope.instance.currentValues.currentHighlight = data[loc];
-                $scope.instance.currentValues.currentHighlight.originalFillColor = $scope.instance.currentValues.currentHighlight.fillColor;
-                $scope.instance.currentValues.currentHighlight.fillColor = 'yellow';
-                $scope.drawMaps();
             }
+            
+            $scope.drawMaps();
         };
 
         //function provides interface to cdcMetrics object to capture events
