@@ -44,74 +44,59 @@
                 </div>
             </div>
             <div id="state-section">
-                <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">
-                    <option value="Alabama">Alabama</option>
-                    <option value="Alaska">Alaska</option>
-                    <option value="Arizona">Arizona</option>
-                    <option value="Arkansas">Arkansas</option>
-                    <option value="California">California</option>
-                    <option value="Colorado">Colorado</option>
-                    <option value="Connecticut">Connecticut</option>
-                    <option value="Delaware">Delaware</option>
-                    <option value="Florida">Florida</option>
-                    <option value="Georgia">Georgia</option>
-                    <option value="Hawaii">Hawaii</option>
-                    <option value="Idaho">Idaho</option>
-                    <option value="Illinois">Illinois</option>
-                    <option value="Indiana">Indiana</option>
-                    <option value="Iowa">Iowa</option>
-                    <option value="Kansas">Kansas</option>
-                    <option value="Kentucky">Kentucky</option>
-                    <option value="Louisiana">Louisiana</option>
-                    <option value="Maine">Maine</option>
-                    <option value="Maryland">Maryland</option>
-                    <option value="Massachusetts">Massachusetts</option>
-                    <option value="Michigan">Michigan</option>
-                    <option value="Minnesota">Minnesota</option>
-                    <option value="Mississippi">Mississippi</option>
-                    <option value="Missouri">Missouri</option>
-                    <option value="Montana">Montana</option>
-                    <option value="Nebraska">Nebraska</option>
-                    <option value="Nevada">Nevada</option>
-                    <option value="New Hampshire">New Hampshire</option>
-                    <option value="New Jersey">New Jersey</option>
-                    <option value="New Mexico">New Mexico</option>
-                    <option value="New York">New York</option>
-                    <option value="North Carolina">North Carolina</option>
-                    <option value="North Dakota">North Dakota</option>
-                    <option value="Ohio">Ohio</option>
-                    <option value="Oklahoma">Oklahoma</option>
-                    <option value="Oregon">Oregon</option>
-                    <option value="Pennsylvania">Pennsylvania</option>
-                    <option value="Rhode Island">Rhode Island</option>
-                    <option value="South Carolina">South Carolina</option>
-                    <option value="South Dakota">South Dakota</option>
-                    <option value="Tennessee">Tennessee</option>
-                    <option value="Texas">Texas</option>
-                    <option value="Utah">Utah</option>
-                    <option value="Vermont">Vermont</option>
-                    <option value="Virginia">Virginia</option>
-                    <option value="Washington">Washington</option>
-                    <option value="West Virginia">West Virginia</option>
-                    <option value="Wisconsin">Wisconsin</option>
-                    <option value="Wyoming">Wyoming</option>
-                </select><br>
-                <div id="state-map-legend" data-ng-cloak>
-                    <p>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}<br>{{instance.currentInputs.state}}<br><br>Total {{instance.currentInputs.state}}: {{instance.currentValues.state}}</p>
-                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
-                    <div class="legend-values">
-                        <div class="quartile-label">
-                            <span>Quartiles</span>
-                        </div>
-                        <div data-ng-repeat="row in instance.currentValues.countyLegend" data-ng-if="$last === false || instance.currentValues.countyLegend.length <= instance.datasets[instance.currentInputs.datasetName].colors.length">
-                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.countyLegend[$index + 1] || row}}</span>
-                        </div>                        
-                        <div>
-                            <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
-                        </div>
-
-                    </div>
-                </div><div id="state-map-section">
+                <div id="state-map-section">
+                    <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">
+                        <option value="Alabama">Alabama</option>
+                        <option value="Alaska">Alaska</option>
+                        <option value="Arizona">Arizona</option>
+                        <option value="Arkansas">Arkansas</option>
+                        <option value="California">California</option>
+                        <option value="Colorado">Colorado</option>
+                        <option value="Connecticut">Connecticut</option>
+                        <option value="Delaware">Delaware</option>
+                        <option value="Florida">Florida</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Hawaii">Hawaii</option>
+                        <option value="Idaho">Idaho</option>
+                        <option value="Illinois">Illinois</option>
+                        <option value="Indiana">Indiana</option>
+                        <option value="Iowa">Iowa</option>
+                        <option value="Kansas">Kansas</option>
+                        <option value="Kentucky">Kentucky</option>
+                        <option value="Louisiana">Louisiana</option>
+                        <option value="Maine">Maine</option>
+                        <option value="Maryland">Maryland</option>
+                        <option value="Massachusetts">Massachusetts</option>
+                        <option value="Michigan">Michigan</option>
+                        <option value="Minnesota">Minnesota</option>
+                        <option value="Mississippi">Mississippi</option>
+                        <option value="Missouri">Missouri</option>
+                        <option value="Montana">Montana</option>
+                        <option value="Nebraska">Nebraska</option>
+                        <option value="Nevada">Nevada</option>
+                        <option value="New Hampshire">New Hampshire</option>
+                        <option value="New Jersey">New Jersey</option>
+                        <option value="New Mexico">New Mexico</option>
+                        <option value="New York">New York</option>
+                        <option value="North Carolina">North Carolina</option>
+                        <option value="North Dakota">North Dakota</option>
+                        <option value="Ohio">Ohio</option>
+                        <option value="Oklahoma">Oklahoma</option>
+                        <option value="Oregon">Oregon</option>
+                        <option value="Pennsylvania">Pennsylvania</option>
+                        <option value="Rhode Island">Rhode Island</option>
+                        <option value="South Carolina">South Carolina</option>
+                        <option value="South Dakota">South Dakota</option>
+                        <option value="Tennessee">Tennessee</option>
+                        <option value="Texas">Texas</option>
+                        <option value="Utah">Utah</option>
+                        <option value="Vermont">Vermont</option>
+                        <option value="Virginia">Virginia</option>
+                        <option value="Washington">Washington</option>
+                        <option value="West Virginia">West Virginia</option>
+                        <option value="Wisconsin">Wisconsin</option>
+                        <option value="Wyoming">Wyoming</option>
+                    </select><br>
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div class="accessibility-table-wrapper">
@@ -133,24 +118,25 @@
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <div id="us-section">
-                <div id="us-map-legend" data-ng-cloak>
-                    <p>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}<br>Total United States<br><br>Total US: {{instance.currentValues.us}}</p>
-                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
+                </div><div id="state-map-legend" data-ng-cloak>
+                    <p>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}<br>{{instance.currentInputs.state}}<br><br>Total {{instance.currentInputs.state}}: {{instance.currentValues.state}}</p>
+                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
                     <div class="legend-values">
                         <div class="quartile-label">
                             <span>Quartiles</span>
                         </div>
-                        <div data-ng-repeat="row in instance.currentValues.stateLegend" data-ng-if="$last === false">
-                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.stateLegend[$index + 1]}}</span>
-                        </div>
+                        <div data-ng-repeat="row in instance.currentValues.countyLegend" data-ng-if="$last === false || instance.currentValues.countyLegend.length <= instance.datasets[instance.currentInputs.datasetName].colors.length">
+                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.countyLegend[$index + 1] || row}}</span>
+                        </div>                        
                         <div>
                             <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
                         </div>
+
                     </div>
-                </div><div id="us-map-section">
+                </div>
+            </div>
+            <div id="us-section">
+                <div id="us-map-section">
                     <p>Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div id="us-map-territories" data-ng-if="instance.currentValues.usMapData['GU'] || instance.currentValues.usMapData['PR'] || instance.currentValues.usMapData['VI']">
@@ -177,6 +163,20 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div><div id="us-map-legend" data-ng-cloak>
+                    <p>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}<br>Total United States<br><br>Total US: {{instance.currentValues.us}}</p>
+                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
+                    <div class="legend-values">
+                        <div class="quartile-label">
+                            <span>Quartiles</span>
+                        </div>
+                        <div data-ng-repeat="row in instance.currentValues.stateLegend" data-ng-if="$last === false">
+                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.stateLegend[$index + 1]}}</span>
+                        </div>
+                        <div>
+                            <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
+                        </div>
                     </div>
                 </div>
             </div>
