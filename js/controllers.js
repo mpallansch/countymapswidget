@@ -462,6 +462,22 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 $scope.instance.currentValues.accessibilityText = 'Data Table ' + ($scope.showCountyTable ? 'Displayed' : 'Collapsed');
             }
         };
+        
+        //function is called when a column in the table is selected, highlights that count on the map
+        $scope.countyHighlight = function(obj){
+            var loc = obj.location;
+            var data = $scope.instance.currentValues.stateMapData;
+            if($scope.instance.currentValues.currentHighlight){
+                $scope.instance.currentValues.currentHighlight.fillColor = $scope.instance.currentValues.currentHighlight.originalFillColor;
+            }
+            
+            if(!$scope.instance.currentValues.currentHighlight || ($scope.instance.currentValues.currentHighlight && $scope.instance.currentValues.currentHighlight.location !== loc)){
+                $scope.instance.currentValues.currentHighlight = data[loc];
+                $scope.instance.currentValues.currentHighlight.originalFillColor = $scope.instance.currentValues.currentHighlight.fillColor;
+                $scope.instance.currentValues.currentHighlight.fillColor = 'yellow';
+                $scope.drawMaps();
+            }
+        };
 
         //function provides interface to cdcMetrics object to capture events
         $scope.trackEvent = function(interaction, value){
