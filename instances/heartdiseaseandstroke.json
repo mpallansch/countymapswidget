@@ -1,8 +1,8 @@
 {
-    "title": "Heart Disease and Stroke Death Rates, Ages 35+, 2012-2014",
+    "title": "Heart Disease and Stroke Death Rates, Ages 35+, 2013-2015",
     "datasets": {
         "Heart Disease": {
-            "url": "https://chronicdata.cdc.gov/resource/9fcs-ksc9.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
+            "url": "https://chronicdata.cdc.gov/resource/7aku-344k.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
              "dataColumn": "data_value",
@@ -20,7 +20,7 @@
              "colors" : ["rgb(254, 229, 217)", "rgb(252, 174, 145)", "rgb(207, 42, 35)","rgb(145, 13, 18)"]
         },
         "Stroke": {
-            "url": "https://chronicdata.cdc.gov/resource/j9vu-dq5q.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
+            "url": "https://chronicdata.cdc.gov/resource/5yyn-dweg.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
              "dataColumn": "data_value",
