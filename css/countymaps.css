@@ -214,6 +214,10 @@ select {
     border-top: 1px solid gray;
 }
 
+.accessibility-table-header-th {
+    padding-bottom: 15px;
+}
+
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
     display: inline-block;
     vertical-align: top;
