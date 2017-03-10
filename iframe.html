@@ -113,7 +113,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy: instance.currentInputs.countySortBy"  style="background-color: {{obj.fillColor}}" data-ng-click="countyHighlight(obj)">
+                                <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy: instance.currentInputs.countySortBy"  data-ng-style="{'background-color': obj.fillColor};" data-ng-click="countyHighlight(obj)">
                                     <td>{{obj.location}}</td>
                                     <td>{{obj.data ? obj.data : 'Insufficient Data'}}</td>
                                     <td data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
