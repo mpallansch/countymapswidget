@@ -224,7 +224,7 @@ th {
 }
 
 .angle {
-    display: none;
+    opacity: 0;
 }
 
 .angle:before {
@@ -240,7 +240,7 @@ th {
 }
 
 .header-highlight .angle {
-    display: inline;
+    opacity: 1;
 }
 
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
