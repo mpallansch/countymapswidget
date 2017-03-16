@@ -218,6 +218,11 @@ th {
     cursor: pointer;
 }
 
+#state-map-section tr {
+    user-select: none;
+    cursor: pointer;
+}
+
 .accessibility-table-header-th {
     padding-bottom: 15px;
     cursor: initial;
