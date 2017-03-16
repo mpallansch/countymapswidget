@@ -162,7 +162,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy : instance.currentInputs.stateSortBy : instance.currentInputs.stateReverse" style="background-color: {{obj.fillColor}}">
+                                <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy : instance.currentInputs.stateSortBy : instance.currentInputs.stateReverse" data-ng-style="{'background-color': obj.fillColor}">
                                     <td>{{obj.state}}</td>
                                     <td>{{obj.data ? obj.data : 'Insufficient Data'}}</td>
                                     <td data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
