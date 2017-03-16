@@ -27,6 +27,8 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                         
                         $scope.instance.currentInputs.stateSortBy = 'state';
                         $scope.instance.currentInputs.countySortBy = 'location';
+                        $scope.instance.currentInputs.countyReverse = false;
+                        $scope.instance.currentInputs.stateReverse = false;
                         
                         //requests the topojson data for rendering counties, then filters the counties so they can be rendered one state at a time
                         $http.get('data/counties.json').then(
@@ -460,6 +462,24 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             } else {
                 $scope.showCountyTable = !$scope.showCountyTable;
                 $scope.instance.currentValues.accessibilityText = 'Data Table ' + ($scope.showCountyTable ? 'Displayed' : 'Collapsed');
+            }
+        };
+        
+        $scope.sortBy = function(name, county){
+            if(county){
+                if($scope.instance.currentInputs.countySortBy === name){
+                    $scope.instance.currentInputs.countyReverse = !$scope.instance.currentInputs.countyReverse;
+                } else {
+                    $scope.instance.currentInputs.countySortBy = name;
+                    $scope.instance.currentInputs.countyReverse = false;
+                }
+            } else {
+                if($scope.instance.currentInputs.stateSortBy === name){
+                    $scope.instance.currentInputs.stateReverse = !$scope.instance.currentInputs.stateReverse;
+                } else {
+                    $scope.instance.currentInputs.stateSortBy = name;
+                    $scope.instance.currentInputs.stateReverse = false;
+                }
             }
         };
         

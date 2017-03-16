@@ -223,8 +223,24 @@ th {
     cursor: initial;
 }
 
+.angle {
+    display: none;
+}
+
+.angle:before {
+    content: "\21E9";
+}
+
+.angle.up:before {
+    content: "\21E7";
+}
+
 .header-highlight {
     background-color: darkgray;
+}
+
+.header-highlight .angle {
+    display: inline;
 }
 
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {

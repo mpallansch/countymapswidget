@@ -107,13 +107,13 @@
                                     <th class="accessibility-table-header-th" colspan="3">{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
                                 </tr>
                                 <tr>
-                                    <th data-ng-click="instance.currentInputs.countySortBy = 'location'" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'location'}">County</th>
-                                    <th data-ng-click="instance.currentInputs.countySortBy = 'data'" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'data'}">Total</th>
-                                    <th data-ng-click="instance.currentInputs.countySortBy = 'dataFiltered'" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'dataFiltered'}" data-ng-show="instance.currentValues.filterString.length > 0" data-ng-cloak>{{instance.currentValues.filterString}}</th>
+                                    <th data-ng-click="sortBy('location', true)" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'location'}">County <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
+                                    <th data-ng-click="sortBy('data', true)" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'data'}">Total <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
+                                    <th data-ng-click="sortBy('dataFiltered', true)" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'dataFiltered'}" data-ng-show="instance.currentValues.filterString.length > 0" data-ng-cloak>{{instance.currentValues.filterString}} <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy: instance.currentInputs.countySortBy"  data-ng-style="{'background-color': obj.fillColor};" data-ng-click="countyHighlight(obj)">
+                                <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy : instance.currentInputs.countySortBy : instance.currentInputs.countyReverse"  data-ng-style="{'background-color': obj.fillColor};" data-ng-click="countyHighlight(obj)">
                                     <td>{{obj.location}}</td>
                                     <td>{{obj.data ? obj.data : 'Insufficient Data'}}</td>
                                     <td data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
@@ -156,13 +156,13 @@
                                     <th class="accessibility-table-header-th" colspan="3">{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
                                 </tr>
                                 <tr>
-                                    <th data-ng-click="instance.currentInputs.stateSortBy = 'state'" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'state'}">State</th>
-                                    <th data-ng-click="instance.currentInputs.stateSortBy = 'data'" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'data'}">Total</th>
-                                    <th data-ng-click="instance.currentInputs.stateSortBy = 'dataFiltered'" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'dataFiltered'}" data-ng-show="instance.currentValues.filterString.length > 0" data-ng-cloak>{{instance.currentValues.filterString}}</th>
+                                    <th data-ng-click="sortBy('state', false)" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'state'}">State <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
+                                    <th data-ng-click="sortBy('data', false)" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'data'}">Total <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
+                                    <th data-ng-click="sortBy('dataFiltered', false)" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'dataFiltered'}" data-ng-show="instance.currentValues.filterString.length > 0" data-ng-cloak>{{instance.currentValues.filterString}} <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy: instance.currentInputs.stateSortBy" style="background-color: {{obj.fillColor}}">
+                                <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy : instance.currentInputs.stateSortBy : instance.currentInputs.stateReverse" style="background-color: {{obj.fillColor}}">
                                     <td>{{obj.state}}</td>
                                     <td>{{obj.data ? obj.data : 'Insufficient Data'}}</td>
                                     <td data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
