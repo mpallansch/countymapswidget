@@ -6,12 +6,19 @@ countyMapsApp.run(function($rootScope, $http) {
 
 countyMapsApp.filter('orderObjectBy', function() {
   return function(items, field, reverse) {
-    var filtered = [];
+    var filtered = [], floatCompare = true;
     angular.forEach(items, function(item) {
       filtered.push(item);
     });
+    if(field === 'location' || field === 'state'){
+        floatCompare = false;
+    }
     filtered.sort(function (a, b) {
-      return (a[field] > b[field] ? 1 : -1);
+      if(floatCompare){
+          return ((a[field] === undefined ? -1 : parseFloat(a[field])) > (b[field] === undefined ? -1 : parseFloat(b[field])) ? 1 : -1);
+      } else {
+          return (a[field] > b[field] ? 1 : -1);
+      }
     });
     if(reverse) filtered.reverse();
     return filtered;

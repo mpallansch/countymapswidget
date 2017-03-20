@@ -218,6 +218,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                                     $scope.instance.currentValues.usCurrentData.push(datapoint);
                                 } else {
                                     $scope.instance.currentValues.usMapData[state] = {
+                                        state: state,
                                         data: $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[state]
                                     };
                                 }
@@ -228,6 +229,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                                     $scope.instance.currentValues.stateCurrentData.push(datapoint);
                                 } else {
                                     $scope.instance.currentValues.stateMapData[location] = {
+                                        location: location,
                                         data: $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[state + ' ' + location]
                                     };
                                 }
