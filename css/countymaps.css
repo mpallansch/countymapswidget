@@ -5,6 +5,10 @@ body {
     margin: 0;
 }
 
+*:focus {
+    outline:1px solid #ffa500;
+}
+
 .float-right {
     float: right;
 }
@@ -64,38 +68,20 @@ body {
 input[type="radio"]+label {
     position: relative;
     top: 1px;
-    border-radius: 5px;
     padding: 6px 25px;
     background-color: lightgray;
-    border-bottom: 2px solid darkgray;
-    border-right: 2px solid darkgray;
-    border-left: 2px solid lightgray;
-    border-top: 2px solid lightgray;
+    border: 1px solid gray;
     white-space: nowrap;
     line-height: 40px;
 }
 
 input[type="radio"]:checked+label{ 
     background-color: ghostwhite;
-    border-bottom: 2px solid lightgray;
-    border-right: 2px solid lightgray;
-    border-left: 2px solid #FBFBFF;
-    border-top: 2px solid #FBFBFF;
     opacity: 1;
 }
 
 input[type="radio"]+label.mousedown{
-    border-bottom: 2px solid lightgray;
-    border-right: 2px solid lightgray;
-    border-left: 2px solid darkgray;
-    border-top: 2px solid darkgray; 
-}
-
-input[type="radio"]:checked+label.mousedown{
-    border-bottom: 2px solid #FBFBFF;
-    border-right: 2px solid #FBFBFF;
-    border-left: 2px solid lightgray;
-    border-top: 2px solid lightgray; 
+    box-shadow: inset 1px 1px 0px rgba(0,0,0,0.2);
 }
 
 input {
@@ -104,14 +90,10 @@ input {
 
 select {
     -webkit-appearance: textfield !important;
-    border-radius: 5px;
     padding: 6px 25px;
     font: 14px Arial; 
     background-color: ghostwhite;
-    border-bottom: 2px solid lightgray;
-    border-right: 2px solid lightgray;
-    border-left: 2px solid #FBFBFF;
-    border-top: 2px solid #FBFBFF;
+    border: 1px solid gray;
 }
 
 .map-container {
@@ -176,7 +158,6 @@ select {
     display: inline-block;
     width: 25px;
     height: 20px;
-    border-radius: 3px;
 }
 
 .territory-label {
@@ -228,10 +209,6 @@ th {
     cursor: initial;
 }
 
-.angle {
-    opacity: 0;
-}
-
 .angle:before {
     content: "\21E9";
 }
@@ -242,10 +219,6 @@ th {
 
 .header-highlight {
     background-color: darkgray;
-}
-
-.header-highlight .angle {
-    opacity: 1;
 }
 
 #us-map-legend, #us-map-section, #state-map-legend, #state-map-section {
