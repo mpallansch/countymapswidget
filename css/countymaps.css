@@ -213,7 +213,7 @@ th {
     content: "\21E9";
 }
 
-.angle.up:before {
+.header-highlight .angle.up:before {
     content: "\21E7";
 }
 
