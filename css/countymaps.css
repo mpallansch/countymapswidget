@@ -68,7 +68,7 @@ body {
 input[type="radio"]+label {
     position: relative;
     top: 1px;
-    padding: 6px 25px;
+    padding: 6px 10px;
     background-color: lightgray;
     border: 1px solid gray;
     white-space: nowrap;
@@ -89,8 +89,9 @@ input {
 }
 
 select {
-    -webkit-appearance: textfield !important;
-    padding: 6px 25px;
+    -webkit-appearance: none !important;
+    border-radius: 0 !important;
+    padding: 6px 10px;
     font: 14px Arial; 
     background-color: ghostwhite;
     border: 1px solid gray;
