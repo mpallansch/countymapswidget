@@ -21,8 +21,14 @@
             <div class="info-close-wrap"><div class="info-close" onclick="window.cdcCommon.events.infoClose()">Close</div>
             </div></div>
         <div class="widget-header">
-            <div class="cdc-info" onclick="window.cdcCommon.events.infoOpen()">Info</div>
-            <div class="cdc-share" onclick="window.cdcCommon.events.shareOpen()">Share</div>        </div>
+            <img class="cdc-logo" src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="45" usemap="#hhsCdcLogoMap" />
+            <map name="hhsCdcLogoMap">
+                <area alt="Visit www.hhs.gov" title="www.hhs.gov" href="http://www.hhs.gov/" shape="rect" coords="0,0,50,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
+                <area alt="Visit www.cdc.gov" title="www.cdc.gov" href="http://www.cdc.gov/" shape="rect" coords="51,0,100,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
+            </map>
+            <div class="cdc-share" onclick="window.cdcCommon.events.shareOpen()">Embed</div>
+            <div class="cdc-info" onclick="window.cdcCommon.events.infoOpen()">i</div>
+        </div>
 
         
         <div data-ng-hide="!error" data-ng-cloak>
@@ -193,11 +199,6 @@
                 <p class="link-dataset" data-ng-repeat="footerLink in instance.datasets[instance.currentInputs.datasetName].footerLinks">
                     {{footerLink.label}}: <a target="_blank" data-ng-click="trackEvent('Link Click', footerLink.label)" data-ng-href="{{footerLink.url}}">{{footerLink.text}}</a>
                 </p>
-                <img src="/TemplatePackage/contrib/widgets/images/cdc_badge.png" alt="CDC Logo" height="59" usemap="#hhsCdcLogoMap" />
-                <map name="hhsCdcLogoMap">
-                    <area alt="Visit www.hhs.gov" title="www.hhs.gov" href="http://www.hhs.gov/" shape="rect" coords="0,0,50,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
-                    <area alt="Visit www.cdc.gov" title="www.cdc.gov" href="http://www.cdc.gov/" shape="rect" coords="51,0,100,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
-                </map>
             </div>
             <span class="screen-reader-hidden" role="alert">{{instance.currentValues.accessibilityText}}</span>
         </div>
