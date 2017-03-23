@@ -204,6 +204,10 @@ th {
     cursor: pointer;
 }
 
+#state-map-section tr.highlight {
+    outline: 2px solid yellow;
+}
+
 .accessibility-table-header-th {
     padding-bottom: 15px;
     cursor: initial;

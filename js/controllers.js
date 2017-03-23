@@ -428,6 +428,10 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 },
                 data: $scope.instance.currentValues.stateMapData
             });
+            
+            if($scope.instance.currentValues.currentHighlight){
+                $scope.stateMap.svg.selectAll('path.datamaps-subunit.' + $scope.instance.currentValues.currentHighlight).style('stroke', 'yellow').style('stroke-width', '3');
+            }
         };
 
         //function called when a terrirory bubble is moused over, displays popup same as the states
@@ -487,19 +491,10 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
         
         //function is called when a column in the table is selected, highlights that count on the map
         $scope.countyHighlight = function(obj){
-            var loc = obj.location;
-            var data = $scope.instance.currentValues.stateMapData;
-            
-            if($scope.instance.currentValues.currentHighlight){
-                $scope.instance.currentValues.currentHighlight.fillColor = $scope.instance.currentValues.currentHighlight.originalFillColor;
-            }
-
-            if($scope.instance.currentValues.currentHighlight && $scope.instance.currentValues.currentHighlight.location === loc){
+            if($scope.instance.currentValues.currentHighlight === obj.location){
                 $scope.instance.currentValues.currentHighlight = undefined;
             } else {
-                data[loc].originalFillColor = data[loc].fillColor;
-                data[loc].fillColor = 'yellow';
-                $scope.instance.currentValues.currentHighlight = data[loc];
+                $scope.instance.currentValues.currentHighlight = obj.location;
             }
             
             $scope.drawMaps();
