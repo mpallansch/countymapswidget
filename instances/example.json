@@ -7,6 +7,8 @@
              "locationColumn": "locationdesc",
              "dataColumn": "data_value",
              "dataLabel": "Rates",
+             "dataInputLabel" : "Select a disease:",
+             "filterInputLable" : "Select a demographic:",
              "stateLegendHeader": "Heart Disease Death Rates per 100,000",
              "countyLegendHeader": "Heart Disease Death Rates per 100,000",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.",
@@ -25,6 +27,8 @@
              "locationColumn": "locationdesc",
              "dataColumn": "data_value",
              "dataLabel": "Rates",
+             "dataInputLabel" : "Select a disease:",
+             "filterInputLable" : "Select a demographic:",
              "stateLegendHeader": "Stroke Death Rates per 100,000",
              "countyLegendHeader": "Stroke Death Rates per 100,000",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.","footerLinks": [

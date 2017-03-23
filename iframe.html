@@ -32,12 +32,13 @@
             <h2 id="widget-title" data-ng-cloak>{{instance.title}}</h2>
             <div id="map-controls">
                 <div data-ng-show="instance.currentValues.showSelector">
-                    Select disease: 
+                    {{instance.datasets[instance.currentInputs.datasetName].dataInputLabel || 'Select a disease:'}} 
                     <span data-ng-repeat="(name, data) in instance.data">
                         <input data-ng-model="instance.currentInputs.datasetName" id="dataset-input-{{$index}}" type="radio" name="datasetName" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}" data-ng-class="{mousedown: mousedown}" data-ng-mousedown="mousedown = true" data-ng-mouseup="mousedown = false" data-ng-click="instance.currentValues.accessibilityText = name + ' Selected'" tabindex="0" data-ng-cloak>{{name}}<span class="screen-reader-hidden">{{instance.currentInputs.datasetName === name ? 'Selected' : 'Unselected'}}</span></label>
                     </span>
                 </div>
                 <div>
+                    {{instance.datasets[instance.currentInputs.datasetName].filterInputLable || 'Select a demographic:'}}
                     <select data-ng-repeat="(filter, data) in instance.filters" data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()" data-ng-cloak>
                         <option value="{{filterVal}}" data-ng-repeat="(filterVal, valueData) in data.values">{{filterVal}}</option>
                     </select>
@@ -60,6 +61,7 @@
 
                     </div>
                 </div><div id="state-map-section">
+                    Select a state:
                     <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
