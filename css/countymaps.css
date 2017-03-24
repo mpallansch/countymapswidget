@@ -267,6 +267,11 @@ th {
     margin-bottom: 10px;
 }
 
+.legend-color-container {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 .legend-color {
     display: inline-block;
     vertical-align: middle;
