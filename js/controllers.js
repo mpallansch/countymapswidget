@@ -97,8 +97,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
         //after the data has been loaded, this function takes care of data processing that will only
         //need to happen one time, and then calls the updateData function, which processes data by
         //the filters that are currently set
-        $scope.init = function() {
-            //only shows dataset selector if there is more than one
+        $scope.init = function() { //only shows dataset selector if there is more than one
             if (Object.keys($scope.instance.data).length < 2) {
                 $scope.instance.currentValues.showSelector = false;
             } else {
@@ -159,6 +158,8 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             $scope.instance.currentValues.stateCurrentData = [];
             $scope.instance.currentValues.usMapData = {};
             $scope.instance.currentValues.stateMapData = {};
+            
+            $('#style').html('.widget-header, #footer-section { background-color: ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[0] + ' !important;}');
 
             //sets the current unfiltered values displayed in the legend from the unfiltered values determined in init()
             $scope.instance.currentValues.us = $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter['US'];
