@@ -20,7 +20,6 @@ body {
 }
 
 .widget-header {
-    background-color: rgb(107, 174, 214) !important;
     border: none !important;
     height: 50px !important;
 }
@@ -301,7 +300,6 @@ th {
 
 #footer-section {
     text-align: center;
-    background-color: rgb(107, 174, 214);
     padding-top: 5px;
     padding-bottom: 5px;
 }

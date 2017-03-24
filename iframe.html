@@ -20,7 +20,7 @@
             <br />
             <div class="info-close-wrap"><div class="info-close" onclick="window.cdcCommon.events.infoClose()">Close</div>
             </div></div>
-        <div class="widget-header">
+        <div class="widget-header" style="background-color: {{instance.datasets[instance.currentInputs.datasetName].colors[0]}} !important;">
             <img class="cdc-logo" src="img/cdc_badge.png" alt="CDC Logo" height="45" usemap="#hhsCdcLogoMap" />
             <map name="hhsCdcLogoMap">
                 <area alt="Visit www.hhs.gov" title="www.hhs.gov" href="http://www.hhs.gov/" shape="rect" coords="0,0,50,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-            <div id="footer-section" data-ng-cloak>
+            <div id="footer-section"  style="background-color: {{instance.datasets[instance.currentInputs.datasetName].colors[0]}} !important;" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.datasetName].footnote">{{instance.datasets[instance.currentInputs.datasetName].footnote}}</p>
                 <p class="link-dataset" data-ng-repeat="footerLink in instance.datasets[instance.currentInputs.datasetName].footerLinks">
                     {{footerLink.label}}: <a target="_blank" data-ng-click="trackEvent('Link Click', footerLink.label)" data-ng-href="{{footerLink.url}}">{{footerLink.text}}</a>
