@@ -306,6 +306,11 @@ th {
     padding-bottom: 5px;
 }
 
+.no-wrap {
+    display: inline;
+    white-space: nowrap;
+}
+
 @media (max-width: 550px){
     #us-map-legend, #state-map-legend {
         display: block;
@@ -315,5 +320,9 @@ th {
     #us-map-section, #state-map-section {
         display: block;
         width: 100%;
+    }
+    
+    #map-controls {
+        text-align: left;
     }
 }
