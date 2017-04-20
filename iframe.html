@@ -38,41 +38,8 @@
         <div data-ng-hide="error">
             <h2 id="widget-title" data-ng-cloak>{{instance.title}}</h2>
             <div id="map-controls">
-                <div data-ng-show="instance.currentValues.showSelector">
-                    {{instance.datasets[instance.currentInputs.datasetName].dataInputLabel || 'Select a disease:'}} 
-                    <div class="no-wrap">
-                        <span data-ng-repeat="(name, data) in instance.data">
-                            <input data-ng-model="instance.currentInputs.datasetName" id="dataset-input-{{$index}}" type="radio" name="datasetName" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}" data-ng-class="{mousedown: mousedown}" data-ng-mousedown="mousedown = true" data-ng-mouseup="mousedown = false" data-ng-click="instance.currentValues.accessibilityText = name + ' Selected'" tabindex="0" data-ng-cloak>{{name}}<span class="screen-reader-hidden">{{instance.currentInputs.datasetName === name ? 'Selected' : 'Unselected'}}</span></label>
-                        </span>
-                    </div>
-                </div>
                 <div>
-                    {{instance.datasets[instance.currentInputs.datasetName].filterInputLable || 'Select a demographic:'}}
-                    <div class="no-wrap">
-                        <select data-ng-repeat="(filter, data) in instance.filters" data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()" data-ng-cloak>
-                            <option value="{{filterVal}}" data-ng-repeat="(filterVal, valueData) in data.values">{{filterVal}}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div id="state-section">
-                <div id="state-map-legend" data-ng-cloak>
-                    <p>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}<br>{{instance.currentInputs.state}}<br><br>Total {{instance.currentInputs.state}}: {{instance.currentValues.state}}</p>
-                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
-                    <div class="legend-values">
-                        <div class="quartile-label">
-                            <span>Quartiles</span>
-                        </div>
-                        <div data-ng-repeat="row in instance.currentValues.countyLegend" data-ng-if="$last === false || instance.currentValues.countyLegend.length <= instance.datasets[instance.currentInputs.datasetName].colors.length" class="legend-color-container">
-                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.countyLegend[$index + 1] || row}}</span>
-                        </div>                        
-                        <div class="legend-color-container">
-                            <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
-                        </div>
-
-                    </div>
-                </div><div id="state-map-section">
-                    Select a state:
+                    Select a State:
                     <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">
                         <option value="Alabama">Alabama</option>
                         <option value="Alaska">Alaska</option>
@@ -124,7 +91,27 @@
                         <option value="West Virginia">West Virginia</option>
                         <option value="Wisconsin">Wisconsin</option>
                         <option value="Wyoming">Wyoming</option>
-                    </select><br>
+                    </select>
+                </div>
+                <div data-ng-show="instance.currentValues.showSelector">
+                    {{instance.datasets[instance.currentInputs.datasetName].dataInputLabel || 'Select a Disease:'}} 
+                    <div class="no-wrap">
+                        <span data-ng-repeat="(name, data) in instance.data">
+                            <input data-ng-model="instance.currentInputs.datasetName" id="dataset-input-{{$index}}" type="radio" name="datasetName" value="{{name}}" data-ng-checked="$first"  data-ng-change="updateData()"><label for="dataset-input-{{$index}}" data-ng-class="{mousedown: mousedown}" data-ng-mousedown="mousedown = true" data-ng-mouseup="mousedown = false" data-ng-click="instance.currentValues.accessibilityText = name + ' Selected'" tabindex="0" data-ng-cloak>{{name}}<span class="screen-reader-hidden">{{instance.currentInputs.datasetName === name ? 'Selected' : 'Unselected'}}</span></label>
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    {{instance.datasets[instance.currentInputs.datasetName].filterInputLable || 'Select a Demographic:'}}
+                    <div class="no-wrap">
+                        <select data-ng-repeat="(filter, data) in instance.filters" data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()" data-ng-cloak>
+                            <option value="{{filterVal}}" data-ng-repeat="(filterVal, valueData) in data.values">{{filterVal}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div id="state-section">
+                <div id="state-map-section">
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div class="accessibility-table-wrapper">
@@ -132,7 +119,7 @@
                         <table class="accessibility-table" data-ng-show="showCountyTable" role="alert">
                             <thead>
                                 <tr>
-                                    <th class="accessibility-table-header-th" colspan="3">{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
+                                    <th class="accessibility-table-header-th" colspan="3">Select a County to See it on the Map Above</th>
                                 </tr>
                                 <tr>
                                     <th data-ng-click="sortBy('location', true)" data-ng-class="{'header-highlight': instance.currentInputs.countySortBy === 'location'}">County <span class="angle" data-ng-class="{up : instance.currentInputs.countyReverse}"></span></th>
@@ -142,31 +129,32 @@
                             </thead>
                             <tbody>
                                 <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy : instance.currentInputs.countySortBy : instance.currentInputs.countyReverse"  data-ng-style="{'background-color': obj.fillColor}" data-ng-class="{'highlight': obj.location === instance.currentValues.currentHighlight}" data-ng-click="countyHighlight(obj)">
-                                    <td data-ng-style="{'background-color': obj.fillColor}">{{obj.location}}</td>
+                                    <td data-ng-style="{'background-color': obj.fillColor}" class="table-location-name">{{obj.location}}</td>
                                     <td data-ng-style="{'background-color': obj.fillColor}">{{obj.data ? obj.data : 'Insufficient Data'}}</td>
                                     <td data-ng-style="{'background-color': obj.fillColor}" data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-            <div id="us-section">
-                <div id="us-map-legend" data-ng-cloak>
-                    <p>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}<br>Total United States<br><br>Total US: {{instance.currentValues.us}}</p>
-                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
+                </div><div id="state-map-legend" data-ng-cloak>
+                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}} in {{instance.currentInputs.state}}</strong><br><br>Total {{instance.currentValues.state}} in {{instance.currentInputs.state}}</p>
+                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
                     <div class="legend-values">
                         <div class="quartile-label">
                             <span>Quartiles</span>
                         </div>
-                        <div data-ng-repeat="row in instance.currentValues.stateLegend" data-ng-if="$last === false" class="legend-color-container">
-                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.stateLegend[$index + 1]}}</span>
-                        </div>
+                        <div data-ng-repeat="row in instance.currentValues.countyLegend" data-ng-if="$last === false || instance.currentValues.countyLegend.length <= instance.datasets[instance.currentInputs.datasetName].colors.length" class="legend-color-container">
+                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.countyLegend[$index + 1] || row}}</span>
+                        </div>                        
                         <div class="legend-color-container">
                             <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
                         </div>
+
                     </div>
-                </div><div id="us-map-section">
+                </div>
+            </div>
+            <div id="us-section">
+                <div id="us-map-section">
                     <p>Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div id="us-map-territories" data-ng-if="instance.currentValues.usMapData['GU'] || instance.currentValues.usMapData['PR'] || instance.currentValues.usMapData['VI']">
@@ -190,12 +178,26 @@
                             </thead>
                             <tbody>
                                 <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy : instance.currentInputs.stateSortBy : instance.currentInputs.stateReverse" data-ng-style="{'background-color': obj.fillColor}">
-                                    <td data-ng-style="{'background-color': obj.fillColor}">{{obj.state}}</td>
+                                    <td data-ng-style="{'background-color': obj.fillColor}" class="table-location-name">{{obj.state}}</td>
                                     <td data-ng-style="{'background-color': obj.fillColor}">{{obj.data ? obj.data : 'Insufficient Data'}}</td>
                                     <td data-ng-style="{'background-color': obj.fillColor}" data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                </div><div id="us-map-legend" data-ng-cloak>
+                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}} in the United States</strong><br><br>Total {{instance.currentValues.us}} in US</p>
+                    <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
+                    <div class="legend-values">
+                        <div class="quartile-label">
+                            <span>Quartiles</span>
+                        </div>
+                        <div data-ng-repeat="row in instance.currentValues.stateLegend" data-ng-if="$last === false" class="legend-color-container">
+                            <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.stateLegend[$index + 1]}}</span>
+                        </div>
+                        <div class="legend-color-container">
+                            <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
+                        </div>
                     </div>
                 </div>
             </div>
