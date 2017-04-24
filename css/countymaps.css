@@ -274,7 +274,10 @@ th {
 }
 
 #us-map-legend, #state-map-legend {
-    width: 25%;
+    position: absolute;
+    right: -33%;
+    top: 0;
+    width: 33%;
 }
 
 .quartile-label {
@@ -303,6 +306,7 @@ th {
 }
 
 #us-map-section, #state-map-section {
+    position: relative;
     width: 75%;
     text-align: center;
 }
@@ -328,7 +332,7 @@ th {
 
 @media (max-width: 550px){
     #us-map-legend, #state-map-legend {
-        display: block;
+        position: initial;
         width: 100%;
     }
     
