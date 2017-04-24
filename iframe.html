@@ -37,7 +37,8 @@
         </div>
         <div data-ng-hide="error">
             <h2 id="widget-title" data-ng-cloak>{{instance.title}}</h2>
-            <div id="map-controls">
+            <div id="map-controls-toggle" data-ng-init="showMapControls = false" data-ng-click="showMapControls = !showMapControls">Map Configurations<span class="float-right"><span data-ng-show="showMapControls">-</span><span data-ng-show="!showMapControls">+</span></span></div>
+            <div id="map-controls" data-ng-class="{'show': showMapControls}">
                 <div>
                     Select a State:
                     <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">

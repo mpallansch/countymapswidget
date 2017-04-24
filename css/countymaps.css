@@ -156,6 +156,14 @@ select {
     padding-top: 4px;
     border-top: 1px solid black;
 }
+
+#map-controls-toggle {
+    display: none;    
+    padding: 10px;
+    border: 1px solid gray;
+    cursor: pointer;
+    font-size: large;
+}
     
 #map-controls {
     text-align: center;
@@ -341,7 +349,17 @@ th {
         width: 100%;
     }
     
+    #map-controls-toggle {
+        display: block;
+    }
+    
     #map-controls {
+        display: none;
+        text-align: left;
+    }
+    
+    #map-controls.show {
+        display: block;
         text-align: left;
     }
 }
