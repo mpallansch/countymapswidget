@@ -340,7 +340,7 @@ th {
 
 @media (max-width: 550px){
     #us-map-legend, #state-map-legend {
-        position: initial;
+        position: static;
         width: 100%;
     }
     
