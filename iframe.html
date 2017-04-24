@@ -112,6 +112,7 @@
             </div>
             <div id="state-section">
                 <div id="state-map-section">
+                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}} in {{instance.currentInputs.state}}</strong></p>                    
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div class="accessibility-table-wrapper">
@@ -137,7 +138,7 @@
                         </table>
                     </div>
                 </div><div id="state-map-legend" data-ng-cloak>
-                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}} in {{instance.currentInputs.state}}</strong><br><br>Total {{instance.currentValues.state}} in {{instance.currentInputs.state}}</p>
+                    <p>Total {{instance.currentValues.state}} in {{instance.currentInputs.state}}</p>
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
                     <div class="legend-values">
                         <div class="quartile-label">
@@ -155,6 +156,7 @@
             </div>
             <div id="us-section">
                 <div id="us-map-section">
+                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}} in the United States</strong></p>
                     <p>Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div id="us-map-territories" data-ng-if="instance.currentValues.usMapData['GU'] || instance.currentValues.usMapData['PR'] || instance.currentValues.usMapData['VI']">
@@ -186,7 +188,7 @@
                         </table>
                     </div>
                 </div><div id="us-map-legend" data-ng-cloak>
-                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}} in the United States</strong><br><br>Total {{instance.currentValues.us}} in US</p>
+                    <p>Total {{instance.currentValues.us}} in US</p>
                     <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
                     <div class="legend-values">
                         <div class="quartile-label">
