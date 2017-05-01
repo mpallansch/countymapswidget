@@ -27,7 +27,7 @@
                 <area alt="Visit www.hhs.gov" title="www.hhs.gov" href="http://www.hhs.gov/" shape="rect" coords="0,0,50,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
                 <area alt="Visit www.cdc.gov" title="www.cdc.gov" href="http://www.cdc.gov/" shape="rect" coords="51,0,100,59" target="_blank" onclick="window.cdcCommon.events.logoClick()">
             </map>
-            <div class="cdc-share" onclick="window.cdcCommon.events.shareOpen()">Embed</div>
+            <div class="cdc-share" onclick="window.cdcCommon.events.shareOpen()">Add to your site</div>
             <div class="cdc-info" onclick="window.cdcCommon.events.infoOpen()">i</div>
         </div>
 
@@ -117,7 +117,7 @@
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div id="state-map-legend" data-ng-cloak>
-                        <p>Total {{instance.currentValues.state}} in {{instance.currentInputs.state}}</p>
+                        <p>Total {{normalizeNumber(instance.currentValues.state)}} in {{instance.currentInputs.state}}</p>
                         <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}}</p>
                         <div class="legend-values">
                             <div class="quartile-label">
@@ -168,7 +168,7 @@
                         <span class="territory-box" data-ng-mouseout="territoryHover('VI', 'Virgin Islands', false)" data-ng-mouseover="territoryHover('VI', 'Virgin Islands', true)" data-ng-if="instance.currentValues.usMapData['VI']" data-ng-style="{'background-color': instance.currentValues.usMapData['VI'].fillColor || 'rgb(225, 225, 225)'}"></span><span class="territory-label" data-ng-if="instance.currentValues.usMapData['VI']">Virgin Islands</span>
                     </div>
                     <div id="us-map-legend" data-ng-cloak>
-                        <p>Total {{instance.currentValues.us}} in US</p>
+                        <p>Total {{normalizeNumber(instance.currentValues.us)}} in US</p>
                         <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}}</p>
                         <div class="legend-values">
                             <div class="quartile-label">

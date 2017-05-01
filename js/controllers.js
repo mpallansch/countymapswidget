@@ -287,9 +287,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
         //function takes a floating point number and rounds to a consistent number of decimal places to display on the map and legend
         $scope.normalizeNumber = function(number) {
             if (typeof number !== 'number') {
-                number = parseFloat(number);
+                number = parseInt(number);
             }
-            return number.toFixed(1);
+            return number;
         };
 
         //compares data values of two datapoints, used to sort the data

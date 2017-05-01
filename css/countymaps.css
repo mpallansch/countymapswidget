@@ -288,10 +288,15 @@ th {
     width: 33%;
 }
 
+.legend-values {
+    text-align: left;
+}
+
 .quartile-label {
     border-top: 1px solid black;
     padding-top: 10px;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .legend-color-container {

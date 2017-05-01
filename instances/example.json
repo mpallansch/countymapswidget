@@ -13,9 +13,7 @@
              "countyLegendHeader": "Heart Disease Death Rates per 100,000 of Total Population",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.",
              "footerLinks": [
-                 {"label": "For more information about methods, go to", "text": "https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm", "url": "https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm"},
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
-                 {"label": "For additional maps", "text": "Interactive Atlas of Heart Disease and Stroke", "url": "http://nccd.cdc.gov/DHDSPAtlas/"},
                  {"label": "Source", "text": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention", "url": "http://www.cdc.gov/chronicdisease/index.htm"}
              ],
              "mapHighlightColor": "rgba(255, 255, 0 ,0.5)",
@@ -32,9 +30,7 @@
              "stateLegendHeader": "Stroke Death Rates per 100,000 of Total Population",
              "countyLegendHeader": "Stroke Death Rates per 100,000 of Total Population",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.","footerLinks": [
-                 {"label": "For more information about methods, go to", "text": "https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm", "url": "https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm"},
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
-                 {"label": "For additional maps", "text": "Interactive Atlas of Heart Disease and Stroke", "url": "http://nccd.cdc.gov/DHDSPAtlas/"},
                  {"label": "Source", "text": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention", "url": "http://www.cdc.gov/chronicdisease/index.htm"}
              ],
              "mapHighlightColor": "rgba(255, 255, 0 ,0.5)",
