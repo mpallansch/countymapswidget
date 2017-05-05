@@ -116,7 +116,7 @@ select {
     -webkit-appearance: none !important;
     -moz-appearance: none;
     border-radius: 0 !important;
-    padding: 6px 10px;
+    padding: 6px 4px;
     font: 14px Arial; 
     background-color: ghostwhite;
     border: 1px solid gray;
@@ -173,20 +173,27 @@ select::-ms-expand {
 #map-controls select {
     margin-left: 5px;
     margin-bottom: 5px;
-    width: 150px
+    width: 130px
 }
 
 #map-controls .select-wrapper {
     position: relative;
-    width: 160px;
+    width: 140px;
     margin: auto;
     text-align: left;
+}
+
+#map-controls #state-select {
+    width: 50px;
+}
+
+#map-controls .state-select-wrapper {
+    width: 60px
 }
 
 #map-controls .select-arrow {
     position: absolute;
     top: -4px;
-    width: 30px;
     right: 10px;
     font-size: 24px;
     -webkit-transform: rotate(180deg);
@@ -303,6 +310,7 @@ th {
     right: -33%;
     top: 0;
     width: 33%;
+    text-align: left;
 }
 
 .legend-values {
@@ -310,10 +318,8 @@ th {
 }
 
 .quartile-label {
-    border-top: 1px solid black;
     padding-top: 10px;
     margin-bottom: 10px;
-    text-align: center;
 }
 
 .legend-color-container {
@@ -368,5 +374,10 @@ th {
 
     #map-controls {
         text-align: left;
+    }
+
+    #map-controls .select-label {
+        display: inline-block;
+        min-width: 60px;
     }
 }

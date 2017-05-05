@@ -36,69 +36,69 @@
             <p>Error loading instance, please check name and try again</p>
         </div>
         <div data-ng-hide="error">
-            <h2 id="widget-title" data-ng-cloak>{{instance.title}}</h2>
+            <h2 id="widget-title" data-ng-cloak>{{instance.datasets[instance.currentInputs.datasetName].title}}</h2>
             <div id="map-controls">
-                Select:<br/><br/>
                 <div>
-                    State:
-                    <div class="select-wrapper">
+                    <span class="select-label">State:</span>
+                    <div class="select-wrapper state-select-wrapper">
                         <select id="state-select" data-ng-model="instance.currentInputs.state" data-ng-change="updateData()">
-                            <option value="Alabama">Alabama</option>
-                            <option value="Alaska">Alaska</option>
-                            <option value="Arizona">Arizona</option>
-                            <option value="Arkansas">Arkansas</option>
-                            <option value="California">California</option>
-                            <option value="Colorado">Colorado</option>
-                            <option value="Connecticut">Connecticut</option>
-                            <option value="Delaware">Delaware</option>
-                            <option value="Florida">Florida</option>
-                            <option value="Georgia">Georgia</option>
-                            <option value="Hawaii">Hawaii</option>
-                            <option value="Idaho">Idaho</option>
-                            <option value="Illinois">Illinois</option>
-                            <option value="Indiana">Indiana</option>
-                            <option value="Iowa">Iowa</option>
-                            <option value="Kansas">Kansas</option>
-                            <option value="Kentucky">Kentucky</option>
-                            <option value="Louisiana">Louisiana</option>
-                            <option value="Maine">Maine</option>
-                            <option value="Maryland">Maryland</option>
-                            <option value="Massachusetts">Massachusetts</option>
-                            <option value="Michigan">Michigan</option>
-                            <option value="Minnesota">Minnesota</option>
-                            <option value="Mississippi">Mississippi</option>
-                            <option value="Missouri">Missouri</option>
-                            <option value="Montana">Montana</option>
-                            <option value="Nebraska">Nebraska</option>
-                            <option value="Nevada">Nevada</option>
-                            <option value="New Hampshire">New Hampshire</option>
-                            <option value="New Jersey">New Jersey</option>
-                            <option value="New Mexico">New Mexico</option>
-                            <option value="New York">New York</option>
-                            <option value="North Carolina">North Carolina</option>
-                            <option value="North Dakota">North Dakota</option>
-                            <option value="Ohio">Ohio</option>
-                            <option value="Oklahoma">Oklahoma</option>
-                            <option value="Oregon">Oregon</option>
-                            <option value="Pennsylvania">Pennsylvania</option>
-                            <option value="Rhode Island">Rhode Island</option>
-                            <option value="South Carolina">South Carolina</option>
-                            <option value="South Dakota">South Dakota</option>
-                            <option value="Tennessee">Tennessee</option>
-                            <option value="Texas">Texas</option>
-                            <option value="Utah">Utah</option>
-                            <option value="Vermont">Vermont</option>
-                            <option value="Virginia">Virginia</option>
-                            <option value="Washington">Washington</option>
-                            <option value="West Virginia">West Virginia</option>
-                            <option value="Wisconsin">Wisconsin</option>
-                            <option value="Wyoming">Wyoming</option>
+                            <option value="Alaska">AK</option>
+                            <option value="Alabama">AL</option>
+                            <option value="Arkansas">AR</option>
+                            <option value="Arizona">AZ</option>
+                            <option value="California">CA</option>
+                            <option value="Colorado">CO</option>
+                            <option value="Connecticut">CT</option>
+                            <option value="Delaware">DE</option>
+                            <option value="Florida">FL</option>
+                            <option value="Georgia">GA</option>
+                            <option value="Hawaii">HI</option>
+                            <option value="Iowa">IA</option>
+                            <option value="Idaho">ID</option>
+                            <option value="Illinois">IL</option>
+                            <option value="Indiana">IN</option>
+                            <option value="Kansas">KS</option>
+                            <option value="Kentucky">KY</option>
+                            <option value="Louisiana">LA</option>
+                            <option value="Massachusetts">MA</option>
+                            <option value="Maryland">MD</option>
+                            <option value="Maine">ME</option>
+                            <option value="Michigan">MI</option>
+                            <option value="Minnesota">MN</option>
+                            <option value="Missouri">MO</option>
+                            <option value="Mississippi">MS</option>
+                            <option value="Montana">MT</option>
+                            <option value="North Carolina">NC</option>
+                            <option value="North Dakota">ND</option>
+                            <option value="Nebraska">NE</option>
+                            <option value="New Hampshire">NH</option>
+                            <option value="New Jersey">NJ</option>
+                            <option value="New Mexico">NM</option>
+                            <option value="Nevada">NV</option>
+                            <option value="New York">NY</option>
+                            <option value="Ohio">OH</option>
+                            <option value="Oklahoma">OK</option>
+                            <option value="Oregon">OR</option>
+                            <option value="Pennsylvania">PA</option>
+                            <option value="Rhode Island">RI</option>
+                            <option value="South Carolina">SC</option>
+                            <option value="South Dakota">SD</option>
+                            <option value="Tennessee">TN</option>
+                            <option value="Texas">TX</option>
+                            <option value="Utah">UT</option>
+                            <option value="Virginia">VA</option>
+                            <option value="Virgin Islands">VI</option>
+                            <option value="Vermont">VT</option>
+                            <option value="Washington">WA</option>
+                            <option value="Wisconsin">WI</option>
+                            <option value="West Virginia">WV</option>
+                            <option value="Wyoming">WY</option>
                         </select>
                         <div class="select-arrow">^</div>
                     </div>
                 </div>
                 <div data-ng-show="instance.currentValues.showSelector">
-                    {{instance.datasets[instance.currentInputs.datasetName].dataInputLabel || 'Dataset:'}} 
+                    <span class="select-label">{{instance.datasets[instance.currentInputs.datasetName].dataInputLabel || 'Dataset:'}}</span> 
                     <div class="select-wrapper">
                         <select data-ng-model="instance.currentInputs.datasetName">
                             <option data-ng-repeat="(name, data) in instance.datasets" value="{{name}}">{{name}}</option>
@@ -108,7 +108,7 @@
                 </div>
                 <div>
                     <div class="filter-input" data-ng-repeat="(filter, data) in instance.filters">
-                        {{filter}}:
+                        <span class="select-label">{{filter}}:</span>
                         <div class="select-wrapper">
                             <select data-ng-model="instance.currentInputs.filters[filter]"  data-ng-change="updateData()" data-ng-cloak>
                                 <option value="{{filterVal}}" data-ng-repeat="(filterVal, valueData) in data.values">{{filterVal}}</option>
@@ -120,7 +120,6 @@
             </div>
             <div id="state-section">
                 <div id="state-map-section">
-                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].countyLegendHeader || instance.currentInputs.datasetName}} in {{instance.currentInputs.state}}</strong></p>                    
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div id="state-map-legend" data-ng-cloak>
@@ -165,7 +164,6 @@
             </div>
             <div id="us-section">
                 <div id="us-map-section">
-                    <p><strong>{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}} in the United States</strong></p>
                     <p>Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div id="us-map-territories" data-ng-if="instance.currentValues.usMapData['GU'] || instance.currentValues.usMapData['PR'] || instance.currentValues.usMapData['VI']">

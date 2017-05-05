@@ -340,7 +340,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
         //this function draws both maps, and will be called when the filters are updated, or when the page is resized
         $scope.drawMaps = function() {
             //if the map data or instance have not loaded, do not attempt to draw maps
-            if (!$scope.mapData || !$scope.instance || !$scope.instance.data) {
+            if (!$scope.mapData || !$scope.instance || !$scope.instance.data || !$scope.instance.currentInputs.datasetName) {
                 return;
             }
 
