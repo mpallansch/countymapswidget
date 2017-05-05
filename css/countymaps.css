@@ -114,11 +114,16 @@ input {
 
 select {
     -webkit-appearance: none !important;
+    -moz-appearance: none;
     border-radius: 0 !important;
     padding: 6px 10px;
     font: 14px Arial; 
     background-color: ghostwhite;
     border: 1px solid gray;
+}
+
+select::-ms-expand {
+    display: none;
 }
 
 .map-container {
