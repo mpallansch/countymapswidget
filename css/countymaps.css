@@ -156,14 +156,6 @@ select {
     padding-top: 4px;
     border-top: 1px solid black;
 }
-
-#map-controls-toggle {
-    display: none;    
-    padding: 10px;
-    border: 1px solid gray;
-    cursor: pointer;
-    font-size: large;
-}
     
 #map-controls {
     text-align: center;
@@ -171,12 +163,32 @@ select {
 
 #map-controls div {
     display: inline-block;
-    padding: 10px 0px;
 }
 
 #map-controls select {
     margin-left: 5px;
     margin-bottom: 5px;
+    width: 150px
+}
+
+#map-controls .select-wrapper {
+    position: relative;
+    width: 160px;
+    margin: auto;
+    text-align: left;
+}
+
+#map-controls .select-arrow {
+    position: absolute;
+    top: -4px;
+    width: 30px;
+    right: 10px;
+    font-size: 24px;
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    pointer-events: none; 
 }
 
 #us-map-territories {
@@ -338,11 +350,6 @@ th {
     padding-bottom: 5px;
 }
 
-.no-wrap {
-    display: inline;
-    white-space: nowrap;
-}
-
 @media (max-width: 550px){
     #us-map-legend, #state-map-legend {
         position: static;
@@ -353,18 +360,8 @@ th {
         display: block;
         width: 100%;
     }
-    
-    #map-controls-toggle {
-        display: block;
-    }
-    
+
     #map-controls {
-        display: none;
-        text-align: left;
-    }
-    
-    #map-controls.show {
-        display: block;
         text-align: left;
     }
 }

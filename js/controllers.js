@@ -22,7 +22,6 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                         $scope.instance.pendingCallbacks = 0;
 
                         //sets the default inputs that will be displayed in the dropdowns
-                        $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.datasets)[0];
                         $scope.instance.currentInputs.state = cdcCommon.getCallParam('defaultState') ? cdcCommon.getCallParam('defaultState') : 'Alabama';
                         
                         $scope.instance.currentInputs.stateSortBy = 'state';
@@ -104,6 +103,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 $scope.instance.currentValues.showSelector = true;
             }
 
+            //sets default value for dataset select element
+            $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.data)[0];
+
             //sets default values for filter select element
             $scope.instance.currentInputs.filters = {};
             for (filter in $scope.instance.filters) {
@@ -159,7 +161,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             $scope.instance.currentValues.usMapData = {};
             $scope.instance.currentValues.stateMapData = {};
             
-            $('#style').html('.widget-header, #footer-section { background-color: ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[0] + ' !important;}');
+            $('#style').html('.widget-header, #footer-section, #map-controls select { background-color: ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[0] + ' !important;}');
 
             //sets the current unfiltered values displayed in the legend from the unfiltered values determined in init()
             $scope.instance.currentValues.us = $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter['US'];
