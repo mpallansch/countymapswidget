@@ -193,9 +193,9 @@ select::-ms-expand {
 
 #map-controls .select-arrow {
     position: absolute;
-    top: -4px;
+    top: 0px;
     right: 10px;
-    font-size: 24px;
+    font-size: 18px;
     -webkit-transform: rotate(180deg);
     -moz-transform: rotate(180deg);
     -ms-transform: rotate(180deg);
