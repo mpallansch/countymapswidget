@@ -161,7 +161,7 @@ select::-ms-expand {
     padding-top: 4px;
     border-top: 1px solid black;
 }
-    
+
 #map-controls {
     text-align: center;
 }
@@ -170,10 +170,15 @@ select::-ms-expand {
     display: inline-block;
 }
 
+#map-controls .select-unit {
+    width: 220px;
+    text-align: left;
+}
+
 #map-controls select {
     margin-left: 5px;
     margin-bottom: 5px;
-    width: 130px
+    width: 130px;
 }
 
 #map-controls .select-wrapper {
@@ -201,6 +206,11 @@ select::-ms-expand {
     -ms-transform: rotate(180deg);
     transform: rotate(180deg);
     pointer-events: none; 
+}
+
+#map-controls .select-label {
+    display: inline-block;
+    min-width: 60px;
 }
 
 #us-map-territories {
@@ -372,14 +382,5 @@ th {
     #us-map-section, #state-map-section {
         display: block;
         width: 100%;
-    }
-
-    #map-controls {
-        text-align: left;
-    }
-
-    #map-controls .select-label {
-        display: inline-block;
-        min-width: 60px;
     }
 }
