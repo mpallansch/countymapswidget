@@ -182,6 +182,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     $scope.instance.currentValues.filterString = $scope.instance.currentValues.filterString + $scope.instance.currentInputs.filters[filter] + ' ';
                 }
             }
+            $scope.instance.currentValues.filterString = $scope.instance.currentValues.filterString.trim();
             if (noFilters) {
                 $scope.instance.currentValues.filterString = '';
             } else {
