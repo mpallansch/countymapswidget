@@ -127,8 +127,7 @@
                             </div>
                             <div data-ng-repeat="row in instance.currentValues.countyLegend" data-ng-if="$last === false || instance.currentValues.countyLegend.length <= instance.datasets[instance.currentInputs.datasetName].colors.length" class="legend-color-container">
                                 <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.countyLegend[$index + 1] || row}}</span>
-                            </div>                        
-                            <div class="legend-color-container">
+                            </div><div class="legend-color-container">
                                 <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
                             </div>
 
@@ -177,8 +176,7 @@
                             </div>
                             <div data-ng-repeat="row in instance.currentValues.stateLegend" data-ng-if="$last === false" class="legend-color-container">
                                 <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.stateLegend[$index + 1]}}</span>
-                            </div>
-                            <div class="legend-color-container">
+                            </div><div class="legend-color-container">
                                 <span style="background-color: rgb(225, 225, 225)" class="legend-color"></span><span class="legend-value">Insufficient Data</span>
                             </div>
                         </div>

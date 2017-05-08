@@ -171,7 +171,7 @@ select::-ms-expand {
 }
 
 #map-controls .select-unit {
-    width: 220px;
+    min-width: 220px;
     text-align: left;
 }
 
@@ -193,7 +193,7 @@ select::-ms-expand {
 }
 
 #map-controls .state-select-wrapper {
-    width: 60px
+    width: 55px
 }
 
 #map-controls .select-arrow {
@@ -382,5 +382,9 @@ th {
     #us-map-section, #state-map-section {
         display: block;
         width: 100%;
+    }
+
+    #map-controls {
+        text-align: left;
     }
 }
