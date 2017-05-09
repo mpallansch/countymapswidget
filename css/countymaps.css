@@ -335,6 +335,7 @@ th {
 .legend-color-container {
     display: inline-block;
     margin-right: 10px;
+    min-width: 100px;
 }
 
 .legend-color {
