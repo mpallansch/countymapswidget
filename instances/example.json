@@ -2,7 +2,7 @@
     "title": "Example County Maps Widget",
     "datasets": {
         "Heart Disease": {
-             "title": "Heart Disease Death Rates per 100,000 of Total Population",
+             "title": "Heart Disease <a href='#footer-section'>Death Rate*</a> per 100,000 of Total Population",
              "url": "https://chronicdata.cdc.gov/resource/7aku-344k.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
@@ -12,7 +12,10 @@
              "stateLegendHeader": "Heart Disease Death Rates per 100,000 of Total Population",
              "countyLegendHeader": "Heart Disease Death Rates per 100,000 of Total Population",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.",
+             "primaryUnitLabel": "deaths per 100,000",
+             "secondaryUnitLabel": "death rate*",
              "footerLinks": [
+                 {"label": "Death Rate: The rate is the number of events that occur over the sum of time individuals in the population were at risk for the event. For example, the mortality rate is usually expressed as the rate per 100,000 population, which equals the number of deaths divided by the total population, divided by 100,000 [Rate = #deaths/(#population/100,000)].", "text": "https://www.cdc.gov/dhdsp/maps/dtm/glossary.htm#r", "url": "https://www.cdc.gov/dhdsp/maps/dtm/glossary.htm#r"},
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
                  {"label": "Source", "text": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention", "url": "http://www.cdc.gov/chronicdisease/index.htm"}
              ],
@@ -20,7 +23,7 @@
              "colors" : ["#bdd7e7", "#90bfd0", "#6baec6", "#3182bd"]
         },
         "Stroke": {
-             "title": "Stroke Death Rates per 100,000 of Total Population",
+             "title": "Stroke <a href='#footer-section'>Death Rate*</a> per 100,000 of Total Population",
              "url": "https://chronicdata.cdc.gov/resource/5yyn-dweg.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
@@ -29,7 +32,10 @@
              "dataInputLabel" : "Disease:",
              "stateLegendHeader": "Stroke Death Rates per 100,000 of Total Population",
              "countyLegendHeader": "Stroke Death Rates per 100,000 of Total Population",
+             "primaryUnitLabel": "deaths per 100,000",
+             "secondaryUnitLabel": "death rate*",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.","footerLinks": [
+                 {"label": "Death Rate: The rate is the number of events that occur over the sum of time individuals in the population were at risk for the event. For example, the mortality rate is usually expressed as the rate per 100,000 population, which equals the number of deaths divided by the total population, divided by 100,000 [Rate = #deaths/(#population/100,000)].", "text": "https://www.cdc.gov/dhdsp/maps/dtm/glossary.htm#r", "url": "https://www.cdc.gov/dhdsp/maps/dtm/glossary.htm#r"},
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
                  {"label": "Source", "text": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention", "url": "http://www.cdc.gov/chronicdisease/index.htm"}
              ],

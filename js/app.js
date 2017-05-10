@@ -1,4 +1,4 @@
-var countyMapsApp = angular.module('countyMapsApp', ['countyMapsControllers']);
+var countyMapsApp = angular.module('countyMapsApp', ['countyMapsControllers', 'ngSanitize']);
 
 countyMapsApp.run(function($rootScope, $http) {
     angular.element(document.getElementById('tp-widget-share-code')).text(cdcCommon.runtime.embedCode);
