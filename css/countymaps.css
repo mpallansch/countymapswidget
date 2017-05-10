@@ -358,12 +358,13 @@ th {
     text-align: center;
 }
 
-#us-section {
-    border-bottom: 1px solid black;
-}
-
 #state-section {
     margin-top: 10px;
+}
+
+#prefootnote {
+    padding: 15px;
+    text-align: center;
 }
 
 #footer-section {
@@ -372,6 +373,7 @@ th {
     padding-bottom: 5px;
     padding-left: 5px;
     padding-right: 5px;
+    border-top: 1px solid black;
 }
 
 @media (max-width: 550px){

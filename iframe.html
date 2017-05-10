@@ -205,6 +205,9 @@
                     </div>
                 </div>
             </div>
+            <div id="prefootnote">
+                {{instance.datasets[instance.currentInputs.datasetName].prefootnote}}
+            </div>
             <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.datasetName].footnote">{{instance.datasets[instance.currentInputs.datasetName].footnote}}</p>
                 <p class="link-dataset" data-ng-repeat="footerLink in instance.datasets[instance.currentInputs.datasetName].footerLinks">
