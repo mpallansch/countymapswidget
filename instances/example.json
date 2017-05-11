@@ -13,7 +13,6 @@
              "countyLegendHeader": "Heart Disease Death Rates per 100,000 of Total Population",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.",
              "primaryUnitLabel": "deaths per 100,000",
-             "secondaryUnitLabel": "death rate*",
              "prefootnote": "*Rate: The rate is the number of events that occur over the sum of time individuals in the population were at risk for the event. For example, the mortality rate is usually expressed as the rate per 100,000 population, which equals the number of deaths divided by the total population, divided by 100,000 [Rate = #deaths/(#population/100,000)].",
              "footerLinks": [
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
@@ -33,7 +32,6 @@
              "stateLegendHeader": "Stroke Death Rates per 100,000 of Total Population",
              "countyLegendHeader": "Stroke Death Rates per 100,000 of Total Population",
              "primaryUnitLabel": "deaths per 100,000",
-             "secondaryUnitLabel": "death rate*",
              "prefootnote": "*Rate: The rate is the number of events that occur over the sum of time individuals in the population were at risk for the event. For example, the mortality rate is usually expressed as the rate per 100,000 population, which equals the number of deaths divided by the total population, divided by 100,000 [Rate = #deaths/(#population/100,000)].",
              "footnote": "Note: Data are age-adjusted and spatially smoothed.","footerLinks": [
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
