@@ -12164,13 +12164,18 @@
     element.on('mousemove', function() {
       var position = d3.mouse(self.options.element);
       
+    var left = ((position[0] > svgWidth / 2) ? position[0] - hoverover.node().clientWidth : position[0] - 30);
+    if(left < 0){
+        left = 0;
+    }
+      
     hoverover.style('top', ((position[1] > svgHeight / 2) ? position[1] - hoverover.node().clientHeight - 30 : position[1] + 30) + "px")
         .html(function() {
           var data = JSON.parse(element.attr('data-info'));
           //if ( !data ) return '';
           return options.popupTemplate(d, data);
         })
-        .style('left', ((position[0] > svgWidth / 2) ? position[0] - hoverover.node().clientWidth : position[0]) + "px");
+        .style('left', left + "px");
     });
 
     d3.select(self.svg[0][0].parentNode).select('.datamaps-hoverover').style('display', 'block');

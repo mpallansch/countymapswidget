@@ -2,7 +2,7 @@
     "title": "Example County Maps Widget",
     "datasets": {
         "Heart Disease": {
-             "title": "Heart Disease <a href='#prefootnote'>Death Rate*</a> per 100,000 of Total Population",
+             "title": "Heart Disease <a href='#prefootnote'>Death Rate</a>* per 100,000 of Total Population",
              "url": "https://chronicdata.cdc.gov/resource/7aku-344k.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",
@@ -22,7 +22,7 @@
              "colors" : ["#bdd7e7", "#90bfd0", "#6baec6", "#3182bd"]
         },
         "Stroke": {
-             "title": "Stroke <a href='#prefootnote'>Death Rate*</a> per 100,000 of Total Population",
+             "title": "Stroke <a href='#prefootnote'>Death Rate</a>* per 100,000 of Total Population",
              "url": "https://chronicdata.cdc.gov/resource/5yyn-dweg.json?$limit=60000&$$app_token=IgJZnWf9KtwcLeOvqC1LuIGCu&$select=locationabbr,data_value,locationdesc,stratification1,stratification2",
              "stateColumn": "locationabbr",
              "locationColumn": "locationdesc",

@@ -120,7 +120,7 @@
                     <div id="state-map-container" class="map-container"></div>
                     <div id="state-map-legend" data-ng-cloak>
                         <p>Total {{normalizeNumber(instance.currentValues.state)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}} in {{instance.currentInputs.state}}</p>
-                        <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.stateFiltered}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
+                        <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{normalizeNumber(instance.currentValues.stateFiltered)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
                         <div class="legend-values">
                             <div class="quartile-label">
                                 <span>Quartiles</span>
@@ -169,7 +169,7 @@
                     </div>
                     <div id="us-map-legend" data-ng-cloak>
                         <p>Total {{normalizeNumber(instance.currentValues.us)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}} in US</p>
-                        <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{instance.currentValues.usFiltered}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
+                        <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{normalizeNumber(instance.currentValues.usFiltered)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
                         <div class="legend-values">
                             <div class="quartile-label">
                                 <span>Quartiles</span>
