@@ -211,7 +211,7 @@
             <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.datasetName].footnote">{{instance.datasets[instance.currentInputs.datasetName].footnote}}</p>
                 <p class="link-dataset" data-ng-repeat="footerLink in instance.datasets[instance.currentInputs.datasetName].footerLinks">
-                    {{footerLink.label}}: <a target="_blank" data-ng-click="trackEvent('Link Click', footerLink.label)" data-ng-href="{{footerLink.url}}">{{footerLink.text}}</a>
+                    <span data-ng-show="footerLink.label">{{footerLink.label}}: </span><a target="_blank" data-ng-click="trackEvent('Link Click', footerLink.label)" data-ng-href="{{footerLink.url}}">{{footerLink.text}}</a>
                 </p>
             </div>
             <span class="screen-reader-hidden" role="alert">{{instance.currentValues.accessibilityText}}</span>
