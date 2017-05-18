@@ -15,8 +15,6 @@
 			c32 : "widget-134",
 			useMetrics : 'true'
 		});
-
-		cdcCommon.createEmbedCode(cdcCommon.getCallParam('wn'),['data-instance-name']);
                 
                 // LOAD CONTROLLERS
 		cdcCommon.loadScript('./js/controllers.js', function(){

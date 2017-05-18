@@ -13,7 +13,10 @@
         <div id="tp-widget-share-modal" class="cdc-share-code" style="display: none;">
             <div class="share-exit" onclick="window.cdcCommon.events.shareClose()">X</div>
             Copy and paste the code below:
-            <textarea id="tp-widget-share-code"></textarea><br />
+            <textarea id="tp-widget-share-code">
+&lt;div data-cdc-widget="CountyMapsTemplate" data-instance-name="{{instanceName}}" data-default-state="{{instance.currentInputs.state}}"&gt;&lt;/div&gt;
+&lt;script src="https://tools.cdc.gov/1M1B"&gt;&lt;/script&gt;
+            </textarea><br />
         </div>
         <div id="tp-widget-info-modal" class="cdc-info-modal" style="display: none;">
             <div class="info-exit" onclick="window.cdcCommon.events.infoClose()">X</div>
