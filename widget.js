@@ -13,6 +13,7 @@
 		// INIT METRICS
 		cdcMetrics.init({
 			c32 : "widget-134",
+                        pageName: cdcCommon.getCallParam('instanceName') ? ('County Maps - ' + cdcCommon.getCallParam('instanceName')) : 'County Maps',
 			useMetrics : 'true'
 		});
                 
