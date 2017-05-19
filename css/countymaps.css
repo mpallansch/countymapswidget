@@ -178,12 +178,12 @@ select::-ms-expand {
 #map-controls select {
     margin-left: 5px;
     margin-bottom: 5px;
-    width: 130px;
+    width: 145px;
 }
 
 #map-controls .select-wrapper {
     position: relative;
-    width: 140px;
+    width: 157px;
     margin: auto;
     text-align: left;
 }
