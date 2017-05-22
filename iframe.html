@@ -201,7 +201,7 @@
                 </div>
             </div>
             <div id="prefootnote">
-                {{instance.datasets[instance.currentInputs.datasetName].prefootnote}}
+                {{instance.datasets[instance.currentInputs.datasetName].prefootnote}} <a data-ng-href="{{instance.datasets[instance.currentInputs.datasetName].prefootnoteLink}}" target="_blank">{{instance.datasets[instance.currentInputs.datasetName].prefootnoteLink}}</a>
             </div>
             <div id="footer-section" data-ng-cloak>
                 <p class="footnote" data-ng-show="instance.datasets[instance.currentInputs.datasetName].footnote">{{instance.datasets[instance.currentInputs.datasetName].footnote}}</p>
