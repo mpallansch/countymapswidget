@@ -119,12 +119,9 @@
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div id="state-map-legend" data-ng-cloak>
-                        <p>Total {{normalizeNumber(instance.currentValues.state)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}} in {{instance.currentInputs.state}}</p>
-                        <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{normalizeNumber(instance.currentValues.stateFiltered)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
+                        <p>{{instance.currentInputs.state}}, <span data-ng-show="instance.currentValues.filterString.length === 0">Total</span><span data-ng-show="instance.currentValues.filterString.length > 0">{{instance.currentValues.filterString}}</span></p>
+                        <p>{{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
                         <div class="legend-values">
-                            <div class="quartile-label">
-                                <span>Quartiles</span>
-                            </div>
                             <div data-ng-repeat="row in instance.currentValues.countyLegend" data-ng-if="$last === false || instance.currentValues.countyLegend.length <= instance.datasets[instance.currentInputs.datasetName].colors.length" class="legend-color-container">
                                 <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.countyLegend[$index + 1] || row}}</span>
                             </div><div class="legend-color-container">
@@ -168,12 +165,9 @@
                         <span class="territory-box" data-ng-mouseout="territoryHover('VI', 'Virgin Islands', false)" data-ng-mouseover="territoryHover('VI', 'Virgin Islands', true)" data-ng-if="instance.currentValues.usMapData['VI']" data-ng-style="{'background-color': instance.currentValues.usMapData['VI'].fillColor || 'rgb(225, 225, 225)'}"></span><span class="territory-label" data-ng-if="instance.currentValues.usMapData['VI']">Virgin Islands</span>
                     </div>
                     <div id="us-map-legend" data-ng-cloak>
-                        <p>Total {{normalizeNumber(instance.currentValues.us)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}} in US</p>
-                        <p data-ng-show="instance.currentValues.filterString.length > 0"><span>{{instance.currentValues.filterString}}</span>: {{normalizeNumber(instance.currentValues.usFiltered)}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
+                        <p>{{instance.currentInputs.state}}, <span data-ng-show="instance.currentValues.filterString.length === 0">Total</span><span data-ng-show="instance.currentValues.filterString.length > 0">{{instance.currentValues.filterString}}</span></p>
+                        <p>{{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}</p>
                         <div class="legend-values">
-                            <div class="quartile-label">
-                                <span>Quartiles</span>
-                            </div>
                             <div data-ng-repeat="row in instance.currentValues.stateLegend" data-ng-if="$last === false" class="legend-color-container">
                                 <span data-ng-style="{'background-color' : instance.datasets[instance.currentInputs.datasetName].colors[$index]}" class="legend-color"></span><span class="legend-value">{{row}} - {{instance.currentValues.stateLegend[$index + 1]}}</span>
                             </div><div class="legend-color-container">
