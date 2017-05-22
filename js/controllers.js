@@ -368,8 +368,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     popupTemplate: function(geo, data) {
                         return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
-                                '<p class="popup-rate">Total Pop: ' + (data && data.data ? $scope.normalizeNumber(data.data) + ' ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].primaryUnitLabel : 'Insufficient Data') + '</p>' +
-                                ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered + ' ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].primaryUnitLabel : 'Insufficient Data') + '</p>') : '') +
+                                ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') + 
+                                '<p class="popup-rate">Total Population: ' + (data && data.data ? $scope.normalizeNumber(data.data) : 'Insufficient Data') + '</p>' +
+                                ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'Insufficient Data') + '</p>') : '') +
                                 '</div>';
                     }
                 },
@@ -411,8 +412,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     popupTemplate: function(geo, data) {
                         return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
-                                '<p class="popup-rate">Total Pop: ' + (data && data.data ? $scope.normalizeNumber(data.data) + ' ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].primaryUnitLabel : 'Insufficient Data') + '</p>' +
-                                ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered + ' ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].primaryUnitLabel : 'Insufficient Data') + '</p>') : '') +
+                                ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') +  
+                                '<p class="popup-rate">Total Population: ' + (data && data.data ? $scope.normalizeNumber(data.data) : 'Insufficient Data') + '</p>' +
+                                ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'Insufficient Data') + '</p>') : '') +
                                 '</div>';
                     }
                 },
@@ -446,7 +448,8 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 var data = $scope.instance.currentValues.usMapData[territoryCode];
                 $el.html('<div class="hoverinfo">' +
                         '<h3>' + territoryName + '</h3>' +
-                        '<p class="popup-rate">Total Pop: ' + (data && data.data ? $scope.normalizeNumber(data.data) : 'Insufficient Data') + '</p>' +
+                                ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') + 
+                        '<p class="popup-rate">Total Population: ' + (data && data.data ? $scope.normalizeNumber(data.data) : 'Insufficient Data') + '</p>' +
                         ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'Insufficient Data') + '</p>') : '') +
                         '</div>');
                 $el.css({
