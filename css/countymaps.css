@@ -328,6 +328,8 @@ th {
     text-align: left;
     border: 1px solid black;
     padding-left: 10px;
+    padding-bottom: 10px;
+    margin-top: 10px;
     box-sizing: border-box;
 }
 
