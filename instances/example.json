@@ -51,7 +51,7 @@
             "column": "stratification2",
             "noFilter": "Overall",
             "values": {
-                "All Races/Ethnicities": "Overall",
+                "All Race/Ethnicity": "Overall",
                 "Black": "Black",
                 "Hispanic": "Hispanic",
                 "White": "White"
@@ -61,7 +61,7 @@
             "column": "stratification1",
             "noFilter": "Overall",
             "values": {
-                "Men & Women": "Overall",
+                "All Gender": "Overall",
                 "Men": "Male",
                 "Women": "Female"
             }
