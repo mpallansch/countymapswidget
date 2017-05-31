@@ -126,7 +126,8 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                             if ($scope.states[location]) {
                                 datapoint.countyMapsStateFlag = true;
                             } else {
-                                location = location.replace(/ - |county|parish/gi, '').replace(/DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AL|AK|AZ|AR|CA|CO|CT/g, '');
+                                datapoint.originalLocation = location.replace(/DE|FL|GA|HI|ID|IL|IN|IA|KS|KY|LA|ME|MD|MA|MI|MN|MS|MO|MT|NE|NV|NH|NJ|NM|NY|NC|ND|OH|OK|OR|PA|RI|SC|SD|TN|TX|UT|VT|VA|WA|WV|WI|WY|AL|AK|AZ|AR|CA|CO|CT/g, '');
+                                location = datapoint.originalLocation.replace(/ - |county|parish/gi, '');
                             }
                             location = location.trim();
                             datapoint[$scope.instance.datasets[dataset].locationColumn] = location;
@@ -277,6 +278,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
 
                 $scope.instance.currentValues.stateMapData[datapoint[locationColumn]] = {
                     location: datapoint[locationColumn],
+                    originalLocation: datapoint.originalLocation,
                     data: $scope.normalizeNumber($scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]]),
                     dataFiltered: $scope.normalizeNumber(datapoint[dataColumn]),
                     fillColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
@@ -410,8 +412,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     highlightBorderColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
+                        console.log(data);
                         return '<div class="hoverinfo">' +
-                                '<h3>' + geo.properties.name + '</h3>' +
+                                '<h3>' + ((data && data.originalLocation) ? data.originalLocation : geo.properties.name) + '</h3>' +
                                 ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') +  
                                 '<p class="popup-rate">Total Population: ' + (data && data.data ? $scope.normalizeNumber(data.data) : 'Insufficient Data') + '</p>' +
                                 ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + (data && data.dataFiltered ? data.dataFiltered : 'Insufficient Data') + '</p>') : '') +
