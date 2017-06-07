@@ -16,7 +16,7 @@
              "prefootnote": "*Rate: ",
              "prefootnoteLinkLabel": "Rates are age standardized and spatially smoothed.",
              "prefootnoteLinkUrl": "https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm",
-             "footnote": "Note: Data for people ages 35+ collected from 2013 to 2015.",
+             "footnote": "Note: Data for people ages 35+ from 2013 to 2015.",
              "footerLinks": [
                  {"label": "", "text": "Download Data", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
                  {"label": "Source", "text": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention", "url": "http://www.cdc.gov/chronicdisease/index.htm"}
@@ -39,7 +39,7 @@
              "prefootnote": "*Rate: ",
              "prefootnoteLinkLabel": "Rates are age standardized and spatially smoothed.",
              "prefootnoteLinkUrl": "https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm",
-             "footnote": "Note: Data for people ages 35+ collected from 2013 to 2015.",
+             "footnote": "Note: Data for people ages 35+ from 2013 to 2015.",
              "footerLinks": [
                  {"label": "Download Data", "text": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention", "url": "https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention"},
                  {"label": "Source", "text": "National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention", "url": "http://www.cdc.gov/chronicdisease/index.htm"}
