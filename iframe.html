@@ -116,7 +116,7 @@
             </div>
             <div id="state-section">
                 <div id="state-map-section">
-                    <p>{{instance.currentInputs.state}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}: Total Population {{normalizeNumber(instance.currentValues.state)}}<span data-ng-show="instance.currentValues.filterString.length > 0">; {{instance.currentValues.filterString}}: {{normalizeNumber(instance.currentValues.stateFiltered)}}</span></p>
+                    <p>{{instance.currentInputs.state}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}: Total Population: {{normalizeNumber(instance.currentValues.state)}}<span data-ng-show="instance.currentValues.filterString.length > 0">, {{instance.currentValues.filterString}}: {{normalizeNumber(instance.currentValues.stateFiltered)}}</span></p>
                     <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div id="state-map-legend" data-ng-cloak>
