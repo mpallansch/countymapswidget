@@ -100,7 +100,7 @@
                     </div>
                 </div><div class="select-unit" data-ng-show="instance.currentValues.showSelector">
                     <span class="select-label">{{instance.datasets[instance.currentInputs.datasetName].dataInputLabel || 'Dataset:'}}</span><div class="select-wrapper">
-                        <select data-ng-model="instance.currentInputs.datasetName">
+                        <select data-ng-model="instance.currentInputs.datasetName" data-ng-change="updateData()">
                             <option data-ng-repeat="(name, data) in instance.datasets" value="{{name}}">{{name}}</option>
                         </select>
                         <div class="select-arrow">^</div>
