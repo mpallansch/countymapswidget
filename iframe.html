@@ -181,7 +181,7 @@
                         <table class="accessibility-table" data-ng-show="showStateTable" role="alert">
                             <thead>
                                 <tr>
-                                    <th class="accessibility-table-header-th" colspan="3">{{instance.datasets[instance.currentInputs.datasetName].stateLegendHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
+                                    <th class="accessibility-table-header-th" colspan="3">{{instance.datasets[instance.currentInputs.datasetName].dataTableHeader || instance.currentInputs.datasetName}}, Total Population<span data-ng-show="instance.currentValues.filterString.length > 0"> and {{instance.currentValues.filterString}}</span></th>
                                 </tr>
                                 <tr>
                                     <th data-ng-click="sortBy('state', false)" data-ng-class="{'header-highlight': instance.currentInputs.stateSortBy === 'state'}">State <span class="angle" data-ng-class="{up : instance.currentInputs.stateReverse}"></span></th>
