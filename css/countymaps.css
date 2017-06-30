@@ -386,6 +386,10 @@ th {
     font-size: 12px;
 }
 
+.hover-instructions {
+    font-size: 12px;
+}
+
 @media (max-width: 550px){
     #us-map-legend, #state-map-legend {
         position: static;

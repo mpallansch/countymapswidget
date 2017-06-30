@@ -117,7 +117,7 @@
             <div id="state-section">
                 <div id="state-map-section">
                     <p>{{instance.currentInputs.state}} {{instance.datasets[instance.currentInputs.datasetName].primaryUnitLabel}}: Total Population: {{normalizeNumber(instance.currentValues.state)}}<span data-ng-show="instance.currentValues.filterString.length > 0">, {{instance.currentValues.filterString}}: {{normalizeNumber(instance.currentValues.stateFiltered)}}</span></p>
-                    <p>Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
+                    <p class="hover-instructions">Select/Hover Over a County to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}<p>
                     <div id="state-map-container" class="map-container"></div>
                     <div id="state-map-legend" data-ng-cloak>
                         <p>{{instance.currentInputs.state}}, <span data-ng-show="instance.currentValues.filterString.length === 0">Total</span><span data-ng-show="instance.currentValues.filterString.length > 0">{{instance.currentValues.filterString}}</span></p>
@@ -157,7 +157,7 @@
             </div>
             <div id="us-section">
                 <div id="us-map-section">
-                    <p>Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
+                    <p class="hover-instructions">Select/Hover Over a State to See the {{instance.datasets[instance.currentInputs.datasetName].dataLabel || 'Data'}}</p>
                     <div id="us-map-container" class="map-container"></div>
                     <div id="us-map-territories" data-ng-if="instance.currentValues.usMapData['GU'] || instance.currentValues.usMapData['PR'] || instance.currentValues.usMapData['VI']">
                         <span id="territories-label">Territories:</span> 
