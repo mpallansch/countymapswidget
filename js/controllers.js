@@ -320,23 +320,22 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
         //function takes html configuration strings and binds data to them
         $scope.bindDataToString = function(string){
             var returnString = string;
-            returnString = returnString.replace('%state%', $scope.instance.currentInputs.state)
-                .replace('%totalStateData%', $scope.instance.currentValues.state)
-                .replace('%totalUSData%', $scope.instance.currentValues.us);
-            if($scope.instance.currentValues.filterString) {
-                returnString = returnString.replace('%filterString%', $scope.instance.currentValues.filterString)
-                    .replace('%filterStringWithStateData%', $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.stateFiltered)
-                    .replace('%filterStringWithUSData%', $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.usFiltered)
-                    .replace('%filterStringSuffix%', ', ' + $scope.instance.currentValues.filterString)
-                    .replace('%filterStringSuffixWithStateData%', ', ' + $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.stateFiltered)
-                    .replace('%filterStringSuffixWithUSData%', ', ' + $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.usFiltered);
+            returnString = returnString.replace(/%state%/g, $scope.instance.currentInputs.state)
+                .replace(/%totalStateData%/g, $scope.instance.currentValues.state)
+                .replace(/%totalUSData%/g, $scope.instance.currentValues.us)
+                .replace(/%filterString%/g, $scope.instance.currentValues.filterString);
+            if($scope.instance.currentValues.filterString){
+                returnString = returnString.replace(/%filteredStateData%/g, $scope.instance.currentValues.stateFiltered)
+                   .replace(/%filteredUSData%/g, $scope.instance.currentValues.usFiltered)
+
+                var regex = new RegExp('%ifFilter([^%]*)%', 'g');
+                while((result = regex.exec(string)) !== null){
+                    returnString = returnString.replace(result[0], result[1]);
+                }
             } else {
-			returnString = returnString.replace('%filterString%', '')
-                    .replace('%filterStringWithStateData%', '')
-                    .replace('%filterStringWithUSData%', '')
-                    .replace('%filterStringSuffix%', '')
-                    .replace('%filterStringSuffixWithStateData%', '')
-                    .replace('%filterStringSuffixWithUSData%', '');
+                returnString = returnString.replace(/%filteredStateData%/g, '')
+                    .replace(/%filteredUSData%/g, '')
+                    .replace(/%ifFilter[^%]*%/g, '');
             }
             return returnString;
         }
