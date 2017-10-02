@@ -161,12 +161,15 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             $scope.instance.currentValues.stateCurrentData = [];
             $scope.instance.currentValues.usMapData = {};
             $scope.instance.currentValues.stateMapData = {};
+
+            $scope.currentData = $scope.instance.data[$scope.instance.currentInputs.datasetName];
+            $scope.currentDataset = $scope.instance.datasets[$scope.instance.currentInputs.datasetName];
             
-            $('#style').html('.widget-header, #footer-section, #map-controls select { background-color: ' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[0] + ' !important;}');
+            $('#style').html('.widget-header, #footer-section, #map-controls select { background-color: ' + $scope.currentDataset.colors[0] + ' !important;}');
 
             //sets the current unfiltered values displayed in the legend from the unfiltered values determined in init()
-            $scope.instance.currentValues.us = $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter['US'];
-            $scope.instance.currentValues.state = $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[$scope.states[$scope.instance.currentInputs.state].abbrev];
+            $scope.instance.currentValues.us = $scope.currentData.noFilter['US'];
+            $scope.instance.currentValues.state = $scope.currentData.noFilter[$scope.states[$scope.instance.currentInputs.state].abbrev];
 
             //determines the filter string that will be displayed in the legend and hover popup
             var filterValue, noFilters = true;
@@ -192,9 +195,9 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
 
             //initializes variables, including the column names for the state and data defined in the instance json file
             var state, location, value, numIntervals, intervalWidth,
-                    stateColumn = $scope.instance.datasets[$scope.instance.currentInputs.datasetName].stateColumn,
-                    locationColumn = $scope.instance.datasets[$scope.instance.currentInputs.datasetName].locationColumn,
-                    dataColumn = $scope.instance.datasets[$scope.instance.currentInputs.datasetName].dataColumn;
+                    stateColumn = $scope.currentDataset.stateColumn,
+                    locationColumn = $scope.currentDataset.locationColumn,
+                    dataColumn = $scope.currentDataset.dataColumn;
 
             //initalizes legend values to an empty array
             $scope.instance.currentValues.stateLegend = [];
@@ -202,7 +205,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
 
             //iterates through each datapoint in the current dataset and adds datapoints with the current filter
             //values to the appropriate currentData objects
-            $scope.instance.data[$scope.instance.currentInputs.datasetName].forEach(
+            $scope.currentData.forEach(
                     function(datapoint) {
                         state = datapoint[stateColumn];
                         location = datapoint[locationColumn];
@@ -224,7 +227,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                                 } else {
                                     $scope.instance.currentValues.usMapData[state] = {
                                         state: state,
-                                        data: $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[state]
+                                        data: $scope.currentData.noFilter[state]
                                     };
                                 }
                             }
@@ -235,7 +238,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                                 } else {
                                     $scope.instance.currentValues.stateMapData[location] = {
                                         location: location,
-                                        data: $scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[state + ' ' + location]
+                                        data: $scope.currentData.noFilter[state + ' ' + location]
                                     };
                                 }
                             }
@@ -249,7 +252,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
 
             //iterates through current us map data, assigning each datapoint to the appropriate interval, and determining the upper and 
             //lower limits of each interval to display in the legend
-            numIntervals = Math.min($scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors.length, $scope.instance.currentValues.usCurrentData.length);
+            numIntervals = Math.min($scope.currentDataset.colors.length, $scope.instance.currentValues.usCurrentData.length);
             intervalWidth = $scope.instance.currentValues.usCurrentData.length / numIntervals;
             $scope.instance.currentValues.usCurrentData.forEach(function(datapoint, index) {
                 if (Math.floor(index % intervalWidth) === 0) {
@@ -260,14 +263,14 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
 
                 $scope.instance.currentValues.usMapData[datapoint[stateColumn]] = {
                     state: datapoint[stateColumn],
-                    data: $scope.normalizeNumber($scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn]]),
+                    data: $scope.normalizeNumber($scope.currentData.noFilter[datapoint[stateColumn]]),
                     dataFiltered: $scope.normalizeNumber(datapoint[dataColumn]),
-                    fillColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
+                    fillColor: $scope.currentDataset.colors[Math.floor(index / intervalWidth)]
                 };
             });
 
             //repeats same process above for state map data
-            numIntervals = Math.min($scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors.length, $scope.instance.currentValues.stateCurrentData.length);
+            numIntervals = Math.min($scope.currentDataset.colors.length, $scope.instance.currentValues.stateCurrentData.length);
             intervalWidth = $scope.instance.currentValues.stateCurrentData.length / numIntervals;
             $scope.instance.currentValues.stateCurrentData.forEach(function(datapoint, index) {
                 if (Math.floor(index % intervalWidth) === 0) {
@@ -279,11 +282,21 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 $scope.instance.currentValues.stateMapData[datapoint[locationColumn]] = {
                     location: datapoint[locationColumn],
                     originalLocation: datapoint.originalLocation,
-                    data: $scope.normalizeNumber($scope.instance.data[$scope.instance.currentInputs.datasetName].noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]]),
+                    data: $scope.normalizeNumber($scope.currentData.noFilter[datapoint[stateColumn] + ' ' + datapoint[locationColumn]]),
                     dataFiltered: $scope.normalizeNumber(datapoint[dataColumn]),
-                    fillColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].colors[Math.floor(index / intervalWidth)]
+                    fillColor: $scope.currentDataset.colors[Math.floor(index / intervalWidth)]
                 };
             });
+
+            //processes display values that have data binding
+            $scope.currentDataset.stateMapHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateMapHeader);
+            $scope.currentDataset.stateMapSubheaderLabel = $scope.bindDataToString($scope.currentDataset.stateMapSubheader);
+            $scope.currentDataset.stateLegendHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateLegendHeader);
+            $scope.currentDataset.stateDataTableHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateDataTableHeader);
+            $scope.currentDataset.usMapHeaderLabel = $scope.bindDataToString($scope.currentDataset.usMapHeader);
+            $scope.currentDataset.usMapSubheaderLabel = $scope.bindDataToString($scope.currentDataset.usMapSubheader);
+            $scope.currentDataset.usLegendHeaderLabel = $scope.bindDataToString($scope.currentDataset.usLegendHeader);
+            $scope.currentDataset.usDataTableHeaderLabel = $scope.bindDataToString($scope.currentDataset.usDataTableHeader);
 
             $scope.drawMaps();
             $scope.loading = false;
@@ -300,10 +313,34 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             return number;
         };
 
+        //function takes html configuration strings and binds data to them
+        $scope.bindDataToString = function(string){
+            var returnString = string;
+            returnString = returnString.replace('%state%', $scope.instance.currentInputs.state)
+                .replace('%totalStateData%', $scope.instance.currentValues.state)
+                .replace('%totalUSData%', $scope.instance.currentValues.us);
+            if($scope.instance.currentValues.filterString) {
+                returnString = returnString.replace('%filterString%', $scope.instance.currentValues.filterString)
+                    .replace('%filterStringWithStateData%', $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.stateFiltered)
+                    .replace('%filterStringWithUSData%', $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.usFiltered)
+                    .replace('%filterStringSuffix%', ', ' + $scope.instance.currentValues.filterString)
+                    .replace('%filterStringSuffixWithStateData%', ', ' + $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.stateFiltered)
+                    .replace('%filterStringSuffixWithUSData%', ', ' + $scope.instance.currentValues.filterString + ': ' + $scope.instance.currentValues.usFiltered);
+            } else {
+			returnString = returnString.replace('%filterString%', '')
+                    .replace('%filterStringWithStateData%', '')
+                    .replace('%filterStringWithUSData%', '')
+                    .replace('%filterStringSuffix%', '')
+                    .replace('%filterStringSuffixWithStateData%', '')
+                    .replace('%filterStringSuffixWithUSData%', '');
+            }
+            return returnString;
+        }
+
         //compares data values of two datapoints, used to sort the data
         $scope.compareDatapoints = function(a, b) {
-            var valA = a[$scope.instance.datasets[$scope.instance.currentInputs.datasetName].dataColumn];
-            var valB = b[$scope.instance.datasets[$scope.instance.currentInputs.datasetName].dataColumn];
+            var valA = a[$scope.currentDataset.dataColumn];
+            var valB = b[$scope.currentDataset.dataColumn];
             if (typeof valA !== 'number') {
                 valA = parseFloat(valA);
             }
@@ -368,12 +405,12 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 geographyConfig: {
                     borderColor: 'black',
                     borderWidth: .3,
-                    highlightBorderColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapHighlightColor,
+                    highlightBorderColor: $scope.currentDataset.mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
                         return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
-                                ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') + 
+                                ($scope.currentDataset.usHoverSubheader ? ('<p>' + $scope.currentDataset.usHoverSubheader + '</p>') : '') + 
                                 '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
                                 ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
                                 '</div>';
@@ -412,12 +449,12 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     dataJson: $scope.mapData,
                     borderColor: 'black',
                     borderWidth: .3,
-                    highlightBorderColor: $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapHighlightColor,
+                    highlightBorderColor: $scope.currentDataset.mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
                         return '<div class="hoverinfo">' +
                                 '<h3>' + ((data && data.originalLocation) ? data.originalLocation : geo.properties.name) + '</h3>' +
-                                ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') +  
+                                ($scope.currentDataset.stateHoverSubheader ? ('<p>' + $scope.currentDataset.stateHoverSubheader + '</p>') : '') +  
                                 '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
                                 ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
                                 '</div>';
@@ -453,7 +490,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 var data = $scope.instance.currentValues.usMapData[territoryCode];
                 $el.html('<div class="hoverinfo">' +
                         '<h3>' + territoryName + '</h3>' +
-                                ($scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel ? ('<p>' + $scope.instance.datasets[$scope.instance.currentInputs.datasetName].mapUnitLabel + '</p>') : '') + 
+                                ($scope.currentDataset.mapUnitLabel ? ('<p>' + $scope.currentDataset.mapUnitLabel + '</p>') : '') + 
                         '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
                         ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
                         '</div>');
@@ -520,3 +557,15 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
         
         angular.element($window).bind('resize', $scope.drawMaps);
     }]);
+
+countyMapsControllers.directive('bindHtmlWithData', function(){
+    return {
+        restrict: 'A',
+        scope: {
+            content: '=content'
+        },
+        link: function(scope, element, attributes){
+            element.html(scope.content);
+        }
+    };
+});
