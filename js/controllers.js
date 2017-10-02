@@ -28,6 +28,10 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                         $scope.instance.currentInputs.countySortBy = 'location';
                         $scope.instance.currentInputs.countyReverse = false;
                         $scope.instance.currentInputs.stateReverse = false;
+
+                        //sets metrics calls to pass widget title
+                        cdcCommon.metrics.update({'documentTitle': $scope.instance.title || $scope.instanceName});
+                        cdcCommon.metrics.trackEvent('Widget Load');
                         
                         //requests the topojson data for rendering counties, then filters the counties so they can be rendered one state at a time
                         $http.get('data/counties.json').then(
