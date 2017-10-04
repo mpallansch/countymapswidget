@@ -17,7 +17,7 @@
              "stateLegendHeader": "%state%%ifFilter, %%filterString%<br/><br/>Rate per 100,000",
              "usLegendHeader": "US by State%ifFilter, %%filterString%<br/><br/>Rate per 100,000",
              "stateDataTableHeader": "Select a County to See it on the Map Above",
-             "usDataTableHeader": "Heart Disease Death Rates per 100,000 of Total Population%ifFilter, %filterString%",
+             "usDataTableHeader": "Heart Disease Death Rates per 100,000 of Total Population%ifFilter, %%filterString%",
              "prefooter": "*Rate: <a target=\"_blank\" href=\"https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.htm\">Rates are age standardized and spatially smoothed</a> ages 35+ from 2013 to 2015.",
              "footer": "<a target=\"_blank\" href=\"https://chronicdata.cdc.gov/health-area/heart-disease-stroke-prevention\">Download Data</a><br/><br/>Source: <a target=\"_blank\" href=\"http://www.cdc.gov/chronicdisease/index.htm\">National Center for Chronic Disease Prevention and Health Promotion, Division for Heart Disease and Stroke Prevention</a><br/><br/>For additional maps: <a target=\"_blank\" href=\"https://nccd.cdc.gov/dhdspatlas/\">Interactive Atlas of Heart Disease and Stroke</a>",
              "mapHighlightColor": "rgba(255, 255, 0 ,0.5)",

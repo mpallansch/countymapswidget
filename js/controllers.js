@@ -297,10 +297,12 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             $scope.currentDataset.stateMapSubheaderLabel = $scope.bindDataToString($scope.currentDataset.stateMapSubheader);
             $scope.currentDataset.stateLegendHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateLegendHeader);
             $scope.currentDataset.stateDataTableHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateDataTableHeader);
+            $scope.currentDataset.stateHoverSubheaderLabel = $scope.bindDataToString($scope.currentDataset.stateHoverSubheader);
             $scope.currentDataset.usMapHeaderLabel = $scope.bindDataToString($scope.currentDataset.usMapHeader);
             $scope.currentDataset.usMapSubheaderLabel = $scope.bindDataToString($scope.currentDataset.usMapSubheader);
             $scope.currentDataset.usLegendHeaderLabel = $scope.bindDataToString($scope.currentDataset.usLegendHeader);
             $scope.currentDataset.usDataTableHeaderLabel = $scope.bindDataToString($scope.currentDataset.usDataTableHeader);
+            $scope.currentDataset.usHoverSubheaderLabel = $scope.bindDataToString($scope.currentDataset.usHoverSubheader);
 
             $scope.drawMaps();
             $scope.loading = false;
@@ -319,14 +321,17 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
 
         //function takes html configuration strings and binds data to them
         $scope.bindDataToString = function(string){
+            if(typeof string !== 'string'){
+                return;
+            }
             var returnString = string;
             returnString = returnString.replace(/%state%/g, $scope.instance.currentInputs.state)
-                .replace(/%totalStateData%/g, $scope.instance.currentValues.state)
-                .replace(/%totalUSData%/g, $scope.instance.currentValues.us)
+                .replace(/%totalStateData%/g, $scope.normalizeNumber($scope.instance.currentValues.state))
+                .replace(/%totalUSData%/g, $scope.normalizeNumber($scope.instance.currentValues.us))
                 .replace(/%filterString%/g, $scope.instance.currentValues.filterString);
             if($scope.instance.currentValues.filterString){
-                returnString = returnString.replace(/%filteredStateData%/g, $scope.instance.currentValues.stateFiltered)
-                   .replace(/%filteredUSData%/g, $scope.instance.currentValues.usFiltered)
+                returnString = returnString.replace(/%filteredStateData%/g, $scope.normalizeNumber($scope.instance.currentValues.stateFiltered))
+                   .replace(/%filteredUSData%/g, $scope.normalizeNumber($scope.instance.currentValues.usFiltered))
 
                 var regex = new RegExp('%ifFilter([^%]*)%', 'g');
                 while((result = regex.exec(string)) !== null){
@@ -413,7 +418,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     popupTemplate: function(geo, data) {
                         return '<div class="hoverinfo">' +
                                 '<h3>' + geo.properties.name + '</h3>' +
-                                ($scope.currentDataset.usHoverSubheader ? ('<p>' + $scope.currentDataset.usHoverSubheader + '</p>') : '') + 
+                                ($scope.currentDataset.usHoverSubheaderLabel ? ('<p>' + $scope.currentDataset.usHoverSubheaderLabel + '</p>') : '') + 
                                 '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
                                 ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
                                 '</div>';
@@ -457,7 +462,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     popupTemplate: function(geo, data) {
                         return '<div class="hoverinfo">' +
                                 '<h3>' + ((data && data.originalLocation) ? data.originalLocation : geo.properties.name) + '</h3>' +
-                                ($scope.currentDataset.stateHoverSubheader ? ('<p>' + $scope.currentDataset.stateHoverSubheader + '</p>') : '') +  
+                                ($scope.currentDataset.stateHoverSubheaderLabel ? ('<p>' + $scope.currentDataset.stateHoverSubheaderLabel + '</p>') : '') +  
                                 '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
                                 ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
                                 '</div>';
