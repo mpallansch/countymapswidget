@@ -421,7 +421,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     highlightBorderColor: $scope.currentDataset.mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
-                        return '<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace(/%hoverTerritory%/g, geo.properties.name).replace(/%hoverData%/g, $scope.normalizeNumber(data.data)).replace(/%hoverFilterData%/g, ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>';
+                        return '<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace("%hoverTerritory%", geo.properties.name).replace("%hoverData%", $scope.normalizeNumber(data.data)).replace("%hoverFilterData%", ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>';
                     }
                 },
                 setProjection: function(element) {
@@ -460,7 +460,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     highlightBorderColor: $scope.currentDataset.mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
-                        return '<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace(/%hoverTerritory%/g, geo.properties.name).replace(/%hoverData%/g, $scope.normalizeNumber(data.data)).replace(/%hoverFilterData%/g, ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>';
+                        return '<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace("%hoverTerritory%", geo.properties.name).replace("%hoverData%", $scope.normalizeNumber(data.data)).replace("%hoverFilterData%", ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>';
                     }
                 },
                 setProjection: function(element) {
@@ -491,7 +491,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             var $el = $('#us-map-container .datamaps-hoverover');
             if (mouseIn) {
                 var data = $scope.instance.currentValues.usMapData[territoryCode];
-                $el.html('<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace(/%hoverTerritory%/g, territoryName).replace(/%hoverData%/g, $scope.normalizeNumber(data.data)).replace(/%hoverFilterData%/g, ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>');
+                $el.html('<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace("%hoverTerritory%", territoryName).replace("%hoverData%", $scope.normalizeNumber(data.data)).replace("%hoverFilterData%", ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>');
                 $el.css({
                     display: 'block',
                     top: 'auto',
