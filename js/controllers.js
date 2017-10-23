@@ -107,6 +107,13 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                 $scope.instance.currentValues.showSelector = true;
             }
 
+            //adds custom css
+            if($scope.instance.customCss){
+                var style = document.createElement('style');
+                style.innerHTML = $scope.instance.customCss;
+                document.head.appendChild(style);
+            }
+
             //sets default value for dataset select element
             $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.data)[0];
 
@@ -297,13 +304,11 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             $scope.currentDataset.stateMapSubheaderLabel = $scope.bindDataToString($scope.currentDataset.stateMapSubheader);
             $scope.currentDataset.stateLegendHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateLegendHeader);
             $scope.currentDataset.stateDataTableHeaderLabel = $scope.bindDataToString($scope.currentDataset.stateDataTableHeader);
-            $scope.currentDataset.stateHoverSubheaderLabel = $scope.bindDataToString($scope.currentDataset.stateHoverSubheader);
             $scope.currentDataset.usMapHeaderLabel = $scope.bindDataToString($scope.currentDataset.usMapHeader);
             $scope.currentDataset.usMapSubheaderLabel = $scope.bindDataToString($scope.currentDataset.usMapSubheader);
             $scope.currentDataset.usLegendHeaderLabel = $scope.bindDataToString($scope.currentDataset.usLegendHeader);
             $scope.currentDataset.usDataTableHeaderLabel = $scope.bindDataToString($scope.currentDataset.usDataTableHeader);
-            $scope.currentDataset.usHoverSubheaderLabel = $scope.bindDataToString($scope.currentDataset.usHoverSubheader);
-
+            $scope.currentDataset.hoverModalLabel = $scope.bindDataToString($scope.currentDataset.hoverModal);
             $scope.drawMaps();
             $scope.loading = false;
         };
@@ -416,12 +421,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     highlightBorderColor: $scope.currentDataset.mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
-                        return '<div class="hoverinfo">' +
-                                '<h3>' + geo.properties.name + '</h3>' +
-                                ($scope.currentDataset.usHoverSubheaderLabel ? ('<p>' + $scope.currentDataset.usHoverSubheaderLabel + '</p>') : '') + 
-                                '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
-                                ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
-                                '</div>';
+                        return '<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace(/%hoverTerritory%/g, geo.properties.name).replace(/%hoverData%/g, $scope.normalizeNumber(data.data)).replace(/%hoverFilterData%/g, ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>';
                     }
                 },
                 setProjection: function(element) {
@@ -460,12 +460,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
                     highlightBorderColor: $scope.currentDataset.mapHighlightColor,
                     highlightBorderWidth: 3,
                     popupTemplate: function(geo, data) {
-                        return '<div class="hoverinfo">' +
-                                '<h3>' + ((data && data.originalLocation) ? data.originalLocation : geo.properties.name) + '</h3>' +
-                                ($scope.currentDataset.stateHoverSubheaderLabel ? ('<p>' + $scope.currentDataset.stateHoverSubheaderLabel + '</p>') : '') +  
-                                '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
-                                ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
-                                '</div>';
+                        return '<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace(/%hoverTerritory%/g, geo.properties.name).replace(/%hoverData%/g, $scope.normalizeNumber(data.data)).replace(/%hoverFilterData%/g, ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>';
                     }
                 },
                 setProjection: function(element) {
@@ -496,12 +491,7 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             var $el = $('#us-map-container .datamaps-hoverover');
             if (mouseIn) {
                 var data = $scope.instance.currentValues.usMapData[territoryCode];
-                $el.html('<div class="hoverinfo">' +
-                        '<h3>' + territoryName + '</h3>' +
-                                ($scope.currentDataset.mapUnitLabel ? ('<p>' + $scope.currentDataset.mapUnitLabel + '</p>') : '') + 
-                        '<p class="popup-rate">Total Population: ' + $scope.normalizeNumber(data.data) + '</p>' +
-                        ($scope.instance.currentValues.filterString.length > 0 ? ('<p class="popup-rate">' + $scope.instance.currentValues.filterString + ': ' + $scope.normalizeNumber(data.dataFiltered) + '</p>') : '') +
-                        '</div>');
+                $el.html('<div class="hoverinfo">' + $scope.currentDataset.hoverModalLabel.replace(/%hoverTerritory%/g, territoryName).replace(/%hoverData%/g, $scope.normalizeNumber(data.data)).replace(/%hoverFilterData%/g, ($scope.instance.currentValues.filterString) ? $scope.normalizeNumber(data.dataFiltered) : '') + '</div>');
                 $el.css({
                     display: 'block',
                     top: 'auto',
