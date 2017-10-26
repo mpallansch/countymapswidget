@@ -13,8 +13,8 @@
              "usMapHeader": "",
              "usMapSubheader": "Select/Hover Over a State to See the Rates",
              "hoverModal": "<h3>%hoverTerritory%</h3><p><strong>Death Rate</strong></p><p class=\"popup-rate\">Total Pop: %hoverData% per 100,000</p>%ifFilter <p class=\"popup-rate\">%%filterString%%ifFilter: %%hoverFilterData%%ifFilter per 100,000</p>%",
-             "stateLegendHeader": "%state%%ifFilter, %%filterString%<br/>Heart Disease Mortality<br/><br/>Rate per 100,000",
-             "usLegendHeader": "United States by State%ifFilter, %%filterString%<br/>Heart Disease Mortality<br/><br/>Rate per 100,000",
+             "stateLegendHeader": "%state%%ifFilter, %%filterString%<br/><br/>Heart Disease<br/>Rate per 100,000",
+             "usLegendHeader": "United States by State%ifFilter, %%filterString%<br/><br/>Heart Disease<br/>Rate per 100,000",
              "stateDataTableHeader": "Select a County to See it on the Map Above",
              "usDataTableHeader": "Heart Disease Death Rates per 100,000 of Total Population%ifFilter, %%filterString%",
              "prefooter": "*Rate: <a target=\"_blank\" href=\"https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.html\">Rates are age standardized and spatially smoothed</a> ages 35+ from 2013 to 2015.",
@@ -34,8 +34,8 @@
              "usMapHeader": "",
              "usMapSubheader": "Select/Hover Over a State to See the Rates",
              "hoverModal": "<h3>%hoverTerritory%</h3><p><strong>Death Rate</strong></p><p class=\"popup-rate\">Total Pop: %hoverData% per 100,000</p>%ifFilter <p class=\"popup-rate\">%%filterString%%ifFilter: %%hoverFilterData%%ifFilter per 100,000</p>%",
-             "stateLegendHeader": "%state%%ifFilter, %%filterString%<br/>Stroke Mortality<br/><br/>Rate per 100,000",
-             "usLegendHeader": "United States by State%ifFilter, %%filterString%<br/>Stroke Mortality<br/><br/>Rate per 100,000",
+             "stateLegendHeader": "%state%%ifFilter, %%filterString%<br/><br/>Stroke<br/>Rate per 100,000",
+             "usLegendHeader": "United States by State%ifFilter, %%filterString%<br/><br/>Stroke<br/>Rate per 100,000",
              "stateDataTableHeader": "Select a County to See it on the Map Above",
              "usDataTableHeader": "Stroke Death Rates per 100,000 of Total Population%ifFilter, %%filterString%",
              "prefooter": "*Rate: <a target=\"_blank\" href=\"https://www.cdc.gov/dhdsp/maps/atlas/statistical-methods.html\">Rates are age standardized and spatially smoothed</a> ages 35+ from 2013 to 2015.",
@@ -67,5 +67,5 @@
             }
         }
     },
-    "customCss": ".hoverinfo p {margin-bottom: 4px} .hoverinfo p:nth-child(3) {border-top: none; margin-top: 0; padding-top: 0;} .hoverinfo p:last-child {margin-bottom: 10px;}"
+    "customCss": ".hoverinfo p {margin-bottom: 4px} .hoverinfo p:nth-child(3) {border-top: none; margin-top: 0; padding-top: 0;} .hoverinfo p:last-child {margin-bottom: 10px;} .filter-input:nth-child(3) select {width: 220px !important;} .filter-input:nth-child(3) .select-wrapper {width: 230px !important;}"
 }
