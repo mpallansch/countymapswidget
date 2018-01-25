@@ -144,10 +144,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy : instance.currentInputs.countySortBy : instance.currentInputs.countyReverse"  data-ng-style="{'background-color': obj.fillColor}" data-ng-class="{'highlight': obj.location === instance.currentValues.currentHighlight}" data-ng-click="countyHighlight(obj)">
-                                    <td data-ng-style="{'background-color': obj.fillColor}" class="table-location-name">{{obj.location}}</td>
-                                    <td data-ng-style="{'background-color': obj.fillColor}">{{obj.data ? obj.data : 'Insufficient Data'}}</td>
-                                    <td data-ng-style="{'background-color': obj.fillColor}" data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
+                                <tr data-ng-repeat="(key, obj) in instance.currentValues.stateMapData | orderObjectBy : instance.currentInputs.countySortBy : instance.currentInputs.countyReverse" data-ng-class="{'highlight': obj.location === instance.currentValues.currentHighlight}" data-ng-click="countyHighlight(obj)">
+                                    <td class="table-location-name"><span class="color-sample" data-ng-style="{'background-color': obj.fillColor}"></span>{{obj.location}}</td>
+                                    <td>{{obj.data ? obj.data : 'Insufficient Data'}}</td>
+                                    <td data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -189,10 +189,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy : instance.currentInputs.stateSortBy : instance.currentInputs.stateReverse" data-ng-style="{'background-color': obj.fillColor}">
-                                    <td data-ng-style="{'background-color': obj.fillColor}" class="table-location-name">{{obj.state}}</td>
-                                    <td data-ng-style="{'background-color': obj.fillColor}">{{obj.data ? obj.data : 'Insufficient Data'}}</td>
-                                    <td data-ng-style="{'background-color': obj.fillColor}" data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
+                                <tr data-ng-repeat="(key, obj) in instance.currentValues.usMapData | orderObjectBy : instance.currentInputs.stateSortBy : instance.currentInputs.stateReverse">
+                                    <td class="table-location-name"><span class="color-sample" data-ng-style="{'background-color': obj.fillColor}"></span>{{obj.state}}</td>
+                                    <td>{{obj.data ? obj.data : 'Insufficient Data'}}</td>
+                                    <td data-ng-show="instance.currentValues.filterString.length > 0">{{obj.dataFiltered ? obj.dataFiltered : 'Insufficient Data'}}</td>
                                 </tr>
                             </tbody>
                         </table>
