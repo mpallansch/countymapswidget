@@ -115,7 +115,12 @@ countyMapsControllers.controller('mainCtrl', ['$scope', '$http', '$window', func
             }
 
             //sets default value for dataset select element
-            $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.data)[0];
+            if(!cdcCommon.getCallParam('defaultDataset') || !$scope.instance.data[cdcCommon.getCallParam('defaultDataset')]) {    
+                $scope.instance.currentInputs.datasetName = Object.keys($scope.instance.data)[0];
+            } else {
+                $scope.instance.currentInputs.datasetName = cdcCommon.getCallParam('defaultDataset');
+            }
+
 
             //sets default values for filter select element
             $scope.instance.currentInputs.filters = {};
